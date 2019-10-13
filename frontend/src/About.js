@@ -182,7 +182,6 @@ class About extends Component{
             </div>
           );
         }
-          
       }
 }
 
