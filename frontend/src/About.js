@@ -44,7 +44,7 @@ const About = () => {
 
               <p>Bio: 3rd Year ECE @ UT, Software Engineering Track </p>
               <p>Major: ECE</p>
-              <p>Responsibilities: About </p>
+              <p>Responsibilities: About Page/API Call for Git, Establishing React/Spring Code Base</p>
               <p># of Commits: </p>
               <p># of Issues:  </p>
               <p># of Unit Tests: </p> 
@@ -54,7 +54,7 @@ const About = () => {
 
               <p>Bio: Integrated Masters student with a focus in software engineering</p>
               <p>Major: ECE</p>
-              <p>Responsibilities: </p>
+              <p>Responsibilities: Created Initial URL, Set Up GCP</p>
               <p># of Commits: </p>
               <p># of Issues:  </p>
               <p># of Unit Tests: </p> 
@@ -74,7 +74,7 @@ const About = () => {
 
               <p>Bio: I’m a senior electrical and computer engineering student, with a software engineering track at the University of Texas at Austin </p>
               <p>Major: ECE</p>
-              <p>Responsibilities: GCP App Engine Integration</p>
+              <p>Responsibilities: GCP App Engine Integration, Establish React/Spring Code Base</p>
               <p># of Commits: </p>
               <p># of Issues:  </p>
               <p># of Unit Tests: </p> 
