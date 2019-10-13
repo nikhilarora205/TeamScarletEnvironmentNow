@@ -16,14 +16,14 @@ import org.json.JSONObject;
 public class HelloController {
     @GetMapping("/api/hello")
     public String hello() {
-        //return "Hello, the time at the server is now " + new Date() + "\n";
-        String myUrl = "https://api.github.com/repos/nikhilarora205/TeamScarletEnvironmentNow/stats/commit_activity";
+        return "Hello, the time at the server is now " + new Date() + "\n";
+       // String myUrl = "https://api.github.com/repos/nikhilarora205/TeamScarletEnvironmentNow/stats/commit_activity";
         //String to place our result in
-        String result;
-        HttpGetRequest getRequest = new HttpGetRequest();
-        result = getRequest.execute(myUrl).get();
-        JSONObject myResponse = new JSONObject(result.toString());
-        String total = myResponse.getJSONObject("total").toString();
-        return total;
+      //  String result;
+       // HttpGetRequest getRequest = new HttpGetRequest();
+       // result = getRequest.execute(myUrl).get();
+       // JSONObject myResponse = new JSONObject(result.toString());
+       // String total = myResponse.getJSONObject("total").toString();
+       // return total;
     }
 }

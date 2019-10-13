@@ -4,33 +4,67 @@ import './App.css';
 
 class App extends Component {
 
-    state = {};
+    constructor(props) {
+        super(props);
+        this.state = {
+          error: null,
+          isLoaded: false,
+          items: []
+        };
+      }
 
     componentDidMount() {
-        setInterval(this.hello, 250);
-    }
-
-    hello = () => {
-        fetch('/api/hello')
-            .then(response => response.text())
-            .then(message => {
-                this.setState({message: message});
-            });
-    };
-
-    render() {
-        return (
-            <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h1 className="App-title">{this.state.message}</h1>
-                </header>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
+        fetch("https://api.github.com/repos/nikhilarora205/TeamScarletEnvironmentNow/stats/contributors")
+          .then(res => res.json())
+          .then(
+            (result) => {
+              this.setState({
+                isLoaded: true,
+                items: result
+                
+              });
+            },
+            // Note: it's important to handle errors here
+            // instead of a catch() block so that we don't swallow
+            // exceptions from actual bugs in components.
+            (error) => {
+              this.setState({
+                isLoaded: false,
+                error
+              });
+            }
+          )
+      }
+    
+      render() {
+        const { error, isLoaded, items } = this.state;
+        if (error) {
+          return <div>Error: {error.message}</div>;
+        } else if (!isLoaded) {
+          return <div>Loading...</div>;
+        } else {
+            //  {items.author}, was trying to just output something to the screen to see that the call was working
+            //console.log(this.state)
+           // console.log(this.state.items)
+           // console.log(this.state.items[0].author.login)
+            
+            }
+          return (
+            <div>
+                Successful API call
+                {this.state.items.map((messageObj) => {
+                    return(
+                    <div>
+                <p>Author: {messageObj.author.login}</p>
+                <p>Commits: {messageObj.total}</p>
+                </div>
+                    );
+            }
+                )}
             </div>
-        );
-    }
-}
+          );
+        }
+      }
+
 
 export default App;
