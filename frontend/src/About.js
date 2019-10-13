@@ -22,7 +22,7 @@ const About = () => {
       <h1 class="header"> About</h1>
 
       <h2 class="header"> Description: </h2>
-          <h3 class="innerText"> Description of the site, its purpose, its intended users</h3>
+          <h3 class="innerText"> Environment Now is our vision for a web application that will provide an accessible, detailed list of relevant factors for considering the environmental conditions of an area. There are many use cases and users for such an application. Environment Now might be used by people seeking to buy a new home who would like to understand the conditions they would potentially live in. Individuals and families who are looking to purchase homes in a new area may want to access a detailed breakdown of the pollutants and disaster risks of an area to understand if and how they could be negatively affected. Moreover, health conscious, asthmatic, and allergen-sensitive people would likely be interested in such a product to assess the need for air or water filtration systems in their area. Finally, environmental activists who are concerned with the conditions in an area can easily use Environment Now to collect and distribute relevant information to their peers to call for action. The target audience of Environment Now is anybody who wants relevant environmental information about an area’s air quality, tap water quality, and/or natural disaster risk. </h3>
           <br></br>
       <h2 class="header"> Group Name: </h2>
           <h3 class="innerText"> Scarlet</h3>
@@ -84,7 +84,7 @@ const About = () => {
 
               <p>Bio: Sammy is a EE student with a software engineering primary tech core. After graduation, he plans on working industry before pursuing a degree in law. </p>
               <p>Major: ECE</p>
-              <p>Responsibilities: Phase 1 Report, UML Diagram Design, Proposal Editing/Communications for Approval</p>
+              <p>Responsibilities: Phase 1 Report, UML Diagram Design, Proposal Editing/Communications for Approval, About Page Population </p>
               <p># of Commits: </p>
               <p># of Issues:  </p>
               <p># of Unit Tests: </p> 
@@ -99,7 +99,7 @@ const About = () => {
           <br></br>
           <a href="https://www.adt.com/natural-disasters">Link to Natural Disaster Data</a>
           <br></br>
-      <h2 class="header"> Tools: </h2>
+      <h2 class="header"> Tools: For the front end, we have used html, css, javascript, and React to design our webpages. Our back end uses Spring as a framework for Java programming. We also used balsamiq initially to design the basic layout of our web application. Our UML diagrams were designed with draw.io.</h2>
           <br></br>
 
       <a href="https://github.com/ss78832/EnvironmentNow">Link to GitHub Repo</a>
