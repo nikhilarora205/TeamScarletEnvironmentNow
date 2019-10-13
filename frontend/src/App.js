@@ -1,10 +1,18 @@
-import React, {Component} from 'react';
-import logo from './logo.svg';
+// App.js
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 
-class App extends Component {
+import Home from './Home';
+import About from './About';
+import Contact from './Contact';
+import Error from './Error';
+import Navigation from './Navigation';
+import Compare2 from './Compare2';
+import Landing from './Landing'
 
-    constructor(props) {
+class App extends Component {
+        constructor(props) {
         super(props);
         this.state = {
           error: null,
@@ -35,9 +43,10 @@ class App extends Component {
             }
           )
       }
-    
-      render() {
-        const { error, isLoaded, items } = this.state;
+
+
+  render() {
+    const { error, isLoaded, items } = this.state;
         if (error) {
           return <div>Error: {error.message}</div>;
         } else if (!isLoaded) {
@@ -47,24 +56,23 @@ class App extends Component {
             //console.log(this.state)
            // console.log(this.state.items)
            // console.log(this.state.items[0].author.login)
-            
-            }
-          return (
-            <div>
-                Successful API call
-                {this.state.items.map((messageObj) => {
-                    return(
-                    <div>
-                <p>Author: {messageObj.author.login}</p>
-                <p>Commits: {messageObj.total}</p>
-                </div>
-                    );
-            }
-                )}
-            </div>
-          );
         }
-      }
-
-
+    return (  
+        
+    <BrowserRouter>
+      <div className="App">
+      <Navigation />
+      <Switch>
+        <Route path="/" component={Home} exact/>
+        <Route path="/about" component={About}/>
+        <Route path="/contact" component={Contact}/>
+        <Route path="/compare" component={Compare2}/>
+        <Route path="/landing" component={Landing}/>
+        <Route component={Error}/>
+      </Switch>
+      </div>
+    </BrowserRouter> 
+    );
+  }
+}
 export default App;
