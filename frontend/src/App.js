@@ -21,57 +21,25 @@ class App extends Component {
         };
       }
 
-    componentDidMount() {
-        fetch("https://api.github.com/repos/nikhilarora205/TeamScarletEnvironmentNow/stats/contributors")
-          .then(res => res.json())
-          .then(
-            (result) => {
-              this.setState({
-                isLoaded: true,
-                items: result
-                
-              });
-            },
-            // Note: it's important to handle errors here
-            // instead of a catch() block so that we don't swallow
-            // exceptions from actual bugs in components.
-            (error) => {
-              this.setState({
-                isLoaded: false,
-                error
-              });
-            }
-          )
-      }
-
-
   render() {
-    const { error, isLoaded, items } = this.state;
-        if (error) {
-          return <div>Error: {error.message}</div>;
-        } else if (!isLoaded) {
-          return <div>Loading...</div>;
-        } else {
-            //  {items.author}, was trying to just output something to the screen to see that the call was working
-            //console.log(this.state)
-           // console.log(this.state.items)
-           // console.log(this.state.items[0].author.login)
-        }
     return (  
-        
+      <div> 
+  
     <BrowserRouter>
       <div className="App">
       <Navigation />
       <Switch>
-        <Route path="/" component={Home} exact/>
+        <Route path="/" component={Landing} exact/>
+        <Route path="/compare" component={Home}/>
+        <Route path="/compare2" component={Compare2}/>
         <Route path="/about" component={About}/>
         <Route path="/contact" component={Contact}/>
-        <Route path="/compare" component={Compare2}/>
-        <Route path="/landing" component={Landing}/>
         <Route component={Error}/>
       </Switch>
       </div>
     </BrowserRouter> 
+
+    </div>
     );
   }
 }
