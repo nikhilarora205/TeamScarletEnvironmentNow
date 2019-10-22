@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,19 +37,46 @@ public class HelloController {
     }
     
     @GetMapping("/api/ozoneLevel")
-    public ArrayList<String> getOzoneLevel(String url) throws IOException {
-    	url = "https://airnow.gov/index.cfm?action=airnow.local_city&mapcenter=0&cityid=242";
+    public String getOzoneLevel(String url) throws IOException {
+    	//url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=78642&submit=Go";
+    	url = "https://airnow.gov/index.cfm?action=airnow.local_city&mapcenter=1&cityid=472";
     	Document doc = Jsoup.connect(url).get();
     	Elements rating = doc.select("table.AQData");
     	ArrayList<String> toReturn = new ArrayList<>(); 
-    	Elements body = rating.select("tbody");
-    	Elements rows = body.select("tr");
-    	for(Element row : rows) {
-    		toReturn.add(row.select("th").text());
-    		toReturn.add(row.select("td").text());
+    	Elements test = doc.select("table[class=TblInvisible]");
+    	Elements body = test.select("tbody");
+    	Elements td = body.select("td");
+    //	return td.toString();
+    	JSONObject json = new JSONObject();
+    	String testReturn = "";
+    	//return td.get(2).text();
+    	Set<String> possibleValues = new HashSet<String>(Arrays.asList(new String [] {"Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous"}));
+    	for(int i = 0; i < td.size(); i++) {
+    		String currentWord = td.get(i).text();
+    		if(possibleValues.contains(currentWord) && i!=td.size()-1) {
+    			String currentDetail = td.get(i+1).text();
+    			if(currentDetail.equals("Ozone")) {
+    				json.put("Ozone", td.get(i+2).text());
+    			}else if(currentDetail.equals("Particles (PM2.5)")) {
+    				json.put("PM2.5", td.get(i+2).text());
+    			}else if(currentDetail.equals("Particles (PM10)")) {
+    				json.put("PM10", td.get(i+2).text());
+    			}
+    			
+    		}
     	}
+    	
+    	return json.toString();
+    	//return td.toString();
+    	//return "nothing found";
+    //	Elements body = test.select("tbody");
+    //	Elements rows = body.select("tr");
+    //	for(Element row : rows) {
+    		//toReturn.add(row.select("th").text());
+   // 		toReturn.add(row.select("td").text());
+    //	}
     	//System.out.println(rating.toString());
-    	return toReturn;
+    	//return toReturn;
     }
 }
 
