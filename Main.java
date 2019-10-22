@@ -75,7 +75,7 @@ public class Main {
 
             // https://www.adt.com/natural-disasters?30.307983936955342,-97.75340139999997,9 --> Austin
 
-            Document doc = Jsoup.connect("https://www.adt.com/natural-disasters?" +latitude+","+longitude+"9").get();
+            Document doc = Jsoup.connect("https://www.adt.com/natural-disasters?" +latitude+","+longitude+",9").get();
             System.out.println(doc);
 
             // parse data after getting table populated
