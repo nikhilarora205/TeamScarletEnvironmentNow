@@ -1,8 +1,7 @@
 package no.kantega.springandreact;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.json.JSONArray;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -78,5 +77,120 @@ public class HelloController {
     	//System.out.println(rating.toString());
     	//return toReturn;
     }
+
+    @GetMapping("/api/waterData")
+    public String getWaterData(){
+
+		JSONObject responseZip = new JSONObject();
+		JSONArray responseContaminants = new JSONArray();
+
+		//Temporary zip code, should call Google api for location specifics
+		String zipCode = "76103";
+		int count = 0;
+
+		final String url =
+				"https://mytapwater.org/zip/"+zipCode+"/";
+
+		try{
+			final Document document = Jsoup.connect(url).get();
+
+			for(Element row: document.select(
+					"table.search-results-table tr"
+			)){
+				if(row.select("td:nth-of-type(1)").text().equals("")){
+					continue;
+				}else{
+					//Element cell = row.select("td:nth-of-type(1)").attr("href");
+					String waterProvider = row.select("td:nth-of-type(1)").text();
+
+					Elements link = row.select("td:nth-of-type(1) > a");
+
+					final String contaminantUrl = link.attr("href");
+
+					//only getting first 10;
+					count++;
+
+					try{
+						if(count < 10) {
+							JSONObject tempContamObject = new JSONObject();
+							//print out waterProvider
+							System.out.print(waterProvider + ": -->");
+							//print to look at contaminant URL
+							System.out.println(contaminantUrl);
+
+							final Document contaminantDoc = Jsoup.connect(contaminantUrl).get();
+
+							Element contaminantRow = contaminantDoc.select("tr.exceeded").first();
+							Element contaminant = contaminantDoc.select("div.contaminant").select("h4").first();
+
+							String year = contaminantRow.select("td:nth-of-type(1)").text();
+							String level = contaminantRow.select("td:nth-of-type(5)").text();
+
+							tempContamObject.put("contaminant", contaminant.id().toString());
+							tempContamObject.put("level", level);
+							tempContamObject.put( "year", year);
+
+							responseContaminants.put(tempContamObject);
+
+							System.out.println("Contaminant: " + contaminant.id().toString() + ", Year: " + year + ", Test Result: " + level);
+						}
+
+					}
+					catch (Exception e2){
+						System.out.println("Contaminant: N/A, Year: N/A, Test Result: N/A");
+					}
+
+				/*
+
+						{
+							"zipcode":76103,
+							"providers": [
+								{
+									"name" : "City of Fort Worth",
+									"contaminants": [
+										{ "name" : "chlorate",
+										  "level" : "<20"
+										 },
+										{ "name" : "strontium",
+										  "level" : "200"
+										 }
+										]
+								 },
+
+								 {
+									"name" : "City of Arlington",
+									"contaminants": [
+										{ "name" : "chlorate",
+										  "level" : "<20"
+										 },
+										{ "name" : "strontium",
+										  "level" : "200"
+										 }
+										]
+								 }
+							 ]
+						 }
+
+
+				 */
+
+				}
+			}
+
+			responseZip.put("zipcode", zipCode);
+			responseZip.put("contaminants", responseContaminants);
+
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+
+		System.out.println(responseZip.toString());
+
+		return responseZip.toString();
+
+	}
+
+
 }
 
