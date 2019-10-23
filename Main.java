@@ -20,10 +20,12 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities; 
@@ -98,7 +100,6 @@ public class Main {
 	}
 	
 	public void submittingForm() throws Exception {
-	    try (final WebClient webClient = new WebClient()) {
 		/*
 	        // Get the first page
 	        final HtmlPage page1 = webClient.getPage("https://www.adt.com/natural-disasters");
@@ -137,15 +138,49 @@ public class Main {
 	        //WebDriver driver = new FirefoxDriver();
 	        //driver.manage().window().maximize();
 		
-        	WebDriver driver = new HtmlUnitDriver();
+		String projDir = System.getProperty("user.dir");
+		System.setProperty("webdriver.chrome.driver", projDir + "\\drivers\\chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+			
 	        driver.get("https://www.adt.com/natural-disasters?30.307983936955342,-97.75340139999997,9");
+	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 	        WebElement map = driver.findElement(By.className("gm-style-pbc"));
 	        Actions action = new Actions(driver);
 	        action.click(map).build().perform();
-	        WebElement table = driver.findElement(By.className("table table-sm table-striped"));
-	        List<WebElement> cells = table.findElements(By.tagName("td"));
-	        System.out.println(cells.get(0).getText() + cells.get(1).getText());
+	        WebElement table = driver.findElement(By.tagName("table"));
+	        System.out.println(table.getText());
+	        //WebElement table = driver.findElement(By.className("table table-sm table-striped"));
+	        WebElement firstCell = driver.findElement(By.xpath("//table/tbody/tr[1]/td[1]"));
+	        System.out.println(firstCell.getText());
+	        WebElement secondCell = driver.findElement(By.xpath("//table/tbody/tr[1]/td[2]"));
+	        System.out.println(secondCell.getText());
+	        WebElement thirdCell = driver.findElement(By.xpath("//table/tbody/tr[2]/td[1]"));
+	        System.out.println(thirdCell.getText());
+	        WebElement fourthCell = driver.findElement(By.xpath("//table/tbody/tr[2]/td[2]"));
+	        System.out.println(fourthCell.getText());
+	        WebElement fifthCell = driver.findElement(By.xpath("//table/tbody/tr[3]/td[1]"));
+	        System.out.println(fifthCell.getText());
+	        WebElement sixCell = driver.findElement(By.xpath("//table/tbody/tr[3]/td[2]"));
+	        System.out.println(sixCell.getText());
+	        WebElement sevenCell = driver.findElement(By.xpath("//table/tbody/tr[4]/td[1]"));
+	        System.out.println(sevenCell.getText());
+	        WebElement eightCell = driver.findElement(By.xpath("//table/tbody/tr[4]/td[2]"));
+	        System.out.println(eightCell.getText());
+	        WebElement nineCell = driver.findElement(By.xpath("//table/tbody/tr[5]/td[1]"));
+	        System.out.println(nineCell.getText());
+	        WebElement tenCell = driver.findElement(By.xpath("//table/tbody/tr[5]/td[2]"));
+	        System.out.println(tenCell.getText());
+	        //WebElement elevenCell = driver.findElement(By.xpath("//table/tbody/tr[6]/td[1]"));
+	        //System.out.println(elevenCell.getText());
+	        //eleventh cell is empty
+	        WebElement twelCell = driver.findElement(By.xpath("//table/tbody/tr[6]/td[2]"));
+	        System.out.println("Total Disasters:" + twelCell.getText());
 	        
-	    }
+	        
+	        //WebElement tableBody = table.findElement(By.tagName("tbody"));
+	        //System.out.println(tableBody.getText());
+	        //List<WebElement> cells = tableBody.findElements(By.tagName("td"));
+	        //System.out.println(cells.get(0).getText() + cells.get(1).getText());
+	    
 	}
 }
