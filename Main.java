@@ -19,6 +19,16 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.DesiredCapabilities; 
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;	
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -89,7 +99,7 @@ public class Main {
 	
 	public void submittingForm() throws Exception {
 	    try (final WebClient webClient = new WebClient()) {
-
+		/*
 	        // Get the first page
 	        final HtmlPage page1 = webClient.getPage("https://www.adt.com/natural-disasters");
 	        //wait some time???
@@ -118,6 +128,24 @@ public class Main {
 
 	        // Now submit the form by clicking the button and get back the second page.
 	        //final HtmlPage page2 = button.click();
+		*/  
+		    
+		    
+		//System.setProperty("webdriver.gecko.driver","C:\\Users\\Sammy\\eclipse-workspace\\textInputSubmitJava\\drivers\\geckodriver.exe");
+		//DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+		//capabilities.setCapability("marionette",true);
+	        //WebDriver driver = new FirefoxDriver();
+	        //driver.manage().window().maximize();
+		
+        	WebDriver driver = new HtmlUnitDriver();
+	        driver.get("https://www.adt.com/natural-disasters?30.307983936955342,-97.75340139999997,9");
+	        WebElement map = driver.findElement(By.className("gm-style-pbc"));
+	        Actions action = new Actions(driver);
+	        action.click(map).build().perform();
+	        WebElement table = driver.findElement(By.className("table table-sm table-striped"));
+	        List<WebElement> cells = table.findElements(By.tagName("td"));
+	        System.out.println(cells.get(0).getText() + cells.get(1).getText());
+	        
 	    }
 	}
 }
