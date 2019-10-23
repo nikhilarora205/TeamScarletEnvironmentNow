@@ -85,7 +85,7 @@ public class HelloController {
 		JSONArray responseContaminants = new JSONArray();
 
 		//Temporary zip code, should call Google api for location specifics
-		String zipCode = "76103";
+		String zipCode = "78705";
 		int count = 0;
 
 		final String url =
@@ -94,113 +94,37 @@ public class HelloController {
 //		final String url =
 //				"https://mytapwater.org/zip/"+zipCode+"/";
 
-		try{
+		try {
 			final Document document = Jsoup.connect(url).get();
 
-			Elements linkToData =  document.select(".primary-btn");
+			Elements linkToData = document.select(".primary-btn");
 			String dataUrl = linkToData.attr("href");
 
 			//testing to see if url is correct
 			System.out.println(dataUrl);
 
-			JSONObject tempContamObject = new JSONObject();
 
-			final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/"+dataUrl).get();
+
+			final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/" + dataUrl).get();
 
 			//for each grid item (contaminant)
-			for(Element item: document.select("div.contaminants-grid")){
-				System.out.println(item.toString());
+			for (Element item : contaminantDoc.select(".contaminant-name")) {
+				JSONObject tempContamObject = new JSONObject();
+				String contam = item.select("h3").text();
+				String level = item.select(".detect-times-greater-than").text();
+
+				tempContamObject.put("contaminant", contam);
+				tempContamObject.put("level", level);
+
+				responseContaminants.put(tempContamObject);
+
+				System.out.println(item.select("h3").text());
+				System.out.println(item.select(".detect-times-greater-than").text());    //this number is the # of times over the EWG health guideline limit
 			}
 
+			responseZip.put("zipcode", zipCode);
+			responseZip.put("contaminants", responseContaminants);
 
-
-
-//			for(Element row: document.select(
-//					"table.search-results-table tr"
-//			)){
-//				if(row.select("td:nth-of-type(1)").text().equals("")){
-//					continue;
-//				}else{
-//					//Element cell = row.select("td:nth-of-type(1)").attr("href");
-//					String waterProvider = row.select("td:nth-of-type(1)").text();
-//
-//					Elements link = row.select("td:nth-of-type(1) > a");
-//
-//					final String contaminantUrl = link.attr("href");
-//
-//					//only getting first 10;
-//					count++;
-//
-//					try{
-//						if(count < 10) {
-//							JSONObject tempContamObject = new JSONObject();
-//							//print out waterProvider
-//							System.out.print(waterProvider + ": -->");
-//							//print to look at contaminant URL
-//							System.out.println(contaminantUrl);
-//
-//							final Document contaminantDoc = Jsoup.connect(contaminantUrl).get();
-//
-//							Element contaminantRow = contaminantDoc.select("tr.exceeded").first();
-//							Element contaminant = contaminantDoc.select("div.contaminant").select("h4").first();
-//
-//							String year = contaminantRow.select("td:nth-of-type(1)").text();
-//							String level = contaminantRow.select("td:nth-of-type(5)").text();
-//
-//							tempContamObject.put("contaminant", contaminant.id().toString());
-//							tempContamObject.put("level", level);
-//							tempContamObject.put( "year", year);
-//
-//							responseContaminants.put(tempContamObject);
-//
-//							System.out.println("Contaminant: " + contaminant.id().toString() + ", Year: " + year + ", Test Result: " + level);
-//						}
-//
-//					}
-//					catch (Exception e2){
-//						System.out.println("Contaminant: N/A, Year: N/A, Test Result: N/A");
-//					}
-//
-//				/*
-//
-//						{
-//							"zipcode":76103,
-//							"providers": [
-//								{
-//									"name" : "City of Fort Worth",
-//									"contaminants": [
-//										{ "name" : "chlorate",
-//										  "level" : "<20"
-//										 },
-//										{ "name" : "strontium",
-//										  "level" : "200"
-//										 }
-//										]
-//								 },
-//
-//								 {
-//									"name" : "City of Arlington",
-//									"contaminants": [
-//										{ "name" : "chlorate",
-//										  "level" : "<20"
-//										 },
-//										{ "name" : "strontium",
-//										  "level" : "200"
-//										 }
-//										]
-//								 }
-//							 ]
-//						 }
-//
-//
-//				 */
-//
-//				}
-//			}
-//
-//			responseZip.put("zipcode", zipCode);
-//			responseZip.put("contaminants", responseContaminants);
-//
 		}
 		catch (Exception e){
 			e.printStackTrace();
