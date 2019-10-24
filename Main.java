@@ -26,6 +26,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities; 
@@ -108,7 +109,9 @@ public class Main {
 		
 		String projDir = System.getProperty("user.dir");
 		System.setProperty("webdriver.chrome.driver", projDir + "\\drivers\\chromedriver.exe");
-		WebDriver driver = new ChromeDriver();
+		ChromeOptions options = new ChromeOptions();
+		options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
+		WebDriver driver = new ChromeDriver(options);
 			
 	        driver.get("https://www.adt.com/natural-disasters?30.307983936955342,-97.75340139999997,9");
 	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
