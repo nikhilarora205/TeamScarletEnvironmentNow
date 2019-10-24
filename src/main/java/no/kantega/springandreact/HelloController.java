@@ -262,7 +262,7 @@ public class HelloController {
   	        WebElement secondCell = driver.findElement(By.xpath("//table/tbody/tr[1]/td[2]"));
 //  	        System.out.println(secondCell.getText());
   	        
-  	        json.put("Fire", secondCell.getText());
+  	        json.put(firstCell.getText(), secondCell.getText());
   	        
   	        // Hurricane
   	        WebElement thirdCell = driver.findElement(By.xpath("//table/tbody/tr[2]/td[1]"));
@@ -270,7 +270,7 @@ public class HelloController {
   	        WebElement fourthCell = driver.findElement(By.xpath("//table/tbody/tr[2]/td[2]"));
 //  	        System.out.println(fourthCell.getText());
   	        
-  	        json.put("Hurricane",  fourthCell.getText());
+  	        json.put(thirdCell.getText(),  fourthCell.getText());
   	        
   	        // Severe Storm
   	        WebElement fifthCell = driver.findElement(By.xpath("//table/tbody/tr[3]/td[1]"));
@@ -278,7 +278,7 @@ public class HelloController {
   	        WebElement sixCell = driver.findElement(By.xpath("//table/tbody/tr[3]/td[2]"));
 //  	        System.out.println(sixCell.getText());
   	        
-  	        json.put("Severe Storm", sixCell.getText());
+  	        json.put(fifthCell.getText(), sixCell.getText());
   	        
   	        // Flood
   	        WebElement sevenCell = driver.findElement(By.xpath("//table/tbody/tr[4]/td[1]"));
@@ -286,7 +286,7 @@ public class HelloController {
   	        WebElement eightCell = driver.findElement(By.xpath("//table/tbody/tr[4]/td[2]"));
 //  	        System.out.println(eightCell.getText());
   	        
-  	        json.put("Flood", eightCell.getText());
+  	        json.put(sevenCell.getText(), eightCell.getText());
   	        
   	        // Drought
   	        WebElement nineCell = driver.findElement(By.xpath("//table/tbody/tr[5]/td[1]"));
@@ -294,7 +294,7 @@ public class HelloController {
   	        WebElement tenCell = driver.findElement(By.xpath("//table/tbody/tr[5]/td[2]"));
 //  	        System.out.println(tenCell.getText());
   	        
-  	        json.put("Drought", tenCell.getText());
+  	        json.put(nineCell.getText(), tenCell.getText());
   	        
   	        //WebElement elevenCell = driver.findElement(By.xpath("//table/tbody/tr[6]/td[1]"));
   	        //System.out.println(elevenCell.getText());
