@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -36,8 +38,8 @@ public class HelloController {
        // return total;
     }
     
-    @GetMapping("/api/ozoneLevel")
-    public String getOzoneLevel(String url) throws IOException {
+    @GetMapping("/api/AQIData")
+    public String getAQIData(String url) throws IOException {
     	//url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=78642&submit=Go";
     	url = "https://airnow.gov/index.cfm?action=airnow.local_city&mapcenter=1&cityid=472";
     	Document doc = Jsoup.connect(url).get();
@@ -62,10 +64,8 @@ public class HelloController {
     			}else if(currentDetail.equals("Particles (PM10)")) {
     				json.put("PM10", td.get(i+2).text());
     			}
-    			
     		}
     	}
-    	
     	return json.toString();
     	//return td.toString();
     	//return "nothing found";
@@ -78,5 +78,74 @@ public class HelloController {
     	//System.out.println(rating.toString());
     	//return toReturn;
     }
-}
+    
+    @GetMapping("/api/allergenData")
+    public String getAllergenData(String url) throws IOException {
+    	//remove this line after testing stage
+    	url = "https://www.pollen.com/forecast/current/pollen/78642";
+    	Document doc = Jsoup.connect(url).get();
+    	Elements div = doc.select("div[class=no-padding col-xs-6 chart-col-border]");
+    	Elements p = div.select("p");
+    	return doc.toString();
+    }
+    
+    @GetMapping("/api/waterData")
+    public String getWaterData(){
 
+		JSONObject responseZip = new JSONObject();
+		JSONArray responseContaminants = new JSONArray();
+
+		//Temporary zip code, should call Google api for location specifics
+		String zipCode = "78705";
+		int count = 0;
+
+		final String url =
+				"https://www.ewg.org/tapwater/search-results.php?zip5="+zipCode+"&searchtype=zip";
+
+//		final String url =
+//				"https://mytapwater.org/zip/"+zipCode+"/";
+
+		try {
+			final Document document = Jsoup.connect(url).get();
+
+			Elements linkToData = document.select(".primary-btn");
+			String dataUrl = linkToData.attr("href");
+
+			//testing to see if url is correct
+			System.out.println(dataUrl);
+
+
+
+			final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/" + dataUrl).get();
+
+			//for each grid item (contaminant)
+			for (Element item : contaminantDoc.select(".contaminant-name")) {
+				JSONObject tempContamObject = new JSONObject();
+				String contam = item.select("h3").text();
+				String level = item.select(".detect-times-greater-than").text();
+
+				tempContamObject.put("contaminant", contam);
+				tempContamObject.put("level", level);
+
+				responseContaminants.put(tempContamObject);
+
+				System.out.println(item.select("h3").text());
+				System.out.println(item.select(".detect-times-greater-than").text());    //this number is the # of times over the EWG health guideline limit
+			}
+
+			responseZip.put("zipcode", zipCode);
+			responseZip.put("contaminants", responseContaminants);
+
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+
+		System.out.println(responseZip.toString());
+
+		return responseZip.toString();
+
+	}
+
+
+}
