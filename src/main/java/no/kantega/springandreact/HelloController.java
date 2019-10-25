@@ -74,8 +74,7 @@ public class HelloController {
        // JSONObject myResponse = new JSONObject(result.toString());
        // String total = myResponse.getJSONObject("total").toString();
        // return total;
-    }
-    
+    }   
     @GetMapping("/api/AQIData")
     public String getAQIData(String address) throws IOException {
     	// Get zipcode from address
@@ -232,6 +231,7 @@ public class HelloController {
     }
     @GetMapping("/api/getLocation")
     public String getLocation(String address, Integer zeroForZip ) {
+
     	try {
             // Use Google GeoCoder to get coordinates
         	// might have to revisit URLEncoder function later on
@@ -279,6 +279,50 @@ public class HelloController {
     	}catch (Exception e) {
             e.printStackTrace();
 		}
+    	return "Please narrow search";
+    }     
+    @GetMapping("/api/reverseLocation")
+    public String reverseLocation(String address) {
+    	try {
+            // Use Google GeoCoder to get coordinates
+        	// might have to revisit URLEncoder function later on
+        	// replace "Austin" with text box from front end
+        	address = "Austin";
+        	
+        	// Get URL for API Request
+            URL url = new URL(
+                    "https://maps.googleapis.com/maps/api/geocode/json?address="
+                            + URLEncoder.encode(address,java.nio.charset.StandardCharsets.UTF_8.toString()) + "&sensor=true&key=AIzaSyARRJsBkisGqJ5_1Vo2QB_Pk2mIMYQVZlw");
+            
+            // Connect to URL
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Accept", "application/json");
+            if (con.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + con.getResponseCode());
+            }
+            // building JSON response
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            
+            // Disconnect
+            in.close();
+            con.disconnect();
+            
+            // Aquire Content
+            String result = content.toString();
+            JSONObject myResponse = new JSONObject(result.toString());
+ 
+            //zeroForZip = 1;
+            String state = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(4).get("long_name").toString();
+            return state;
+    		}catch (Exception e) {
+            e.printStackTrace();
+    	}
     	return "Please narrow search";
     }   
 }
