@@ -77,18 +77,23 @@ public class HelloController {
     }
     
     @GetMapping("/api/AQIData")
-    public String getAQIData(String url) throws IOException {
-    	//url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=78642&submit=Go";
-    	url = "https://airnow.gov/index.cfm?action=airnow.local_city&mapcenter=1&cityid=472";
+    public String getAQIData(String address) throws IOException {
+    	// Get zipcode from address
+    	address = "100 Orvieto Cove";
+    	String zipCode = getLocation(address, 0);
+    	
+    	// Check if search was specific enough
+    	if (zipCode == "Please narrow search") {
+    		return "Please narrow search";
+    	}
+    	
+    	// get JSON
+    	String url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=" + zipCode + "&submit=Go";
     	Document doc = Jsoup.connect(url).get();
-    	Elements rating = doc.select("table.AQData");
-    	ArrayList<String> toReturn = new ArrayList<>(); 
     	Elements test = doc.select("table[class=TblInvisible]");
     	Elements body = test.select("tbody");
     	Elements td = body.select("td");
-    //	return td.toString();
     	JSONObject json = new JSONObject();
-    	String testReturn = "";
     	//return td.get(2).text();
     	Set<String> possibleValues = new HashSet<String>(Arrays.asList(new String [] {"Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous"}));
     	for(int i = 0; i < td.size(); i++) {
@@ -105,221 +110,175 @@ public class HelloController {
     		}
     	}
     	return json.toString();
-    	//return td.toString();
-    	//return "nothing found";
-    //	Elements body = test.select("tbody");
-    //	Elements rows = body.select("tr");
-    //	for(Element row : rows) {
-    		//toReturn.add(row.select("th").text());
-   // 		toReturn.add(row.select("td").text());
-    //	}
-    	//System.out.println(rating.toString());
-    	//return toReturn;
-    }
-    
+    }   
     @GetMapping("/api/allergenData")
-    public String getAllergenData(String url) throws IOException {
-    	//remove this line after testing stage
-    	url = "https://www.pollen.com/forecast/current/pollen/78642";
+    public String getAllergenData(String address) throws IOException {
+    	
+    	// WORK ON THIS
+    	String url = "https://www.weatherbug.com/life/pollen/76062";
     	Document doc = Jsoup.connect(url).get();
-    	Elements div = doc.select("div[class=no-padding col-xs-6 chart-col-border]");
-    	Elements p = div.select("p");
+    	Elements div = doc.select("div[class=widget__body widget--index__body]");
     	return doc.toString();
     }
-    
     @GetMapping("/api/waterData")
-    public String getWaterData(){
-
+    public String getWaterData(String address){
+    	// Get zipcode from address
+    	address = "100 Orvieto Cove";
+    	String zipCode = getLocation(address, 0);
+    	
+    	// Check if search was specific enough
+    	if (zipCode == "Please narrow search") {
+    		return "Please narrow search";
+    	}
 		JSONObject responseZip = new JSONObject();
 		JSONArray responseContaminants = new JSONArray();
-
-		//Temporary zip code, should call Google api for location specifics
-		String zipCode = "78705";
 		int count = 0;
-
 		final String url =
-				"https://www.ewg.org/tapwater/search-results.php?zip5="+zipCode+"&searchtype=zip";
-
-//		final String url =
-//				"https://mytapwater.org/zip/"+zipCode+"/";
-
+				"https://www.ewg.org/tapwater/search-results.php?zip5=" + zipCode + "&searchtype=zip";
 		try {
 			final Document document = Jsoup.connect(url).get();
-
 			Elements linkToData = document.select(".primary-btn");
 			String dataUrl = linkToData.attr("href");
-
 			//testing to see if url is correct
 			System.out.println(dataUrl);
-
-
-
 			final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/" + dataUrl).get();
-
 			//for each grid item (contaminant)
 			for (Element item : contaminantDoc.select(".contaminant-name")) {
 				JSONObject tempContamObject = new JSONObject();
 				String contam = item.select("h3").text();
 				String level = item.select(".detect-times-greater-than").text();
-
 				tempContamObject.put("contaminant", contam);
 				tempContamObject.put("level", level);
-
 				responseContaminants.put(tempContamObject);
-
 				System.out.println(item.select("h3").text());
 				System.out.println(item.select(".detect-times-greater-than").text());    //this number is the # of times over the EWG health guideline limit
 			}
-
 			responseZip.put("zipcode", zipCode);
 			responseZip.put("contaminants", responseContaminants);
-
+			return responseZip.toString();
 		}
 		catch (Exception e){
 			e.printStackTrace();
 		}
-
-		System.out.println(responseZip.toString());
-
 		return responseZip.toString();
-
 	}
-    
     @GetMapping("/api/naturalDisasters")
-    public String getNaturalDisasterData() throws IOException{
-    	
+    public String getNaturalDisasterData(String address) throws IOException{
     	try {
-          // Use Google GeoCoder to get coordinates
-      	// might have to revisit URLEncoder function later on
-      	// replace "Austin" with text box from front end
-      	String address = "Austin";
-          URL url = new URL(
-                  "https://maps.googleapis.com/maps/api/geocode/json?address="
-                          + URLEncoder.encode(address,java.nio.charset.StandardCharsets.UTF_8.toString()) + "&sensor=true&key=AIzaSyARRJsBkisGqJ5_1Vo2QB_Pk2mIMYQVZlw");
-          HttpURLConnection con = (HttpURLConnection) url.openConnection();
-          con.setRequestMethod("GET");
-          con.setRequestProperty("Accept", "application/json");
- 
-          if (con.getResponseCode() != 200) {
-              throw new RuntimeException("Failed : HTTP error code : " + con.getResponseCode());
-          }
-
-          // building JSON response
-          BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-          String inputLine;
-          StringBuffer content = new StringBuffer();
-          while ((inputLine = in.readLine()) != null) {
-              content.append(inputLine);
-          }
-          in.close();
-          con.disconnect();
-         
-            JSONObject myResponse = new JSONObject(content.toString());
-         
-            System.out.println(myResponse);
-          String result = content.toString();
-            System.out.println(result);
-
-          JSONObject myResponse1 = new JSONObject(result.toString());
-
-         
-          String testing = myResponse1.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").toString();
-          String latString = myResponse1.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString();
-          String longString = myResponse1.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString();
-            System.out.println(testing);
-            System.out.println(latString+","+longString);
-      
-          // String humid = myResponse.getJSONObject("currently").getString("humidity");
-          // String wind = myResponse.getJSONObject("currently").getString("windSpeed");
-          // String precip = myResponse.getJSONObject("currently").getString("precipProbability");
-
-          // Plug in coordinates to get request
-          double latitude = Double.parseDouble(latString);
-          double longitude = Double.parseDouble(longString);
-          
-          
-          
-          String projDir = System.getProperty("user.dir");
-  		System.setProperty("webdriver.chrome.driver", projDir + "//drivers//chromedriver");
-  		ChromeOptions options = new ChromeOptions();
-		options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
-		WebDriver driver = new ChromeDriver(options);
+    		// Get zipcode from address
+        	address = "100 Orvieto Cove";
+        	String latLong = getLocation(address, 1);
+        	
+        	// Check if search was specific enough
+        	if (latLong == "Please narrow search") {
+        		return "Please narrow search";
+        	}
+        	/*
+        	// Break up string into latString and longString
+        	List<String> temp = Arrays.asList(latLong.split(","));
+        	String latString = temp.get(0);
+        	String longString = temp.get(1);
+        	
+    		// Plug in coordinates to get request
+    		double latitude = Double.parseDouble(latString);
+    		double longitude = Double.parseDouble(longString);
+			*/
+    		String projDir = System.getProperty("user.dir");
+	  		System.setProperty("webdriver.chrome.driver", projDir + "//drivers//chromedriver");
+	  		ChromeOptions options = new ChromeOptions();
+			options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
+			WebDriver driver = new ChromeDriver(options);
   		
-  		JSONObject json = new JSONObject();
+			JSONObject json = new JSONObject();
   			
-  	        driver.get("https://www.adt.com/natural-disasters?30.307983936955342,-97.75340139999997,9");
+  	        driver.get("https://www.adt.com/natural-disasters?" + latLong +",9");
   	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
   	        WebElement map = driver.findElement(By.className("gm-style-pbc"));
   	        Actions action = new Actions(driver);
   	        action.click(map).build().perform();
   	        WebElement table = driver.findElement(By.tagName("table"));
-//  	        System.out.println(table.getText());
-  	        //WebElement table = driver.findElement(By.className("table table-sm table-striped"));
-  	        
   	        // Fire
   	        WebElement firstCell = driver.findElement(By.xpath("//table/tbody/tr[1]/td[1]"));
-//  	        System.out.println(firstCell.getText());
   	        WebElement secondCell = driver.findElement(By.xpath("//table/tbody/tr[1]/td[2]"));
-//  	        System.out.println(secondCell.getText());
-  	        
-  	        json.put("Fire", secondCell.getText());
+  	        json.put(firstCell.getText(), secondCell.getText());
   	        
   	        // Hurricane
   	        WebElement thirdCell = driver.findElement(By.xpath("//table/tbody/tr[2]/td[1]"));
-//  	        System.out.println(thirdCell.getText());
   	        WebElement fourthCell = driver.findElement(By.xpath("//table/tbody/tr[2]/td[2]"));
-//  	        System.out.println(fourthCell.getText());
-  	        
-  	        json.put("Hurricane",  fourthCell.getText());
+  	        json.put(thirdCell.getText(),  fourthCell.getText());
   	        
   	        // Severe Storm
   	        WebElement fifthCell = driver.findElement(By.xpath("//table/tbody/tr[3]/td[1]"));
-//  	        System.out.println(fifthCell.getText());
   	        WebElement sixCell = driver.findElement(By.xpath("//table/tbody/tr[3]/td[2]"));
-//  	        System.out.println(sixCell.getText());
-  	        
-  	        json.put("Severe Storm", sixCell.getText());
+  	        json.put(fifthCell.getText(), sixCell.getText());
   	        
   	        // Flood
   	        WebElement sevenCell = driver.findElement(By.xpath("//table/tbody/tr[4]/td[1]"));
-//  	        System.out.println(sevenCell.getText());
   	        WebElement eightCell = driver.findElement(By.xpath("//table/tbody/tr[4]/td[2]"));
-//  	        System.out.println(eightCell.getText());
-  	        
-  	        json.put("Flood", eightCell.getText());
+  	        json.put(sevenCell.getText(), eightCell.getText());
   	        
   	        // Drought
   	        WebElement nineCell = driver.findElement(By.xpath("//table/tbody/tr[5]/td[1]"));
-//  	        System.out.println(nineCell.getText());
   	        WebElement tenCell = driver.findElement(By.xpath("//table/tbody/tr[5]/td[2]"));
-//  	        System.out.println(tenCell.getText());
-  	        
-  	        json.put("Drought", tenCell.getText());
-  	        
-  	        //WebElement elevenCell = driver.findElement(By.xpath("//table/tbody/tr[6]/td[1]"));
-  	        //System.out.println(elevenCell.getText());
-  	        //eleventh cell is empty
+  	        json.put(nineCell.getText(), tenCell.getText());
   	        WebElement twelCell = driver.findElement(By.xpath("//table/tbody/tr[6]/td[2]"));
-//  	        System.out.println("Total Disasters:" + twelCell.getText());
-  	        
-  	        json.put("Total Disasters", twelCell.getText());
-  	        
-  	        
-  	        //WebElement tableBody = table.findElement(By.tagName("tbody"));
-  	        //System.out.println(tableBody.getText());
-  	        //List<WebElement> cells = tableBody.findElements(By.tagName("td"));
-  	        //System.out.println(cells.get(0).getText() + cells.get(1).getText());
-  	        
+  	        json.put("Total Disasters", twelCell.getText()); 	        
   	        return json.toString();
     	}
-    	
     	catch (Exception e) {
             e.printStackTrace();
 		}
-    	
     	return "Failed during execution";
-    	
     }
-
-
+    @GetMapping("/api/getLocation")
+    public String getLocation(String address, Integer zeroForZip ) {
+    	try {
+            // Use Google GeoCoder to get coordinates
+        	// might have to revisit URLEncoder function later on
+        	// replace "Austin" with text box from front end
+        	address = "100 Orvieto Cove";
+        	
+        	// Get URL for API Request
+            URL url = new URL(
+                    "https://maps.googleapis.com/maps/api/geocode/json?address="
+                            + URLEncoder.encode(address,java.nio.charset.StandardCharsets.UTF_8.toString()) + "&sensor=true&key=AIzaSyARRJsBkisGqJ5_1Vo2QB_Pk2mIMYQVZlw");
+            
+            // Connect to URL
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Accept", "application/json");
+            if (con.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + con.getResponseCode());
+            }
+            // building JSON response
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            
+            // Disconnect
+            in.close();
+            con.disconnect();
+            
+            // Aquire Content
+            String result = content.toString();
+            JSONObject myResponse = new JSONObject(result.toString());
+ 
+            //zeroForZip = 1;
+            String zip = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(6).get("short_name").toString();
+            String latString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString();
+            String longString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString();
+            
+            if( zeroForZip == 0 ) {
+            	return zip;
+            }else {
+            	return latString + "," + longString;
+            }
+    	}catch (Exception e) {
+            e.printStackTrace();
+		}
+    	return "Please narrow search";
+    }   
 }
