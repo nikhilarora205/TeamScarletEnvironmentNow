@@ -55,8 +55,9 @@
     </dependencies>
 
     <build>
+    <pluginManagement>
         <plugins>
-
+			
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>appengine-maven-plugin</artifactId>
@@ -111,7 +112,7 @@
                     </execution>
                 </executions>
             </plugin>
-
+			
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -131,5 +132,6 @@
                 </executions>
             </plugin>
         </plugins>
+       </pluginManagement>
     </build>
 </project>

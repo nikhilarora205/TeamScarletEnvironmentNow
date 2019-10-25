@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: no.kantega.springandreact.SpringAndReactApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 21.472 s - in no.kantega.springandreact.SpringAndReactApplicationTests

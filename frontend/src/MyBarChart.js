@@ -10,8 +10,6 @@ import {
 
 class MyBarChart extends React.Component {
     render() {
-		
-
 		const data = this.props.data;
         const chartWidth = 400;
         const chartHeight = 500;
