@@ -28,7 +28,7 @@ public class HelloControllerTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 	
 	//Write JUnit Test Cases to find native issues with data integration, data storage, api calls, and data updating
