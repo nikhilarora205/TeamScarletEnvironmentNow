@@ -25,7 +25,8 @@ const topMarginStyle ={
 class Home extends Component{
 
 	state = {
-		    isLoading: true,
+			isLoading: true,
+			address: "",
 			air: [],
 			allergen: [],
 			water: [],
@@ -33,8 +34,16 @@ class Home extends Component{
 		  };
 
 	async componentDidMount() {
+
+			this.address = window.location.pathname;
+			this.address = this.address.replace("/compare/", "");
+			// URL converts spaces to %20
+			this.address = this.address.replace("%20", " ");
+
+			console.log(this.address);
 		
-			const AQIResponse = await fetch('/api/AQIData');
+			const AQIResponse = await fetch('/api/AQIData/'+this.address);
+			// const AQIResponse = await fetch('/api/AQIData');
 			const AQIBody = await AQIResponse.json();
 			this.setState({ air: AQIBody, isLoading: true });
 			console.log(this.state.air);
@@ -44,12 +53,14 @@ class Home extends Component{
 			// this.setState({ allergen: body, isLoading: true });
 			// console.log(this.state.allergen);
 
-			const waterResponse = await fetch('/api/waterData');
+			const waterResponse = await fetch('/api/waterData/'+this.address);
+			// const waterResponse = await fetch('/api/waterData');
 		    const waterBody = await waterResponse.json();
 			this.setState({ water: waterBody, isLoading: true });
 			console.log(this.state.water["contaminants"]);
 
-			const natResponse = await fetch('/api/naturalDisasters');
+			const natResponse = await fetch('/api/naturalDisasters/'+this.address);
+			// const natResponse = await fetch('/api/naturalDisasters');
 		    const natBody = await natResponse.json();
 			this.setState({ natural: natBody, isLoading: false });
 			console.log(this.state.natural);
@@ -153,11 +164,16 @@ class Home extends Component{
 	                        <MyBarChart3 data={data3}/>
 
 							<br></br>
-							<p>Total Disasters: {this.state.natural["Total Disasters"]}</p>
+							<p>Storm: {this.state.natural["Storm"]}</p>
+							<p>Earthquake: {this.state.natural["Earthquake"]}</p>
+							<p>Wildfire: {this.state.natural["Wildfire"]}</p>
 							<p>Flood: {this.state.natural["Flood"]}</p>
-							<p>Severe Storm: {this.state.natural["Severe Storm"]}</p>
-							<p>Fire: {this.state.natural["Fire"]}</p>
-							<p>Hurricane: {this.state.natural["Hurricane"]}</p>
+							<p>Drought: {this.state.natural["Drought"]}</p>
+							<p>Extreme Temperature: {this.state.natural["Extreme Temperature"]}</p>
+							<p>Land Slide: {this.state.natural["Land Slide"]}</p>
+							<p>Volcanic Activity: {this.state.natural["Volcanic Activity"]}</p>
+							<p>Epidemic: {this.state.natural["Epidemic"]}</p>
+
 						</td>
 					</tr>
 				</tbody>

@@ -1,6 +1,7 @@
 package no.kantega.springandreact;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -61,10 +62,11 @@ public class HelloController {
     }   
    
     
-    @GetMapping("/api/AQIData")
-    public String getAQIData(String address) throws IOException {
+    @GetMapping("/api/AQIData/{address}")
+    public String getAQIData(@PathVariable String address) throws IOException {
     	// Get zipcode from address
-    	address = "100 Orvieto Cove";
+		// address = "100 Orvieto Cove";
+		System.out.println(address);
     	String zipCode = getLocation(address, 0);
     	
     	//check if zip exists in DB
@@ -110,11 +112,11 @@ public class HelloController {
     	Elements div = doc.select("div[class=widget__body widget--index__body]");
     	return doc.toString();
     }
-    @GetMapping("/api/waterData")
-    public String getWaterData(String address){
+    @GetMapping("/api/waterData/{address}")
+    public String getWaterData(@PathVariable String address){
 
     	// Get zipcode from address
-    	address = "100 Orvieto Cove";
+    	// address = "100 Orvieto Cove";
     	String zipCode = getLocation(address, 0);
     	
     	// Check if search was specific enough
@@ -131,7 +133,7 @@ public class HelloController {
 			Elements linkToData = document.select(".primary-btn");
 			String dataUrl = linkToData.attr("href");
 			//testing to see if url is correct
-			System.out.println(dataUrl);
+			// System.out.println(dataUrl);
 			final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/" + dataUrl).get();
 			//for each grid item (contaminant)
 			for (Element item : contaminantDoc.select(".contaminant-name")) {
@@ -141,8 +143,8 @@ public class HelloController {
 				tempContamObject.put("contaminant", contam);
 				tempContamObject.put("level", level);
 				responseContaminants.put(tempContamObject);
-				System.out.println(item.select("h3").text());
-				System.out.println(item.select(".detect-times-greater-than").text());    //this number is the # of times over the EWG health guideline limit
+				// System.out.println(item.select("h3").text());
+				// System.out.println(item.select(".detect-times-greater-than").text());    //this number is the # of times over the EWG health guideline limit
 			}
 			responseZip.put("zipcode", zipCode);
 			responseZip.put("contaminants", responseContaminants);
@@ -153,8 +155,8 @@ public class HelloController {
 		}
 		return responseZip.toString();
 	}
-    @GetMapping("/api/naturalDisasters")
-    public String getNaturalDisasterData(String address) throws IOException{
+    @GetMapping("/api/naturalDisasters/{address}")
+    public String getNaturalDisasterData(@PathVariable String address) throws IOException{
     	try {
     		MongoClientURI uri = new MongoClientURI(
     				"mongodb://nikhilarora:soft461datatest@cluster0-shard-00-00-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-01-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-02-kvrlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
@@ -163,7 +165,7 @@ public class HelloController {
     		DB database = mongoClient.getDB("environmentnow");
     		DBCollection collection = database.getCollection("disasters");
     		
-    		address= "100 Orvieto Cove";
+    		// address= "100 Orvieto Cove";
     		
     		String location = reverseLocation(address);
     		BasicDBObject query = new BasicDBObject("Location", location);
@@ -208,43 +210,116 @@ public class HelloController {
     				epidemic++;
     			}
     		}
-    		String returnString = "";
-    		if (storm!=0) {
-    			returnString = returnString + "Storm: " + storm + "\n";
-    		}
-    		if (earthquake!=0) {
-    			returnString = returnString + "Earthquake: " + earthquake + "\n";
-    		}
-    		if (wildfire!=0) {
-    			returnString = returnString + "Wildfire: " + wildfire + "\n";
-    		}
-    		if (flood!=0) {
-    			returnString = returnString + "Flood: " + flood + "\n";
-    		}
-    		if (drought!=0) {
-    			returnString = returnString + "Drought: " + drought + "\n";
-    		}
-    		if (extremeTemp!=0) {
-    			returnString = returnString + "Extreme Temperature: " + extremeTemp + "\n";
-    		}
-    		if (landslide!=0) {
-    			returnString = returnString + "Land Slide: " + landslide + "\n";
-    		}
-    		if (volcanicActivity!=0) {
-    			returnString = returnString + "Volcanic Activity: " + volcanicActivity + "\n";
-    		}
-    		if (epidemic!=0) {
-    			returnString = returnString + "Epidemic: " + epidemic + "\n";
-    		}
+			String returnString = "";
+			JSONObject json = new JSONObject();
+    		// if (storm!=0) {
+			// 	returnString = returnString + "Storm: " + storm + "\n";
+			// 	json.put("Storm", storm);
+    		// }
+    		// if (earthquake!=0) {
+			// 	returnString = returnString + "Earthquake: " + earthquake + "\n";
+			// 	json.put("Earthquake", earthquake);
+    		// }
+    		// if (wildfire!=0) {
+			// 	returnString = returnString + "Wildfire: " + wildfire + "\n";
+			// 	json.put("Wildfire", wildfire);
+    		// }
+    		// if (flood!=0) {
+			// 	returnString = returnString + "Flood: " + flood + "\n";
+			// 	json.put("Flood", flood);
+    		// }
+    		// if (drought!=0) {
+			// 	returnString = returnString + "Drought: " + drought + "\n";
+			// 	json.put("Drought", drought);
+    		// }
+    		// if (extremeTemp!=0) {
+			// 	returnString = returnString + "Extreme Temperature: " + extremeTemp + "\n";
+			// 	json.put("Extreme Temperature", extremeTemp);
+    		// }
+    		// if (landslide!=0) {
+			// 	returnString = returnString + "Land Slide: " + landslide + "\n";
+			// 	json.put("Land Slide", landslide);
+    		// }
+    		// if (volcanicActivity!=0) {
+			// 	returnString = returnString + "Volcanic Activity: " + volcanicActivity + "\n";
+			// 	json.put("Volcanic Activity", volcanicActivity);
+    		// }
+    		// if (epidemic!=0) {
+			// 	returnString = returnString + "Epidemic: " + epidemic + "\n";
+			// 	json.put("Epidemic", epidemic);
+			// }
+			json.put("Storm", storm);
+			json.put("Earthquake", earthquake);
+			json.put("Wildfire", wildfire);
+			json.put("Flood", flood);
+			json.put("Drought", drought);
+			json.put("Extreme Temperature", extremeTemp);
+			json.put("Land Slide", landslide);
+			json.put("Volcanic Activity", volcanicActivity);
+			json.put("Epidemic", epidemic);
     		
-    		return returnString;
+			// return returnString;
+			return json.toString();
     	}
     	catch (Exception e) {
             e.printStackTrace();
 		}
     	return "Failed to query disaster data";
-    }
-    @GetMapping("/api/getLocation")
+	}
+	
+    @GetMapping("/api/validAddress/{address}")
+	public String validAddress(@PathVariable String address){
+
+		try {
+            // Use Google GeoCoder to get coordinates
+        	// might have to revisit URLEncoder function later on
+        	// replace "Austin" with text box from front end
+			// address = "100 Orvieto Cove";
+			// String address = "xyz";
+        	
+        	// Get URL for API Request
+            URL url = new URL(
+                    "https://maps.googleapis.com/maps/api/geocode/json?address="
+                            + URLEncoder.encode(address,java.nio.charset.StandardCharsets.UTF_8.toString()) + "&sensor=true&key=AIzaSyARRJsBkisGqJ5_1Vo2QB_Pk2mIMYQVZlw");
+            
+            // Connect to URL
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Accept", "application/json");
+            if (con.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + con.getResponseCode());
+            }
+            // building JSON response
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            
+            // Disconnect
+            in.close();
+            con.disconnect();
+            
+            // Aquire Content
+            String result = content.toString();
+            JSONObject myResponse = new JSONObject(result.toString());
+ 
+            //zeroForZip = 1;
+			String zip = myResponse.get("status").toString();
+			System.out.println(zip);
+            String latString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString();
+            String longString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString();
+            
+			if(zip.equals("ZERO_RESULTS")) return "False";
+			else return "True";
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "False";
+	}   
+	
     public String getLocation(String address, Integer zeroForZip ) {
     	try {
             // Use Google GeoCoder to get coordinates
