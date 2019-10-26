@@ -23,20 +23,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
 
-import com.gargoylesoftware.htmlunit.*;
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 
 import java.util.*;
 import java.io.*;
@@ -52,15 +45,6 @@ import org.jsoup.nodes.Element;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.DesiredCapabilities; 
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;	
-
 @RestController
 public class HelloController {
     @GetMapping("/api/hello")
@@ -75,12 +59,19 @@ public class HelloController {
        // String total = myResponse.getJSONObject("total").toString();
        // return total;
     }   
+   
+    
     @GetMapping("/api/AQIData")
     public String getAQIData(String address) throws IOException {
     	// Get zipcode from address
     	address = "100 Orvieto Cove";
     	String zipCode = getLocation(address, 0);
     	
+    	//check if zip exists in DB
+    	if(countAirDB(zipCode) == 0) {
+    		//Put in DB if not
+    		
+    	}
     	// Check if search was specific enough
     	if (zipCode == "Please narrow search") {
     		return "Please narrow search";
@@ -121,6 +112,7 @@ public class HelloController {
     }
     @GetMapping("/api/waterData")
     public String getWaterData(String address){
+
     	// Get zipcode from address
     	address = "100 Orvieto Cove";
     	String zipCode = getLocation(address, 0);
@@ -164,74 +156,96 @@ public class HelloController {
     @GetMapping("/api/naturalDisasters")
     public String getNaturalDisasterData(String address) throws IOException{
     	try {
-    		// Get zipcode from address
-        	address = "100 Orvieto Cove";
-        	String latLong = getLocation(address, 1);
-        	
-        	// Check if search was specific enough
-        	if (latLong == "Please narrow search") {
-        		return "Please narrow search";
-        	}
-        	/*
-        	// Break up string into latString and longString
-        	List<String> temp = Arrays.asList(latLong.split(","));
-        	String latString = temp.get(0);
-        	String longString = temp.get(1);
-        	
-    		// Plug in coordinates to get request
-    		double latitude = Double.parseDouble(latString);
-    		double longitude = Double.parseDouble(longString);
-			*/
-    		String projDir = System.getProperty("user.dir");
-	  		System.setProperty("webdriver.chrome.driver", projDir + "//drivers//chromedriver");
-	  		ChromeOptions options = new ChromeOptions();
-			options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
-			WebDriver driver = new ChromeDriver(options);
-  		
-			JSONObject json = new JSONObject();
-  			
-  	        driver.get("https://www.adt.com/natural-disasters?" + latLong +",9");
-  	        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-  	        WebElement map = driver.findElement(By.className("gm-style-pbc"));
-  	        Actions action = new Actions(driver);
-  	        action.click(map).build().perform();
-  	        WebElement table = driver.findElement(By.tagName("table"));
-  	        // Fire
-  	        WebElement firstCell = driver.findElement(By.xpath("//table/tbody/tr[1]/td[1]"));
-  	        WebElement secondCell = driver.findElement(By.xpath("//table/tbody/tr[1]/td[2]"));
-  	        json.put(firstCell.getText(), secondCell.getText());
-  	        
-  	        // Hurricane
-  	        WebElement thirdCell = driver.findElement(By.xpath("//table/tbody/tr[2]/td[1]"));
-  	        WebElement fourthCell = driver.findElement(By.xpath("//table/tbody/tr[2]/td[2]"));
-  	        json.put(thirdCell.getText(),  fourthCell.getText());
-  	        
-  	        // Severe Storm
-  	        WebElement fifthCell = driver.findElement(By.xpath("//table/tbody/tr[3]/td[1]"));
-  	        WebElement sixCell = driver.findElement(By.xpath("//table/tbody/tr[3]/td[2]"));
-  	        json.put(fifthCell.getText(), sixCell.getText());
-  	        
-  	        // Flood
-  	        WebElement sevenCell = driver.findElement(By.xpath("//table/tbody/tr[4]/td[1]"));
-  	        WebElement eightCell = driver.findElement(By.xpath("//table/tbody/tr[4]/td[2]"));
-  	        json.put(sevenCell.getText(), eightCell.getText());
-  	        
-  	        // Drought
-  	        WebElement nineCell = driver.findElement(By.xpath("//table/tbody/tr[5]/td[1]"));
-  	        WebElement tenCell = driver.findElement(By.xpath("//table/tbody/tr[5]/td[2]"));
-  	        json.put(nineCell.getText(), tenCell.getText());
-  	        WebElement twelCell = driver.findElement(By.xpath("//table/tbody/tr[6]/td[2]"));
-  	        json.put("Total Disasters", twelCell.getText()); 	        
-  	        return json.toString();
+    		MongoClientURI uri = new MongoClientURI(
+    				"mongodb://nikhilarora:soft461datatest@cluster0-shard-00-00-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-01-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-02-kvrlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
+    		MongoClient mongoClient = new MongoClient(uri);
+    		@SuppressWarnings("deprecation")
+    		DB database = mongoClient.getDB("environmentnow");
+    		DBCollection collection = database.getCollection("disasters");
+    		
+    		address= "100 Orvieto Cove";
+    		
+    		String location = reverseLocation(address);
+    		BasicDBObject query = new BasicDBObject("Location", location);
+    		query.toJson();
+    		DBCursor test = collection.find(query);
+    		int storm = 0;
+    		int earthquake = 0;
+    		int wildfire = 0;
+    		int flood = 0;
+    		int drought = 0;
+    		int extremeTemp = 0;
+    		int landslide = 0;
+    		int volcanicActivity = 0;
+    		int epidemic = 0;
+    		while(test.hasNext()){
+    			String document = test.next().toString();
+    			if(document.contains("Storm")) {
+    				storm++;
+    			}
+    			if(document.contains("Earthquake")) {
+    				earthquake++;
+    			}
+    			if(document.contains("Wildfire")) {
+    				wildfire++;
+    			}
+    			if(document.contains("Flood")) {
+    				flood++;
+    			}
+    			if(document.contains("Drought")) {
+    				drought++;
+    			}
+    			if(document.contains("Extreme temperature")) {
+    				extremeTemp++;
+    			}
+    			if(document.contains("Landslide")) {
+    				landslide++;
+    			}
+    			if(document.contains("Volvanic activity")) {
+    				volcanicActivity++;
+    			}
+    			if(document.contains("Epidemic")) {
+    				epidemic++;
+    			}
+    		}
+    		String returnString = "";
+    		if (storm!=0) {
+    			returnString = returnString + "Storm: " + storm + "\n";
+    		}
+    		if (earthquake!=0) {
+    			returnString = returnString + "Earthquake: " + earthquake + "\n";
+    		}
+    		if (wildfire!=0) {
+    			returnString = returnString + "Wildfire: " + wildfire + "\n";
+    		}
+    		if (flood!=0) {
+    			returnString = returnString + "Flood: " + flood + "\n";
+    		}
+    		if (drought!=0) {
+    			returnString = returnString + "Drought: " + drought + "\n";
+    		}
+    		if (extremeTemp!=0) {
+    			returnString = returnString + "Extreme Temperature: " + extremeTemp + "\n";
+    		}
+    		if (landslide!=0) {
+    			returnString = returnString + "Land Slide: " + landslide + "\n";
+    		}
+    		if (volcanicActivity!=0) {
+    			returnString = returnString + "Volcanic Activity: " + volcanicActivity + "\n";
+    		}
+    		if (epidemic!=0) {
+    			returnString = returnString + "Epidemic: " + epidemic + "\n";
+    		}
+    		
+    		return returnString;
     	}
     	catch (Exception e) {
             e.printStackTrace();
 		}
-    	return "Failed during execution";
+    	return "Failed to query disaster data";
     }
     @GetMapping("/api/getLocation")
     public String getLocation(String address, Integer zeroForZip ) {
-
     	try {
             // Use Google GeoCoder to get coordinates
         	// might have to revisit URLEncoder function later on
@@ -283,12 +297,8 @@ public class HelloController {
     }     
     @GetMapping("/api/reverseLocation")
     public String reverseLocation(String address) {
+
     	try {
-            // Use Google GeoCoder to get coordinates
-        	// might have to revisit URLEncoder function later on
-        	// replace "Austin" with text box from front end
-        	address = "Austin";
-        	
         	// Get URL for API Request
             URL url = new URL(
                     "https://maps.googleapis.com/maps/api/geocode/json?address="
@@ -324,5 +334,42 @@ public class HelloController {
             e.printStackTrace();
     	}
     	return "Please narrow search";
-    }   
-}
+    }
+    
+    
+    /*
+     public static boolean activityExists(MongoDatabase db, ObjectId id) {
+	    FindIterable<Document> iterable = db.getCollection("activity").find(new Document("_id", id));
+	    return iterable.first() != null;
+	} 	
+     
+     */
+    
+    
+    @GetMapping("/api/checkAirExist")
+    public Integer countAirDB(String zipCode) {
+		MongoClientURI uri = new MongoClientURI(
+				"mongodb://nikhilarora:soft461datatest@cluster0-shard-00-00-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-01-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-02-kvrlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
+		MongoClient mongoClient = new MongoClient(uri);
+		@SuppressWarnings("deprecation")
+		DB database = mongoClient.getDB("environmentnow");
+		DBCollection collection = database.getCollection("air");
+		BasicDBObject query = new BasicDBObject("zipCode", zipCode);
+		query.toJson();
+		DBCursor test = collection.find(query);
+		int count=0;
+		while(test.hasNext()) {
+			count++;
+			test.next();
+		}
+		return count;
+    }
+    
+    
+    //STILL WORKIN ON
+    @GetMapping("api/updateAir")
+    public String updateAirDB() {
+		return "";
+    }
+}   
+// Storm, Earthquake, Wildfire, Flood, Drought, Extreme temperature, Landslide, Volcanic activity, Epidemic

@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: spring-and-react
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: KhalidIMRTL
+Implementation-Vendor-Id: no.kantega
+Build-Jdk: 1.8.0_201
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/spring-and-react
+Created-By: Maven Integration for Eclipse
+
