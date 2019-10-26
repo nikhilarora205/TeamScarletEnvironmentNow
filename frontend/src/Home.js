@@ -25,7 +25,8 @@ const topMarginStyle ={
 class Home extends Component{
 
 	state = {
-		    isLoading: true,
+			isLoading: true,
+			address: "",
 			air: [],
 			allergen: [],
 			water: [],
@@ -33,7 +34,15 @@ class Home extends Component{
 		  };
 
 	async componentDidMount() {
+
+			this.address = window.location.pathname;
+			this.address = this.address.replace("/compare/", "");
+			// URL converts spaces to %20
+			this.address = this.address.replace("%20", " ");
+
+			console.log(this.address);
 		
+			// const AQIResponse = await fetch('/api/AQIData/'+this.address);
 			const AQIResponse = await fetch('/api/AQIData');
 			const AQIBody = await AQIResponse.json();
 			this.setState({ air: AQIBody, isLoading: true });
@@ -44,11 +53,13 @@ class Home extends Component{
 			// this.setState({ allergen: body, isLoading: true });
 			// console.log(this.state.allergen);
 
+			// const waterResponse = await fetch('/api/waterData/'+this.address);
 			const waterResponse = await fetch('/api/waterData');
 		    const waterBody = await waterResponse.json();
 			this.setState({ water: waterBody, isLoading: true });
 			console.log(this.state.water["contaminants"]);
 
+			// const natResponse = await fetch('/api/naturalDisasters/'+this.address);
 			const natResponse = await fetch('/api/naturalDisasters');
 		    const natBody = await natResponse.json();
 			this.setState({ natural: natBody, isLoading: false });
@@ -153,11 +164,11 @@ class Home extends Component{
 	                        <MyBarChart3 data={data3}/>
 
 							<br></br>
-							<p>Total Disasters: {this.state.natural["Total Disasters"]}</p>
+							{/* <p>Total Disasters: {this.state.natural["Total Disasters"]}</p>
 							<p>Flood: {this.state.natural["Flood"]}</p>
 							<p>Severe Storm: {this.state.natural["Severe Storm"]}</p>
 							<p>Fire: {this.state.natural["Fire"]}</p>
-							<p>Hurricane: {this.state.natural["Hurricane"]}</p>
+							<p>Hurricane: {this.state.natural["Hurricane"]}</p> */}
 						</td>
 					</tr>
 				</tbody>

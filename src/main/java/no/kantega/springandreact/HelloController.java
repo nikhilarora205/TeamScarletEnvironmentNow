@@ -229,14 +229,68 @@ public class HelloController {
             e.printStackTrace();
 		}
     	return "Failed during execution";
-    }
-    @GetMapping("/api/getLocation")
+	}
+	
+	@GetMapping("/api/validAddress")
+	public String validAddress(){
+
+		try {
+            // Use Google GeoCoder to get coordinates
+        	// might have to revisit URLEncoder function later on
+        	// replace "Austin" with text box from front end
+			// address = "100 Orvieto Cove";
+			String address = "Austin";
+        	
+        	// Get URL for API Request
+            URL url = new URL(
+                    "https://maps.googleapis.com/maps/api/geocode/json?address="
+                            + URLEncoder.encode(address,java.nio.charset.StandardCharsets.UTF_8.toString()) + "&sensor=true&key=AIzaSyARRJsBkisGqJ5_1Vo2QB_Pk2mIMYQVZlw");
+            
+            // Connect to URL
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Accept", "application/json");
+            if (con.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP error code : " + con.getResponseCode());
+            }
+            // building JSON response
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            String inputLine;
+            StringBuffer content = new StringBuffer();
+            while ((inputLine = in.readLine()) != null) {
+                content.append(inputLine);
+            }
+            
+            // Disconnect
+            in.close();
+            con.disconnect();
+            
+            // Aquire Content
+            String result = content.toString();
+            JSONObject myResponse = new JSONObject(result.toString());
+ 
+            //zeroForZip = 1;
+            String zip = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(6).get("short_name").toString();
+            String latString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString();
+            String longString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString();
+            
+			if(zip.equals("")) return "True";
+			else return "False";
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "False";
+    }   
+	
+
     public String getLocation(String address, Integer zeroForZip ) {
     	try {
             // Use Google GeoCoder to get coordinates
         	// might have to revisit URLEncoder function later on
         	// replace "Austin" with text box from front end
-        	address = "100 Orvieto Cove";
+			address = "100 Orvieto Cove";
+			// address = "Austin";
         	
         	// Get URL for API Request
             URL url = new URL(
