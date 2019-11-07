@@ -67,17 +67,17 @@ public class HelloController {
     	// Get zipcode from address
 		// address = "100 Orvieto Cove";
 		System.out.println(address);
-    	String zipCode = getLocation(address, 0);
+    	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
     	
     	//check if zip exists in DB
-    	if(countAirDB(zipCode) == 0) {
-    		//Put in DB if not
-    		
-    	}
+//    	if(countAirDB(zipCode) == 0) {
+//    		//Put in DB if not
+//    		
+//    	}
     	// Check if search was specific enough
-    	if (zipCode == "Please narrow search") {
-    		return "Please narrow search";
-    	}
+//    	if (zipCode == "Please narrow search") {
+//    		return "Please narrow search";
+//    	}
     	
     	// get JSON
     	String url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=" + zipCode + "&submit=Go";
@@ -103,26 +103,26 @@ public class HelloController {
     	}
     	return json.toString();
     }   
-    @GetMapping("/api/allergenData")
-    public String getAllergenData(String address) throws IOException {
-    	
-    	// WORK ON THIS
-    	String url = "https://www.weatherbug.com/life/pollen/76062";
-    	Document doc = Jsoup.connect(url).get();
-    	Elements div = doc.select("div[class=widget__body widget--index__body]");
-    	return doc.toString();
-    }
+//    @GetMapping("/api/allergenData")
+//    public String getAllergenData(String address) throws IOException {
+//    	
+//    	// WORK ON THIS
+//    	String url = "https://www.weatherbug.com/life/pollen/76062";
+//    	Document doc = Jsoup.connect(url).get();
+//    	Elements div = doc.select("div[class=widget__body widget--index__body]");
+//    	return doc.toString();
+//    }
     @GetMapping("/api/waterData/{address}")
     public String getWaterData(@PathVariable String address){
 
     	// Get zipcode from address
     	// address = "100 Orvieto Cove";
-    	String zipCode = getLocation(address, 0);
+    	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
     	
     	// Check if search was specific enough
-    	if (zipCode == "Please narrow search") {
-    		return "Please narrow search";
-    	}
+//    	if (zipCode == "Please narrow search") {
+//    		return "Please narrow search";
+//    	}
 		JSONObject responseZip = new JSONObject();
 		JSONArray responseContaminants = new JSONArray();
 		int count = 0;
@@ -325,7 +325,7 @@ public class HelloController {
             // Use Google GeoCoder to get coordinates
         	// might have to revisit URLEncoder function later on
         	// replace "Austin" with text box from front end
-        	address = "100 Orvieto Cove";
+//        	address = "100 Orvieto Cove";
         	
         	// Get URL for API Request
             URL url = new URL(
@@ -359,6 +359,10 @@ public class HelloController {
             String zip = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(6).get("short_name").toString();
             String latString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString();
             String longString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString();
+            
+            System.out.println(zip);
+            System.out.println(latString);
+            System.out.println(longString);
             
             if( zeroForZip == 0 ) {
             	return zip;

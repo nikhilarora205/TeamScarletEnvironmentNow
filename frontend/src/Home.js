@@ -38,7 +38,7 @@ class Home extends Component{
 			this.address = window.location.pathname;
 			this.address = this.address.replace("/compare/", "");
 			// URL converts spaces to %20
-			this.address = this.address.replace("%20", " ");
+//			this.address = this.address.replace("%20", " ");
 
 			console.log(this.address);
 		
