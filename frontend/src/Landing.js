@@ -28,6 +28,8 @@ class Landing extends Component {
     
     
     }));
+        
+        
         console.log(this.state.apiResponse);
       //  console.log(this.address);
 
@@ -56,22 +58,31 @@ class Landing extends Component {
         // this.transitionTo('compare');
         // console.log(this.state.apiResponse);
     }
+    
+//    secondLocation = () => {
+//    	
+//    	return ()
+//    }
+    
 
   render() {
     return (
       <div>
-        <p>Location: </p>
-        <input id ="address"
-            type="text"
-            placeholder= '100 Orvieto Cove, Liberty Hill, TX, 78642'
-            width= '10000px'
-            fontSize = '12px'
-            textAlign = 'top'
-         />
-         <p>click this button to get statistics on this location: </p>
-         <button onClick={this.onClick}>GO</button>
-        <p>click this button to add location: </p>
-         <button>ADD LOCATION</button>
+		<head> <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" /> </head>
+        <p>Please enter an address below to see Air, Water, and Natural Disaster statistics for that area! </p>
+        <div class="ui focus input"><input id="address" type="text" placeholder="Enter An Address..." /></div>
+
+		<button onClick={this.onClick} class="ui animated button">
+		<div class="visible content">Get Statistics</div>
+		<div class="hidden content"><i aria-hidden="true" class="arrow right icon"></i></div>
+		</button>
+		
+		<br></br><br></br>
+		
+		<button  class="ui animated button">
+		<div class="visible content">Compare Second Location</div>
+		<div class="hidden content"><i aria-hidden="true" class="arrow right icon"></i></div>
+		</button>
     </div>
     )
   }

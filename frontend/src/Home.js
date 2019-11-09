@@ -38,7 +38,7 @@ class Home extends Component{
 			this.address = window.location.pathname;
 			this.address = this.address.replace("/compare/", "");
 			// URL converts spaces to %20
-//			this.address = this.address.replace("%20", " ");
+
 
 			console.log(this.address);
 		
@@ -64,6 +64,9 @@ class Home extends Component{
 		    const natBody = await natResponse.json();
 			this.setState({ natural: natBody, isLoading: false });
 			console.log(this.state.natural);
+			
+//			var regex = /%20/gi;
+//			this.address = this.address.replace(regex, " ");
 	}
 	
 	render() {
@@ -77,18 +80,13 @@ class Home extends Component{
 		return(
 			
 			<div>
+			<head> <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" /> </head>
 			<header style={headerStyle}>
 	          ENVIRONMENT NOW
 	      </header>
 	      <br></br><br></br>
-	      <p>Location: </p>
-	        <input
-	            type="text"
-	            value= '100 Orvieto Cove, Liberty Hill, TX, 78642'
-	            width= '10000px'
-	            fontSize = '12px'
-	            textAlign = 'top'
-	         />
+	      <h3>Location: {this.address.replace(/%20/gi," ")}</h3>
+	      
 	        	<table>
 				<tbody>
 					<tr>
