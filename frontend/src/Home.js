@@ -106,7 +106,7 @@ class Home extends Component{
 	                        data={data}
 	                        textAlign = 'top' 
 	                        />
-	                        <br></br>
+	                        <br></br><br></br><br></br>
 							<p>PM2.5: {this.state.air["PM2.5"]}</p>
 							<p>Ozone: {this.state.air["Ozone"]}</p>
 							<p>PM10: {this.state.air["PM10"]}</p>
@@ -140,7 +140,7 @@ class Home extends Component{
 	                        data={data2}
 	                        align = 'top' />
 
-							<br></br>
+							<br></br><br></br><br></br>
 							<p>{this.state.water["contaminants"][0]["contaminant"]}: {this.state.water["contaminants"][0]["level"]}</p>
 							<p>{this.state.water["contaminants"][1]["contaminant"]}: {this.state.water["contaminants"][1]["level"]}</p>
 							<p>{this.state.water["contaminants"][2]["contaminant"]}: {this.state.water["contaminants"][2]["level"]}</p>
@@ -161,7 +161,7 @@ class Home extends Component{
 	                        />
 	                        <MyBarChart3 data={data3}/>
 
-							<br></br>
+							<br></br><br></br><br></br>
 							<p>Storm: {this.state.natural["Storm"]}</p>
 							<p>Earthquake: {this.state.natural["Earthquake"]}</p>
 							<p>Wildfire: {this.state.natural["Wildfire"]}</p>
