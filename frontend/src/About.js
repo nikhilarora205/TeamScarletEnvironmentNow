@@ -5,10 +5,11 @@ import Sammy from './Sammy.jpg';
 import David from './David.jpeg';
 import Chris from './Chris.jpeg';
 import Gabe from './Gabe.jpeg';
+import './About.css';
 
 const imgStyle = {
-    height: '155px',
-    width: '150px'
+    height: '300px',
+    width: '290px'
 } 
 
 class About extends Component{
@@ -59,14 +60,13 @@ class About extends Component{
           //  return <About items={this.state.items}/>
 
           return (
-            <div>
+            <div className="About">
+              <head><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" /></head>
             <title>React App</title>
            <body>
-               <title class="header"> "About Page" </title>
+               <h1 class="text"> About</h1>
          
-               <h1 class="header"> About</h1>
-         
-               <h2 class="header"> Description: </h2>
+               <h2 class="text"> Description: </h2>
                    <p class="innerText"> Environment Now is our vision for a web application that will provide an accessible, detailed list of 
                    relevant factors for considering the environmental conditions of an area. There are many use cases and users for such an 
                    application. Environment Now might be used by people seeking to buy a new home who would like to understand the conditions 
@@ -84,100 +84,166 @@ class About extends Component{
                    specific areas.  
                      </p>
                    <br></br>
-               <h2 class="header"> Group Name: </h2>
-                   <h3 class="innerText"> Scarlet</h3>
+                   <a class="text" href="https://github.com/nikhilarora205/TeamScarletEnvironmentNow">Link to GitHub Repo</a>
+                    <br></br>
+                  <h2 class="teamColor"> Team Scarlet</h2>
+               
                    <br></br>
-               <h2 class="header"> Group Members </h2>
-                   <br></br>
-                   <h3 class="names">  Khalid Ahmad:</h3>
-                   <img src={Khalid} style={imgStyle} alt= 'Khalid'/>
-         
-                       <p>Bio: Senior at the University of Texas with a Software Design Tech core</p>
-                       <p>Major: ECE</p>
-                       <p>Responsibilities: Front End Development.</p>
-                       <p># of Commits: See stats</p>
-                       <p># of Issues:  See stats</p>
-                       <p># of Unit Tests: See stats</p> 
-                   <br></br>
-                   <h3 class = "names">  Nikhil Arora:</h3>
-                   <img src={Nikhil} style={imgStyle} alt = 'Nikhil'/>
-         
-                       <p>Bio: 3rd Year ECE @ UT, Software Engineering Track </p>
-                       <p>Major: ECE</p>
-                       <p>Responsibilities: About Page/API Call for Git, Establishing React/Spring Code Base</p>
-                       <p># of Commits: See stats</p>
-                       <p># of Issues:  See stats</p>
-                       <p># of Unit Tests: See stats</p> 
-                   <br></br>
-                   <h3 class="names">  Chris Classie:</h3>
-                   <img src={Chris} style={imgStyle} alt = 'Chris'/>
-         
-                       <p>Bio: </p>
-                       <p>Major: ECE</p>
-                       <p>Responsibilities: Created Initial URL, Set Up GCP</p>
-                       <p># of Commits: See stats</p>
-                       <p># of Issues:  See stats</p>
-                       <p># of Unit Tests: See stats</p> 
-                   <br></br>
-                   <h3 class="names">  Gabriel Darnell:</h3>
-                   <img src={Gabe} style={imgStyle} alt = 'Gabe'/>
-         
-                       <p>Bio: Integrated Masters student with a focus in software engineering</p>
-                       <p>Major: ECE</p>
-                       <p>Responsibilities: About Page/API Call for Git, Proposal Editing/Approval</p>
-                       <p># of Commits: See stats</p>
-                       <p># of Issues:  See stats</p>
-                       <p># of Unit Tests: See stats</p> 
-                   <br></br>
-                   <h3 class="names">  David Fernandez:</h3>
-                   <img src={David.JPG} style={imgStyle} alt = 'David'/>
-         
-                       <p>Bio: I’m a senior electrical and computer engineering student, with a software engineering track at the University of Texas at Austin </p>
-                       <p>Major: ECE</p>
-                       <p>Responsibilities: GCP App Engine Integration, Establish React/Spring Code Base</p>
-                       <p># of Commits: See stats</p>
-                       <p># of Issues:  See stats</p>
-                       <p># of Unit Tests: See stats</p> 
-                   <br></br>
-                   <h3 class="names">  Sammy Samman:</h3>
-                   <img src={Sammy} style={imgStyle} alt = 'Sammy'/>
-         
-                       <p>Bio: Sammy is a EE student with a software engineering primary tech core. After graduation, he plans on working industry before pursuing a degree in law. </p>
-                       <p>Major: ECE</p>
-                       <p>Responsibilities: Phase 1 Report, UML Diagram Design, Proposal Editing/Communications for Approval</p>
-                       <p># of Commits: See stats</p>
-                       <p># of Issues:  See stats</p>
-                       <p># of Unit Tests: See stats</p> 
-                   <br></br>
+                   <table align="center"> 
+                   <tr>
+                     <td valign="top">
+                   <div class="ui card">
+                      <div class="image"><img src={Khalid} style={imgStyle} alt="Khalid"/></div>
+                      <div class="content">
+                        <div class="header">Khalid Ahmad</div>
+                        <div class="meta"><span class="date">ECE Major</span></div>
+                        <div class="description">Bio: Senior at the University of Texas with a Software Design Tech core<br />
+                        Responsibilities: Front End Development<br />
+                        # of Commits: {items[3].total}<br />
+                        # of Issues:  0<br />
+                        # of Unit Tests: 0
+                        </div>
+                      </div>
+                      <div class="extra content">
+                        <a>
+                          <i aria-hidden="true" class="user icon"></i>
+                          22 Friends
+                        </a>
+                      </div>
+                    </div>
+                    </td>
+
+                    <td valign="top">
+                   <div class="ui card">
+                      <div class="image"><img src={Nikhil} style={imgStyle} alt="Nikhil"/></div>
+                      <div class="content">
+                        <div class="header">Nikhil Arora</div>
+                        <div class="meta"><span class="date">ECE Major</span></div>
+                        <div class="description">Bio: 3rd Year ECE @ UT, Software Engineering Track<br />
+                        Responsibilities: About Page/API Call for Git, Establishing React/Spring Code Base<br />
+                        # of Commits: {items[1].total}<br />
+                        # of Issues:  0<br />
+                        # of Unit Tests: 0
+                        </div>
+                      </div>
+                      <div class="extra content">
+                        <a>
+                          <i aria-hidden="true" class="user icon"></i>
+                          22 Friends
+                        </a>
+                      </div>
+                    </div>
+                    </td>
+                    <td valign="top">
+                    <div class="ui card">
+                      <div class="image"><img src={Gabe} style={imgStyle} alt="Gabriel"/></div>
+                      <div class="content">
+                        <div class="header">Gabriel Darnell</div>
+                        <div class="meta"><span class="date">ECE Major</span></div>
+                        <div class="description">Bio: Integrated Masters student with a focus in software engineering<br />
+                        Responsibilities: Full Stack Development, Front to Back and Back to Front end Integration<br />
+                        # of Commits: {items[2].total}<br />
+                        # of Issues:  0<br />
+                        # of Unit Tests: 0
+                        </div>
+                      </div>
+                      <div class="extra content">
+                        <a>
+                          <i aria-hidden="true" class="user icon"></i>
+                          22 Friends
+                        </a>
+                      </div>
+                    </div>
+                    </td>
+
+                    <td valign="top">
                    
-               <h2 class="header"> Stats: </h2>
-               {items.map((messageObj) => {
-                 return(
-                     <div> 
-                         <p>Author: {messageObj.author.login}</p>
-                         <p> Total Commits: {messageObj.total}</p> 
-                         <p> Total Unit Tests: 0</p>
-                         <p> Total Issues: 0</p>
-                         <br></br>
-                     </div>
-                 );
-                 })}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top">
+                    <div class="ui card">
+                      <div class="image"><img src={Chris} style={imgStyle} alt="Chris"/></div>
+                      <div class="content">
+                        <div class="header">Chris Classie</div>
+                        <div class="meta"><span class="date">ECE Major</span></div>
+                        <div class="description">Bio: 3rd Year ECE @ UT, Software Engineering Track<br />
+                        Responsibilities: About Page/API Call for Git, Establishing React/Spring Code Base<br />
+                        # of Commits: 0<br />
+                        # of Issues:  0<br />
+                        # of Unit Tests: See stats
+                        </div>
+                      </div>
+                      <div class="extra content">
+                        <a>
+                          <i aria-hidden="true" class="user icon"></i>
+                          22 Friends
+                        </a>
+                      </div>
+                    </div>
+                    </td>
+
+                    <td valign="top">
+                   <div class="ui card">
+                      <div class="image"><img src={David} style={imgStyle} alt="David"/></div>
+                      <div class="content">
+                        <div class="header">David Fernandez</div>
+                        <div class="meta"><span class="date">ECE Major</span></div>
+                        <div class="description">Bio: I’m a senior electrical and computer engineering student, with a software engineering track at the University of Texas at Austin<br />
+                        Responsibilities: GCP App Engine Integration, Establish React/Spring Code Base<br />
+                        # of Commits: 0<br />
+                        # of Issues:  0<br />
+                        # of Unit Tests: See stats
+                        </div>
+                      </div>
+                      <div class="extra content">
+                        <a>
+                          <i aria-hidden="true" class="user icon"></i>
+                          22 Friends
+                        </a>
+                      </div>
+                    </div>
+                    </td>
+
+                    <td valign="top">
+                   <div class="ui card">
+                      <div class="image"><img src={Sammy} style={imgStyle} alt="Sammy" /></div>
+                      <div class="content">
+                        <div class="header">Sammy Samman</div>
+                        <div class="meta"><span class="date">ECE Major</span></div>
+                        <div class="description">Bio: Sammy is a EE student with a software engineering primary tech core. After graduation, he plans on working industry before pursuing a degree in law. <br />
+                        Responsibilities: Phase 1 Report, UML Diagram Design, Proposal Editing/Communications for Approval<br />
+                        # of Commits: {items[0].total}<br />
+                        # of Issues:  0<br />
+                        # of Unit Tests: 0
+                        </div>
+                      </div>
+                      <div class="extra content">
+                        <a>
+                          <i aria-hidden="true" class="user icon"></i>
+                          22 Friends
+                        </a>
+                      </div>
+                    </div>
+                    </td>
+
+                    </tr>
+                    </table>
+
                
                   <br></br>
-               <h2 class="header"> Data: </h2>
-                   <a href="https://www.epa.gov/air-trends/air-quality-cities-and-counties">Link to Air Quality Data</a>
+               <h2 class="text"> Data: </h2>
+                   <a class="text" href="https://www.epa.gov/air-trends/air-quality-cities-and-counties">Link to Air Quality Data</a>
                    <br></br>
-                   <a href="https://www.ewg.org/tapwater/">Link to Tap Water Data</a>
+                   <a class="text" href="https://www.ewg.org/tapwater/">Link to Tap Water Data</a>
                    <br></br>
-                   <a href="https://www.adt.com/natural-disasters">Link to Natural Disaster Data</a>
+                   <a class="text" href="https://www.adt.com/natural-disasters">Link to Natural Disaster Data</a>
                    <br></br>
-               <h2 class="header"> Tools: </h2>
-                 <p> We used the React framework for our front end development and Spring for our back end. We also utilized React's tutorials along with Github and our Data Sources API's to dynamically populate information.</p>
+               <h2 class="text"> Tools: </h2>
+                 <p class="text"> We used the React framework for our front end development and Spring for our back end. We also utilized React's tutorials along with Github and our Data Sources API's to dynamically populate information.</p>
                    <br></br>
          
-               <a href="https://github.com/nikhilarora205/TeamScarletEnvironmentNow">Link to GitHub Repo</a>
-               <br></br>
-               <p id="output"></p>
+               
                </body>
             </div>
           );

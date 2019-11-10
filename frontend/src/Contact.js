@@ -1,8 +1,15 @@
 import React from 'react';
- 
-const Contact = () => {
-    return (
-       <div>
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Component } from 'react';
+
+class Contact extends Component{
+
+   render(){
+
+      return (
+
+         <div>
           <h1>Contact US</h1>
           <h5>
                     <table textAlignment = 'center'>
@@ -47,7 +54,10 @@ const Contact = () => {
          </h5>
           <p>Thanks!</p>
        </div>
-    );
-}
+
+      )
+
+      }
+   }
  
 export default Contact;

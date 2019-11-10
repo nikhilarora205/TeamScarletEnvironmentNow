@@ -1,0 +1,14 @@
+.text {
+    text-align: center;
+    display:block;
+  }
+
+.teamColor {
+    text-align: center;
+    color:#ff2400;
+  }
+
+  .About{
+      background-color: blue;
+  }
+
