@@ -87,10 +87,10 @@ class Home extends Component{
 	      <br></br><br></br>
 	      <h3>Location: {this.address.replace(/%20/gi," ")}</h3>
 	      
-	        	<table>
+	        	<table align="center">
 				<tbody>
 					<tr>
-						<td> 
+						<td valign="top"> 
 	                        AIR
 	                        <br></br><br></br>
 	                        <header>AQI Index: </header>                        
@@ -111,22 +111,27 @@ class Home extends Component{
 							<p>Ozone: {this.state.air["Ozone"]}</p>
 							<p>PM10: {this.state.air["PM10"]}</p>
 							<br></br><br></br><br></br>
-	                        <header>Allergen Index: </header>
-	                        <Bar
-	                        labels={[0,10,20,30,40,50,60,70,80,90,100]}
-	                        labelColor="steelblue"
-	                        progress={20}
-	                        barColor='green'
-	                        seperatorColor="hotpink"
-	                        style={topMarginStyle}
-	                        />
-	                        <MyBarChart4 data={data4} style={topMarginStyle}/>
+						</td>
+						<td valign="top">
+							ALLERGENS
+							<br></br><br></br>
+							<header>Allergen Index: </header>
+							<Bar
+							labels={[0,10,20,30,40,50,60,70,80,90,100]}
+							labelColor="steelblue"
+							progress={20}
+							barColor='green'
+							seperatorColor="hotpink"
+							style={topMarginStyle}
+							/>
+							<MyBarChart4 data={data4} style={topMarginStyle}/>
+						</td>
 	                        
 							
-						</td>
-						<td> 
+						
+						<td valign="top"> 
 	                        WATER
-	                        <br></br>
+							<br></br><br></br>
 	                        <header>Water Danger Levels: </header>
 	                        <Bar
 	                        labels={[0,10,20,30,40,50,60,70,80,90,100]}
@@ -147,9 +152,9 @@ class Home extends Component{
 							<p>{this.state.water["contaminants"][3]["contaminant"]}: {this.state.water["contaminants"][3]["level"]}</p>
 							
 						</td>
-						<td>
+						<td valign="top">
 	                        LAND
-	                        <br></br>
+							<br></br><br></br>
 	                        <header>Land Activity: </header>
 	                        <Bar
 	                        labels={[0,10,20,30,40,50,60,70,80,90,100]}

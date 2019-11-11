@@ -112,186 +112,277 @@ class Compare2 extends Component{
 	    }
 		
 		return(
-				<div>
+			<div>
 				<head> <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" /> </head>
 				<header style={headerStyle}>
 		          ENVIRONMENT NOW
-		      </header>
-		      <br></br><br></br>
-		      <h3>Location 1: {this.address.replace(/%20/gi," ")}</h3>
-		        
-		        	<table>
-					<tbody>
-						<tr>
-							<td> 
-		                        AIR
-		                        <br></br><br></br>
-		                        <header>AQI Index: </header>                        
-		                        <Bar
-		                        labels={[0,50,100,150,200,250,300,350,400,450,]}
-		                        labelColor="steelblue"
-		                        progress={80}
-		                        barColor="#fff34b"
-		                        seperatorColor="hotpink"
-		                        style={topMarginStyle}
-		                        />
-		                        <MyBarChart 
-		                        data={data}
-		                        textAlign = 'top' 
-		                        />"
-		                        <br></br><br></br><br></br>
-									<p>PM2.5: {this.state.air["PM2.5"]}</p>
-									<p>Ozone: {this.state.air["Ozone"]}</p>
-									<p>PM10: {this.state.air["PM10"]}</p>
-								<br></br><br></br><br></br>
-		                        <br></br><br></br><br></br><br></br>
-		                        <header>Allergen Index: </header>
-		                        <Bar
-		                        labels={[0,10,20,30,40,50,60,70,80,90,100]}
-		                        labelColor="steelblue"
-		                        progress={20}
-		                        barColor='green'
-		                        seperatorColor="hotpink"
-		                        style={topMarginStyle}
-		                        />
-		                        <MyBarChart4 data={data4} style={topMarginStyle}/>
-		                        
-							</td>
-							<td> 
-		                        WATER
-		                        <br></br>
-		                        <header>Water Danger Levels: </header>
-		                        <Bar
-		                        labels={[0,10,20,30,40,50,60,70,80,90,100]}
-		                        labelColor="steelblue"
-		                        progress={70}
-		                        barColor="#fff34b"
-		                        seperatorColor="hotpink"
-		                        style={topMarginStyle}
-		                        />
-		                        <MyBarChart2 
-		                        data={data2}
-		                        align = 'top' />"
-		                        	<br></br><br></br><br></br>
-		    						<p>{this.state.water["contaminants"][0]["contaminant"]}: {this.state.water["contaminants"][0]["level"]}</p>
-		    						<p>{this.state.water["contaminants"][1]["contaminant"]}: {this.state.water["contaminants"][1]["level"]}</p>
-		    						<p>{this.state.water["contaminants"][2]["contaminant"]}: {this.state.water["contaminants"][2]["level"]}</p>
-		    						<p>{this.state.water["contaminants"][3]["contaminant"]}: {this.state.water["contaminants"][3]["level"]}</p>
-							</td>
-							<td>
-		                        LAND
-		                        <br></br>
-		                        <header>Land Activity: </header>
-		                        <Bar
-		                        labels={[0,10,20,30,40,50,60,70,80,90,100]}
-		                        labelColor="steelblue"
-		                        progress={10}
-		                        barColor='green'
-		                        seperatorColor="hotpink"
-		                        style={topMarginStyle}
-		                        />
-		                        <MyBarChart3 data={data3}/>"
-			                        <br></br><br></br><br></br>
-									<p>Storm: {this.state.natural["Storm"]}</p>
-									<p>Earthquake: {this.state.natural["Earthquake"]}</p>
-									<p>Wildfire: {this.state.natural["Wildfire"]}</p>
-									<p>Flood: {this.state.natural["Flood"]}</p>
-									<p>Drought: {this.state.natural["Drought"]}</p>
-									<p>Extreme Temperature: {this.state.natural["Extreme Temperature"]}</p>
-									<p>Land Slide: {this.state.natural["Land Slide"]}</p>
-									<p>Volcanic Activity: {this.state.natural["Volcanic Activity"]}</p>
-									<p>Epidemic: {this.state.natural["Epidemic"]}</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>  
+		      	</header>
+		      	<br></br><br></br>
+
+				  <div class="ui inverted segment">
+					<div class="ui very relaxed two column grid">
+						<div class="column">
+							<h3>Location 1: {this.address.replace(/%20/gi," ")}</h3>
+						</div>
+						<div class="column">
+							<h3>Location 2: {this.address2.replace(/%20/gi," ")}</h3>
+						</div>
+					</div>
+					<div class="ui inverted vertical divider">VERSUS</div>
+				</div>
+
+				<div class="ui inverted segment">
+					<div class="ui very relaxed two column grid">
+						<div class="column">							        
+							<table align="center">
+								<tbody>
+									<tr>
+										<td valign="top">
+											<br></br><br></br>
+											<header>AQI Index: </header>                        
+											<Bar
+											labels={[0,50,100,150,200,250,300,350,400,450,]}
+											labelColor="steelblue"
+											progress={80}
+											barColor="#fff34b"
+											seperatorColor="hotpink"
+											style={topMarginStyle}
+											/>
+											<MyBarChart 
+											data={data}
+											textAlign = 'top' 
+											/>
+											<br></br><br></br><br></br>
+											<p>PM2.5: {this.state.air["PM2.5"]}</p>
+											<p>Ozone: {this.state.air["Ozone"]}</p>
+											<p>PM10: {this.state.air["PM10"]}</p>
+											<br></br><br></br><br></br>
+										</td>
+									</tr>
+									
+									
+									
+								</tbody>
+							</table>
+						</div>
+						<div class="column">							
+							<table align="center">
+							<tbody>
+								<tr>
+									<td valign="top">
+										<br></br><br></br>
+										<header>AQI Index: </header>                        
+										<Bar
+										labels={[0,50,100,150,200,250,300,350,400,450,]}
+										labelColor="steelblue"
+										progress={80}
+										barColor="#fff34b"
+										seperatorColor="hotpink"
+										style={topMarginStyle}
+										/>
+										<MyBarChart 
+										data={data}
+										textAlign = 'top' 
+										/>
+										<br></br><br></br><br></br>
+										<p>PM2.5: {this.state.air2["PM2.5"]}</p>
+										<p>Ozone: {this.state.air2["Ozone"]}</p>
+										<p>PM10: {this.state.air2["PM10"]}</p>
+										<br></br><br></br><br></br>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						</div>
+					</div>
+				<div class="ui inverted vertical divider">AIR QUALITY</div>
+				</div>
+
+				<div class="ui inverted segment">
+					<div class="ui very relaxed two column grid">
+						<div class="column">
+							<table align="center">
+								<tr>
+										<td valign="top">
+											<br></br><br></br>
+											<header>Allergen Index: </header>
+											<Bar
+											labels={[0,10,20,30,40,50,60,70,80,90,100]}
+											labelColor="steelblue"
+											progress={20}
+											barColor='green'
+											seperatorColor="hotpink"
+											style={topMarginStyle}
+											/>
+											<MyBarChart4 data={data4} style={topMarginStyle}/>
+
+											<br></br><br></br><br></br>
+										</td>
+								</tr>
+							</table>
+						</div>
+						<div class="column">
+							<table align="center">	
+								<tr>
+									<td valign="top">
+										<br></br><br></br>
+										<header>Allergen Index: </header>
+										<Bar
+										labels={[0,10,20,30,40,50,60,70,80,90,100]}
+										labelColor="steelblue"
+										progress={20}
+										barColor='green'
+										seperatorColor="hotpink"
+										style={topMarginStyle}
+										/>
+										<MyBarChart4 data={data4} style={topMarginStyle}/>
+
+										<br></br><br></br><br></br>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="ui inverted vertical divider">ALLERGENS</div>
+				</div>
+
+				<div class="ui inverted segment">
+					<div class="ui very relaxed two column grid">
+						<div class="column">
+							<table align="center">
+									<tr>
+										<td valign="top"> 
+											<br></br><br></br>
+											<br></br><br></br>
+											<header>Water Danger Levels: </header>
+											<Bar
+											labels={[0,10,20,30,40,50,60,70,80,90,100]}
+											labelColor="steelblue"
+											progress={70}
+											barColor="#fff34b"
+											seperatorColor="hotpink"
+											style={topMarginStyle}
+											/>
+											<MyBarChart2 
+											data={data2}
+											align = 'top' />
+
+											<br></br><br></br><br></br>
+											<p>{this.state.water["contaminants"][0]["contaminant"]}: {this.state.water["contaminants"][0]["level"]}</p>
+											<p>{this.state.water["contaminants"][1]["contaminant"]}: {this.state.water["contaminants"][1]["level"]}</p>
+											<p>{this.state.water["contaminants"][2]["contaminant"]}: {this.state.water["contaminants"][2]["level"]}</p>
+											<p>{this.state.water["contaminants"][3]["contaminant"]}: {this.state.water["contaminants"][3]["level"]}</p>
+											
+										</td>
+									</tr>
+							</table>
+						</div>
+						<div class="column">
+							<table align="center">	
+								<tr>
+									<td valign="top"> 
+										<br></br><br></br>
+										<br></br><br></br>
+										<header>Water Danger Levels: </header>
+										<Bar
+										labels={[0,10,20,30,40,50,60,70,80,90,100]}
+										labelColor="steelblue"
+										progress={70}
+										barColor="#fff34b"
+										seperatorColor="hotpink"
+										style={topMarginStyle}
+										/>
+										<MyBarChart2 
+										data={data2}
+										align = 'top' />
+
+										<br></br><br></br><br></br>
+										<p>{this.state.water2["contaminants"][0]["contaminant"]}: {this.state.water2["contaminants"][0]["level"]}</p>
+										<p>{this.state.water2["contaminants"][1]["contaminant"]}: {this.state.water2["contaminants"][1]["level"]}</p>
+										<p>{this.state.water2["contaminants"][2]["contaminant"]}: {this.state.water2["contaminants"][2]["level"]}</p>
+										<p>{this.state.water2["contaminants"][3]["contaminant"]}: {this.state.water2["contaminants"][3]["level"]}</p>
+										
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<div class="ui inverted vertical divider">WATER QUALITY</div>
+				</div>
+
+				<div class="ui inverted segment">
+					<div class="ui very relaxed two column grid">
+						<div class="column">
+							<table align="center">
+											<tr>
+												<td valign="top">
+													<br></br><br></br>
+													<br></br><br></br>
+													<header>Land Activity: </header>
+													<Bar
+													labels={[0,10,20,30,40,50,60,70,80,90,100]}
+													labelColor="steelblue"
+													progress={10}
+													barColor='green'
+													seperatorColor="hotpink"
+													style={topMarginStyle}
+													/>
+													<MyBarChart3 data={data3}/>
+
+													<br></br><br></br><br></br>
+													<p>Storm: {this.state.natural["Storm"]}</p>
+													<p>Earthquake: {this.state.natural["Earthquake"]}</p>
+													<p>Wildfire: {this.state.natural["Wildfire"]}</p>
+													<p>Flood: {this.state.natural["Flood"]}</p>
+													<p>Drought: {this.state.natural["Drought"]}</p>
+													<p>Extreme Temperature: {this.state.natural["Extreme Temperature"]}</p>
+													<p>Land Slide: {this.state.natural["Land Slide"]}</p>
+													<p>Volcanic Activity: {this.state.natural["Volcanic Activity"]}</p>
+													<p>Epidemic: {this.state.natural["Epidemic"]}</p>
+
+												</td>
+											</tr>
+							</table>
+						</div>
+						<div class="column">
+							<table align="center">	
+								<tr>
+											<td valign="top">
+												<br></br><br></br>
+												<br></br><br></br>
+												<header>Land Activity: </header>
+												<Bar
+												labels={[0,10,20,30,40,50,60,70,80,90,100]}
+												labelColor="steelblue"
+												progress={10}
+												barColor='green'
+												seperatorColor="hotpink"
+												style={topMarginStyle}
+												/>
+												<MyBarChart3 data={data3}/>
+
+												<br></br><br></br><br></br>
+												<p>Storm: {this.state.natural2["Storm"]}</p>
+												<p>Earthquake: {this.state.natural2["Earthquake"]}</p>
+												<p>Wildfire: {this.state.natural2["Wildfire"]}</p>
+												<p>Flood: {this.state.natural2["Flood"]}</p>
+												<p>Drought: {this.state.natural2["Drought"]}</p>
+												<p>Extreme Temperature: {this.state.natural2["Extreme Temperature"]}</p>
+												<p>Land Slide: {this.state.natural2["Land Slide"]}</p>
+												<p>Volcanic Activity: {this.state.natural2["Volcanic Activity"]}</p>
+												<p>Epidemic: {this.state.natural2["Epidemic"]}</p>
+
+											</td>
+									</tr>
+							</table>
+						</div>
+					</div>
+					<div class="ui inverted vertical divider">NATURAL DISASTERS</div>
+				</div>
+
+		      
 				<br></br><br></br><br></br><br></br>
-				<h3>Location 2: {this.address2.replace(/%20/gi," ")}</h3>
-		        <table>
-					<tbody>
-						<tr>
-							<td> 
-		                        AIR
-		                        <br></br><br></br>
-		                        <header>AQI Index: </header>                        
-		                        <Bar
-		                        labels={[0,50,100,150,200,250,300,350,400,450,]}
-		                        labelColor="steelblue"
-		                        progress={80}
-		                        barColor="#fff34b"
-		                        seperatorColor="hotpink"
-		                        style={topMarginStyle}
-		                        />
-		                        <MyBarChart 
-		                        data={data}
-		                        textAlign = 'top' 
-		                        />"
-		                        <br></br><br></br><br></br>
-								<p>PM2.5: {this.state.air2["PM2.5"]}</p>
-								<p>Ozone: {this.state.air2["Ozone"]}</p>
-								<p>PM10: {this.state.air2["PM10"]}</p>
-								<br></br><br></br><br></br>
-		                        <br></br><br></br><br></br><br></br>
-		                        <header>Allergen Index: </header>
-		                        <Bar
-		                        labels={[0,10,20,30,40,50,60,70,80,90,100]}
-		                        labelColor="steelblue"
-		                        progress={20}
-		                        barColor='green'
-		                        seperatorColor="hotpink"
-		                        style={topMarginStyle}
-		                        />
-		                        <MyBarChart4 data={data4} style={topMarginStyle}/>
-		                        
-							</td>
-							<td> 
-		                        WATER
-		                        <br></br>
-		                        <header>Water Danger Levels: </header>
-		                        <Bar
-		                        labels={[0,10,20,30,40,50,60,70,80,90,100]}
-		                        labelColor="steelblue"
-		                        progress={70}
-		                        barColor="#fff34b"
-		                        seperatorColor="hotpink"
-		                        style={topMarginStyle}
-		                        />
-		                        <MyBarChart2 
-		                        data={data2}
-		                        align = 'top' />"
-		                        	<br></br><br></br><br></br>
-		    						<p>{this.state.water2["contaminants"][0]["contaminant"]}: {this.state.water["contaminants"][0]["level"]}</p>
-		    						<p>{this.state.water2["contaminants"][1]["contaminant"]}: {this.state.water["contaminants"][1]["level"]}</p>
-		    						<p>{this.state.water2["contaminants"][2]["contaminant"]}: {this.state.water["contaminants"][2]["level"]}</p>
-		    						<p>{this.state.water2["contaminants"][3]["contaminant"]}: {this.state.water["contaminants"][3]["level"]}</p>
-							</td>
-							<td>
-		                        LAND
-		                        <br></br>
-		                        <header>Land Activity: </header>
-		                        <Bar
-		                        labels={[0,10,20,30,40,50,60,70,80,90,100]}
-		                        labelColor="steelblue"
-		                        progress={10}
-		                        barColor='green'
-		                        seperatorColor="hotpink"
-		                        style={topMarginStyle}
-		                        />
-		                        <MyBarChart3 data={data3}/>"
-		                        	<br></br><br></br><br></br>
-		    						<p>Storm: {this.state.natural2["Storm"]}</p>
-		    						<p>Earthquake: {this.state.natural2["Earthquake"]}</p>
-		    						<p>Wildfire: {this.state.natural2["Wildfire"]}</p>
-		    						<p>Flood: {this.state.natural2["Flood"]}</p>
-		    						<p>Drought: {this.state.natural2["Drought"]}</p>
-		    						<p>Extreme Temperature: {this.state.natural2["Extreme Temperature"]}</p>
-		    						<p>Land Slide: {this.state.natural2["Land Slide"]}</p>
-		    						<p>Volcanic Activity: {this.state.natural2["Volcanic Activity"]}</p>
-		    						<p>Epidemic: {this.state.natural2["Epidemic"]}</p>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+				
 			</div>
 			);
 		}

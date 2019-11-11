@@ -39,6 +39,8 @@ class MyBarChart4 extends React.Component {
 							data={data.map(obj => {
 								return { ...obj, label: obj.y.toString() }
 							})}
+
+							
 							labelAnchorX="middle"
 							labelAnchorY="text-after-edge"
 						/>
