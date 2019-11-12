@@ -1,0 +1,30 @@
+#add2{
+    visibility: hidden;
+}
+
+#address{
+    width: 400px;
+}
+
+#address2{
+    visibility: hidden;
+    width: 400px;
+}
+
+#compareButton{
+    display: none;
+}
+
+#comparePrompt{
+    display: none;
+}
+
+#secPrompt{
+    display: none;
+}
+
+#loc1, #loc2, #backToOne{
+    visibility: hidden
+}
+
+

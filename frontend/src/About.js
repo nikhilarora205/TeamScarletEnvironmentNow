@@ -236,7 +236,12 @@ class About extends Component{
                 </table>
                   
                 <br></br>
-                <a class="text" href="https://github.com/nikhilarora205/TeamScarletEnvironmentNow">Link to GitHub Repo</a>
+                <div class="ui message">
+                  <div class="header">Github</div>
+                  <br></br>
+                  <a class="text" href="https://github.com/nikhilarora205/TeamScarletEnvironmentNow">Link to GitHub Repo</a>
+                </div>
+                
                   
                 <div class="ui message">
                   <div class="header">Data</div>

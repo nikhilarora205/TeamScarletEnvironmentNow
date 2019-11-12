@@ -11,7 +11,7 @@ class Navigation extends Component{
 
    render(){
       return(
-   <Navbar bg="light" expand="lg">
+   <Navbar bg="dark" fixed="top" variant="dark" expand="lg">
       <Navbar.Brand>Environment Now</Navbar.Brand>
   
       <Navbar.Collapse id="basic-navbar-nav">
