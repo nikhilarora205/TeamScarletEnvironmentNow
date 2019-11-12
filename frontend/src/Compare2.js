@@ -108,7 +108,12 @@ class Compare2 extends Component{
 		const {natural, isLoading} = this.state;
 
 	    if (isLoading) {
-	      return <p>Loading...</p>;
+			return (
+				<div>
+					<br></br><br></br><br></br><br></br>
+					<p>Loading...</p>
+				</div>
+			);
 	    }
 		
 		return(
