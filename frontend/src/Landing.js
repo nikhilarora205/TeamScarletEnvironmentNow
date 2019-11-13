@@ -120,7 +120,7 @@ class Landing extends Component {
             if(this.state.apiResponse === "False") window.alert("Please narrow your search")
             else{
                 // figure out transition to next page
-                this.props.history.push('/compare2/');
+                this.props.history.push('/compare2/'+this.address+"?"+this.address2);
             }
         }));
         

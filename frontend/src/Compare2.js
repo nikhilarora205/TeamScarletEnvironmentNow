@@ -40,18 +40,27 @@ class Compare2 extends Component{
 
 	async componentDidMount() {
 
-//			this.address = window.location.pathname;
-//			this.address = this.address.replace("/compare2/", "");
+			var path = window.location.href;
+			console.log(window.location.pathname);
+			console.log(path);
+			// ***** change depending on website you are deploying to *****
+			path = path.replace("http://localhost:3000/compare2/", "");
+			console.log(path);
+			const addresses = path.split("?");
+			console.log(addresses);
+			this.address = addresses[0];
+			this.address2 = addresses[1];
 			// URL converts spaces to %20
 //			this.address = this.address.replace("%20", " ");
 			
 			//
 			// have to separate both addresses
-			this.address = "100 Orvieto Cove, Liberty Hill, TX, 78642";
-			this.address2 = "15504 Cinca Terra Drive, Austin, TX, 78738";
+			// this.address = "100 Orvieto Cove, Liberty Hill, TX, 78642";
+			// this.address2 = "15504 Cinca Terra Drive, Austin, TX, 78738";
 			//
 
 			console.log(this.address);
+			console.log(this.address2);
 		
 			const AQIResponse = await fetch('/api/AQIData/'+this.address);
 			// const AQIResponse = await fetch('/api/AQIData');
@@ -118,7 +127,7 @@ class Compare2 extends Component{
 		
 		return(
 			<div>
-				<head> <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" /> </head>
+				<head><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" /></head>
 				<header style={headerStyle}>
 		          ENVIRONMENT NOW
 		      	</header>
@@ -207,6 +216,7 @@ class Compare2 extends Component{
 					<div class="ui very relaxed two column grid">
 						<div class="column">
 							<table align="center">
+							<tbody>
 								<tr>
 										<td valign="top">
 											<br></br><br></br>
@@ -224,10 +234,12 @@ class Compare2 extends Component{
 											<br></br><br></br><br></br>
 										</td>
 								</tr>
+							</tbody>
 							</table>
 						</div>
 						<div class="column">
-							<table align="center">	
+							<table align="center">
+							<tbody>
 								<tr>
 									<td valign="top">
 										<br></br><br></br>
@@ -245,6 +257,7 @@ class Compare2 extends Component{
 										<br></br><br></br><br></br>
 									</td>
 								</tr>
+							</tbody>	
 							</table>
 						</div>
 					</div>
@@ -255,6 +268,7 @@ class Compare2 extends Component{
 					<div class="ui very relaxed two column grid">
 						<div class="column">
 							<table align="center">
+								<tbody>
 									<tr>
 										<td valign="top"> 
 											<br></br><br></br>
@@ -280,10 +294,12 @@ class Compare2 extends Component{
 											
 										</td>
 									</tr>
+								</tbody>
 							</table>
 						</div>
 						<div class="column">
 							<table align="center">	
+							<tbody>
 								<tr>
 									<td valign="top"> 
 										<br></br><br></br>
@@ -309,6 +325,7 @@ class Compare2 extends Component{
 										
 									</td>
 								</tr>
+							</tbody>
 							</table>
 						</div>
 					</div>
@@ -319,6 +336,7 @@ class Compare2 extends Component{
 					<div class="ui very relaxed two column grid">
 						<div class="column">
 							<table align="center">
+								<tbody>
 											<tr>
 												<td valign="top">
 													<br></br><br></br>
@@ -347,12 +365,15 @@ class Compare2 extends Component{
 
 												</td>
 											</tr>
+								</tbody>
 							</table>
 						</div>
 						<div class="column">
 							<table align="center">	
-								<tr>
-											<td valign="top">
+								<tbody>
+									<tr>
+									
+										<td valign="top">
 												<br></br><br></br>
 												<br></br><br></br>
 												<header>Land Activity: </header>
@@ -377,8 +398,9 @@ class Compare2 extends Component{
 												<p>Volcanic Activity: {this.state.natural2["Volcanic Activity"]}</p>
 												<p>Epidemic: {this.state.natural2["Epidemic"]}</p>
 
-											</td>
+										</td>
 									</tr>
+								</tbody>
 							</table>
 						</div>
 					</div>
