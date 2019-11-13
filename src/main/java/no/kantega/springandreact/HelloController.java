@@ -48,24 +48,10 @@ import java.util.concurrent.TimeUnit;
 
 @RestController
 public class HelloController {
-    @GetMapping("/api/hello")
-    public String hello() {
-        return "Hello, the time at the server is now " + new Date() + "\n";
-       // String myUrl = "https://api.github.com/repos/nikhilarora205/TeamScarletEnvironmentNow/stats/commit_activity";
-        //String to place our result in
-      //  String result;
-       // HttpGetRequest getRequest = new HttpGetRequest();
-       // result = getRequest.execute(myUrl).get();
-       // JSONObject myResponse = new JSONObject(result.toString());
-       // String total = myResponse.getJSONObject("total").toString();
-       // return total;
-    }   
-   
-    
-    @GetMapping("/api/AQIData/{address}")
+
+	@GetMapping("/api/AQIData/{address}")
     public String getAQIData(@PathVariable String address) throws IOException {
-    	// Get zipcode from address
-		// address = "100 Orvieto Cove";
+
 		System.out.println(address);
     	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
     	
@@ -103,15 +89,8 @@ public class HelloController {
     	}
     	return json.toString();
     }   
-//    @GetMapping("/api/allergenData")
-//    public String getAllergenData(String address) throws IOException {
-//    	
-//    	// WORK ON THIS
-//    	String url = "https://www.weatherbug.com/life/pollen/76062";
-//    	Document doc = Jsoup.connect(url).get();
-//    	Elements div = doc.select("div[class=widget__body widget--index__body]");
-//    	return doc.toString();
-//    }
+
+
     @GetMapping("/api/waterData/{address}")
     public String getWaterData(@PathVariable String address){
 
@@ -155,9 +134,12 @@ public class HelloController {
 		}
 		return responseZip.toString();
 	}
+
+
     @GetMapping("/api/naturalDisasters/{address}")
     public String getNaturalDisasterData(@PathVariable String address) throws IOException{
-    	try {
+		//TODO:
+		try {
     		MongoClientURI uri = new MongoClientURI(
     				"mongodb://nikhilarora:soft461datatest@cluster0-shard-00-00-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-01-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-02-kvrlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
     		MongoClient mongoClient = new MongoClient(uri);

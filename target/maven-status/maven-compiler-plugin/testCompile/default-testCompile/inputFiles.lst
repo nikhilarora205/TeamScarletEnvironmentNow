@@ -1,2 +1,5 @@
-/Users/nikhilarora/Documents/Fall 2019/EE 461L/Branches/Phase3/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/HelloControllerTest.java
-/Users/nikhilarora/Documents/Fall 2019/EE 461L/Branches/Phase3/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/SpringAndReactApplicationTests.java
+/Users/davidfernandez/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/DisasterAPITest.java
+/Users/davidfernandez/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/WaterAPITest.java
+/Users/davidfernandez/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/SpringAndReactApplicationTests.java
+/Users/davidfernandez/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/HelloControllerTest.java
+/Users/davidfernandez/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/AQIAPITest.java
