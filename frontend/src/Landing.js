@@ -21,8 +21,9 @@ class Landing extends Component {
         this.setState.apiResponse = null;
         console.log(this.state.apiResponse);
         const response = fetch('/api/validAddress/'+this.address).then(res => res.text())
-        .then(res => this.setState({ apiResponse: res }, function() { 
-            if(this.state.apiResponse === "False") window.alert("Please narrow your search")
+        .then(res => this.setState({ apiResponse: res }, function() {
+            console.log(res)
+            if(this.state.apiResponse === "false") window.alert("Please narrow your search")
             else{
                 // figure out transition to next page
                 this.props.history.push('/compare/'+this.address);
