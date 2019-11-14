@@ -304,13 +304,41 @@ public class HelloController {
 			// Aquire Content
 			String result = content.toString();
 			JSONObject myResponse = new JSONObject(result.toString());
+			System.out.println(myResponse);
 			try {
-				if (myResponse.getJSONArray("results").getJSONObject(0).get("partial_match").equals("true")) {
-					return "false";
+				if (myResponse.getJSONArray("results").getJSONObject(0).get("partial_match").toString().equals("true")) {
+					//System.out.println("incorrect address");
+					return "incorrect";
 				}
 			} catch (Exception e) {
-				return "true";
+				System.out.println("address not incorrect");
 			}
+
+			try{
+				System.out.println("various types");
+				System.out.println("-> " + myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(0).getJSONArray("types"));
+
+
+
+				/*if(myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(0).get("types").toString().equals(response1)){
+					return "true";
+				}else{
+					return "narrow";
+				}*/
+
+				if(myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").toString().contains("[\"postal_code\"]")){
+					return "true";
+				}else{
+					return "narrow";
+				}
+
+
+			}
+			catch(Exception e){
+				System.out.println("here");
+				return "narrow";
+			}
+
             /*
             //zeroForZip = 1;
 			String zip = myResponse.get("status").toString();
@@ -325,7 +353,7 @@ public class HelloController {
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "false";
+		return "true";
 
 	}   
 	
@@ -365,7 +393,9 @@ public class HelloController {
             JSONObject myResponse = new JSONObject(result.toString());
  		//	System.out.println(myResponse.toString());
             //zeroForZip = 1;
+
             String zip = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(6).get("short_name").toString();
+            System.out.println("Zip code returns this: " + zip);
             String latString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString();
             String longString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString();
             

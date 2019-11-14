@@ -23,10 +23,13 @@ class Landing extends Component {
         const response = fetch('/api/validAddress/'+this.address).then(res => res.text())
         .then(res => this.setState({ apiResponse: res }, function() {
             console.log(res)
-            if(this.state.apiResponse === "false") window.alert("Please narrow your search")
-            else{
+            if(this.state.apiResponse === "incorrect") window.alert("The address entered is incorrect. Please try again.")
+            else if(this.state.apiResponse == "narrow"){
+                window.alert("Please narrow your search. Perhaps you left out a zipcode?")
                 // figure out transition to next page
-                this.props.history.push('/compare/'+this.address);
+
+            }else{
+            this.props.history.push('/compare/'+this.address);
             }
     
     
