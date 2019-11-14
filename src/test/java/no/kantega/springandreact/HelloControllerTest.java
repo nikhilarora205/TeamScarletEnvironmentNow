@@ -10,50 +10,34 @@ import org.junit.Test;
 
 public class HelloControllerTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterClass
-	public static void tearDownAfterClass() throws Exception {
-	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
+	@Test
+	public void testAllApiResponses(){
+		/**
+		 * give valid address expect valid responses from all api's
+		 */
 	}
 
 	@Test
-	public void test() {
-		//fail("Not yet implemented");
+	public void testAllApiResponsesInvalidAddress(){
+		/**
+		 * give invalid address expect error responses from all api's
+		 */
 	}
-	
-	//Write JUnit Test Cases to find native issues with data integration, data storage, api calls, and data updating
-	//Test for missing data and how it is handled
-	@Test
-	public void testForInvalidAPIResponse() {
-		
-	}
-	
-	//Test for incorrect data
-	@Test
-	public void testForIncorrectDataFromAPIResponse() {
-		
-	}
-	
-	//Test data storage
+
 	@Test
 	public void testForDataStorage() {
-		
+		/**
+		 * call api's with same address twice (make sure api's scrape originally)
+		 * then the second time make sure the api's are retrieving the data from the DB (current data)
+		 */
 	}
-	
-	//Test data updating
+
 	@Test
-	public void testForDataUpdating() {
-		
+	public void testForOldDataInDB(){
+		/**
+		 * Force add old entry to database and call API
+		 * Make sure the API responds with new scraped data instead of old DB data
+		 */
 	}
 
 }
