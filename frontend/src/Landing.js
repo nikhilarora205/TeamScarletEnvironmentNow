@@ -8,6 +8,7 @@ class Landing extends Component {
     constructor(props) {
         super(props);
         this.state = { apiResponse: "",
+                        apiResponse2: "",
                         address: "",
                         address2: ""  
         };
@@ -120,13 +121,33 @@ class Landing extends Component {
         this.setState.apiResponse = null;
         console.log(this.state.apiResponse);
         const response = fetch('/api/validAddress/'+this.address).then(res => res.text())
-        .then(res => this.setState({ apiResponse: res }, function() { 
-            if(this.state.apiResponse === "False") window.alert("Please narrow your search")
-            else{
+        .then(res => this.setState({ apiResponse: res }, function() {
+            console.log(res)
+            if(this.state.apiResponse === "incorrect") window.alert("The address entered is incorrect. Please try again.")
+            else if(this.state.apiResponse == "narrow"){
+                window.alert("Please narrow your search. Perhaps you left out a zipcode?")
                 // figure out transition to next page
-                this.props.history.push('/compare2/'+this.address+"?"+this.address2);
+
+            }else{
+                console.log(this.state.apiResponse);
+                const response2 = fetch('/api/validAddress/'+this.address2).then(res => res.text())
+                .then(res => this.setState({ apiResponse2: res }, function() {
+                    console.log(res)
+                    if(this.state.apiResponse2 === "incorrect") window.alert("The address entered is incorrect. Please try again.")
+                    else if(this.state.apiResponse2 == "narrow"){
+                        window.alert("Please narrow your search. Perhaps you left out a zipcode?")
+                        // figure out transition to next page
+        
+                    }else{
+                    this.props.history.push('/compare2/'+this.address+"?"+this.address2);
+                    }
+            
+            
+            }));
             }
-        }));
+    
+    
+    }));
         
         
         console.log(this.state.apiResponse);
