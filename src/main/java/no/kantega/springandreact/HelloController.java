@@ -117,7 +117,9 @@ public class HelloController {
 
     	// Get zipcode from address
     	// address = "100 Orvieto Cove";
-    	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
+
+			String zipCode = getLocation(address.replaceAll("%20", " "), 0);
+
     	
     	// Check if search was specific enough
 //    	if (zipCode == "Please narrow search") {
@@ -304,19 +306,19 @@ public class HelloController {
 			// Aquire Content
 			String result = content.toString();
 			JSONObject myResponse = new JSONObject(result.toString());
-			System.out.println(myResponse);
+		//	System.out.println(myResponse);
 			try {
 				if (myResponse.getJSONArray("results").getJSONObject(0).get("partial_match").toString().equals("true")) {
 					//System.out.println("incorrect address");
 					return "incorrect";
 				}
 			} catch (Exception e) {
-				System.out.println("address not incorrect");
+			//	System.out.println("address not incorrect");
 			}
 
 			try{
-				System.out.println("various types");
-				System.out.println("-> " + myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(0).getJSONArray("types"));
+		//		System.out.println("various types");
+		//		System.out.println("-> " + myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(0).getJSONArray("types"));
 
 
 
@@ -358,6 +360,10 @@ public class HelloController {
 	}   
 	
     public String getLocation(String address, Integer zeroForZip ) {
+    	//this means frontend passed in a simple zipcode
+    	if(!address.contains(" ") && zeroForZip==0){
+    		return address;
+		}
     	try {
             // Use Google GeoCoder to get coordinates
         	// might have to revisit URLEncoder function later on
@@ -368,6 +374,7 @@ public class HelloController {
             URL url = new URL(
                     "https://maps.googleapis.com/maps/api/geocode/json?address="
                             + URLEncoder.encode(address,java.nio.charset.StandardCharsets.UTF_8.toString()) + "&sensor=true&key=AIzaSyARRJsBkisGqJ5_1Vo2QB_Pk2mIMYQVZlw");
+            System.out.println("URL: " + url.toString());
             
             // Connect to URL
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -391,11 +398,19 @@ public class HelloController {
             // Aquire Content
             String result = content.toString();
             JSONObject myResponse = new JSONObject(result.toString());
- 		//	System.out.println(myResponse.toString());
-            //zeroForZip = 1;
 
-            String zip = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(6).get("short_name").toString();
-            System.out.println("Zip code returns this: " + zip);
+            //zeroForZip = 1;
+			//iterates through address components array and finds the one with postal code
+            JSONArray zipArray = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components");
+			String zip = null;
+            for(int i = 0; i < zipArray.length(); i++){
+            	String type = zipArray.get(i).toString();
+            	System.out.println("type: " + type);
+				if(type.contains("[\"postal_code\"]")){
+					zip= zipArray.getJSONObject(i).get("short_name").toString();
+				}
+			}
+            //will probably need to fix this later
             String latString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString();
             String longString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString();
             

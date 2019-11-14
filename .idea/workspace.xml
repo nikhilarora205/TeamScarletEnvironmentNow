@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="bf0119d5-0a7d-4639-afae-c936e652de1f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/Landing.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/Landing.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/no/kantega/springandreact/HelloController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/no/kantega/springandreact/HelloController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/service-worker.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,11 +18,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4362">
-              <caret line="328" column="146" selection-start-line="328" selection-start-column="146" selection-end-line="328" selection-end-column="146" />
+            <state relative-caret-position="643">
+              <caret line="426" column="32" lean-forward="true" selection-start-line="426" selection-start-column="32" selection-end-line="426" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#18330#18331#0" expanded="true" />
+                <element signature="e#18811#18812#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -42,6 +38,11 @@
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>getLocation</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -117,7 +118,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573700538532" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573702759058" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -204,11 +205,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4362">
-          <caret line="328" column="146" selection-start-line="328" selection-start-column="146" selection-end-line="328" selection-end-column="146" />
+        <state relative-caret-position="643">
+          <caret line="426" column="32" lean-forward="true" selection-start-line="426" selection-start-column="32" selection-end-line="426" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#18330#18331#0" expanded="true" />
+            <element signature="e#18811#18812#0" expanded="true" />
           </folding>
         </state>
       </provider>
