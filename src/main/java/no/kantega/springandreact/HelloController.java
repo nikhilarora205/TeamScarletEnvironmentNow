@@ -32,6 +32,8 @@ import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 
+import org.bson.*;
+
 import java.util.*;
 import java.io.*;
 import java.net.*;
@@ -40,7 +42,6 @@ import org.json.JSONObject;
 import org.json.JSONArray;
 
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
 import java.util.List;
@@ -64,45 +65,47 @@ public class HelloController {
     
     @GetMapping("/api/AQIData/{address}")
     public String getAQIData(@PathVariable String address) throws IOException {
-    	// Get zipcode from address
+		// Get zipcode from address
 		// address = "100 Orvieto Cove";
 		System.out.println(address);
-    	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
-    	
-    	//check if zip exists in DB
-//    	if(countAirDB(zipCode) == 0) {
-//    		//Put in DB if not
-//    		
-//    	}
-    	// Check if search was specific enough
-//    	if (zipCode == "Please narrow search") {
-//    		return "Please narrow search";
-//    	}
-    	
-    	// get JSON
-    	String url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=" + zipCode + "&submit=Go";
-    	Document doc = Jsoup.connect(url).get();
-    	Elements test = doc.select("table[class=TblInvisible]");
-    	Elements body = test.select("tbody");
-    	Elements td = body.select("td");
-    	JSONObject json = new JSONObject();
-    	//return td.get(2).text();
-    	Set<String> possibleValues = new HashSet<String>(Arrays.asList(new String [] {"Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous"}));
-    	for(int i = 0; i < td.size(); i++) {
-    		String currentWord = td.get(i).text();
-    		if(possibleValues.contains(currentWord) && i!=td.size()-1) {
-    			String currentDetail = td.get(i+1).text();
-    			if(currentDetail.equals("Ozone")) {
-    				json.put("Ozone", td.get(i+2).text());
-    			}else if(currentDetail.equals("Particles (PM2.5)")) {
-    				json.put("PM2.5", td.get(i+2).text());
-    			}else if(currentDetail.equals("Particles (PM10)")) {
-    				json.put("PM10", td.get(i+2).text());
-    			}
-    		}
-    	}
-    	return json.toString();
-    }   
+		String zipCode = getLocation(address.replaceAll("%20", " "), 0);
+
+
+		String document = SpringAndReactApplication.queryMongoDB("air", zipCode);
+		if (document != null && !document.isEmpty()) {
+			return document;
+		} else {
+			// get JSON
+			String url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=" + zipCode + "&submit=Go";
+			Document doc = Jsoup.connect(url).get();
+			Elements test = doc.select("table[class=TblInvisible]");
+			Elements body = test.select("tbody");
+			Elements td = body.select("td");
+			JSONObject json = new JSONObject();
+			//return td.get(2).text();
+			Set<String> possibleValues = new HashSet<String>(Arrays.asList(new String[]{"Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous"}));
+			HashMap<String, String> toStore = new HashMap<>();
+			for (int i = 0; i < td.size(); i++) {
+				String currentWord = td.get(i).text();
+				if (possibleValues.contains(currentWord) && i != td.size() - 1) {
+					String currentDetail = td.get(i + 1).text();
+					if (currentDetail.equals("Ozone")) {
+						json.put("Ozone", td.get(i + 2).text());
+						toStore.put("Ozone", td.get(i + 2).text());
+					} else if (currentDetail.equals("Particles (PM2.5)")) {
+						json.put("PM2.5", td.get(i + 2).text());
+						toStore.put("PM2.5", td.get(i + 2).text());
+					} else if (currentDetail.equals("Particles (PM10)")) {
+						json.put("PM10", td.get(i + 2).text());
+						toStore.put("PM10", td.get(i + 2).text());
+					}
+				}
+			}
+			SpringAndReactApplication.writeToMongoDB("air", zipCode, toStore);
+			return json.toString();
+		}
+
+	}
 //    @GetMapping("/api/allergenData")
 //    public String getAllergenData(String address) throws IOException {
 //    	
@@ -118,44 +121,57 @@ public class HelloController {
     	// Get zipcode from address
     	// address = "100 Orvieto Cove";
 
-			String zipCode = getLocation(address.replaceAll("%20", " "), 0);
+		String zipCode = getLocation(address.replaceAll("%20", " "), 0);
+		String checkDoc = SpringAndReactApplication.queryMongoDB("water", zipCode, true);
+		if (checkDoc != null && !checkDoc.isEmpty()) {
+			return checkDoc;
+		} else {
+			JSONObject responseZip = new JSONObject();
+			JSONArray responseContaminants = new JSONArray();
+			org.bson.Document toPut = new org.bson.Document();
+			toPut.put("zipcode", zipCode);
+			int count = 0;
+			final String url =
+					"https://www.ewg.org/tapwater/search-results.php?zip5=" + zipCode + "&searchtype=zip";
+			try {
 
-    	
-    	// Check if search was specific enough
-//    	if (zipCode == "Please narrow search") {
-//    		return "Please narrow search";
-//    	}
-		JSONObject responseZip = new JSONObject();
-		JSONArray responseContaminants = new JSONArray();
-		int count = 0;
-		final String url =
-				"https://www.ewg.org/tapwater/search-results.php?zip5=" + zipCode + "&searchtype=zip";
-		try {
-			final Document document = Jsoup.connect(url).get();
-			Elements linkToData = document.select(".primary-btn");
-			String dataUrl = linkToData.attr("href");
-			//testing to see if url is correct
-			// System.out.println(dataUrl);
-			final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/" + dataUrl).get();
-			//for each grid item (contaminant)
-			for (Element item : contaminantDoc.select(".contaminant-name")) {
-				JSONObject tempContamObject = new JSONObject();
-				String contam = item.select("h3").text();
-				String level = item.select(".detect-times-greater-than").text();
-				tempContamObject.put("contaminant", contam);
-				tempContamObject.put("level", level);
-				responseContaminants.put(tempContamObject);
-				// System.out.println(item.select("h3").text());
-				// System.out.println(item.select(".detect-times-greater-than").text());    //this number is the # of times over the EWG health guideline limit
+
+				final Document document = Jsoup.connect(url).get();
+				Elements linkToData = document.select(".primary-btn");
+				String dataUrl = linkToData.attr("href");
+				//testing to see if url is correct
+				// System.out.println(dataUrl);
+				final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/" + dataUrl).get();
+				//for each grid item (contaminant)
+				for (Element item : contaminantDoc.select(".contaminant-name")) {
+					JSONObject tempContamObject = new JSONObject();
+					String contam = item.select("h3").text();
+					String level = item.select(".detect-times-greater-than").text();
+					tempContamObject.put("contaminant", contam);
+					tempContamObject.put("level", level);
+					toPut.append("contaminant", contam);
+					toPut.append("level", level);
+					responseContaminants.put(tempContamObject);
+					// System.out.println(item.select("h3").text());
+					// System.out.println(item.select(".detect-times-greater-than").text());    //this number is the # of times over the EWG health guideline limit
+				}
+				responseZip.put("zipcode", zipCode);
+				responseZip.put("contaminants", responseContaminants);
+				System.out.println("trying to write to Database");
+				org.bson.Document test = org.bson.Document.parse(responseZip.toString());
+				SpringAndReactApplication.writeToMongoDB("water", test);
+				return responseZip.toString();
 			}
-			responseZip.put("zipcode", zipCode);
-			responseZip.put("contaminants", responseContaminants);
+			catch (Exception e){
+				e.printStackTrace();
+			}
+
+
+
+			//SpringAndReactApplication.writeToMongoDB("water", toPut);
 			return responseZip.toString();
 		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-		return responseZip.toString();
+
 	}
     @GetMapping("/api/naturalDisasters/{address}")
     public String getNaturalDisasterData(@PathVariable String address) throws IOException{

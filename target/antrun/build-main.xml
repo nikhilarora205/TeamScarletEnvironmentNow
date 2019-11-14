@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <project name="maven-antrun-" default="main"  >
 <target name="main">
-  <copy todir="/Users/gabriel/Desktop/TeamScarletEnvironmentNow/target/classes/static">
-    <fileset dir="/Users/gabriel/Desktop/TeamScarletEnvironmentNow/frontend/build"/>
+  <copy todir="/Users/nikhilarora/Documents/Fall 2019/EE 461L/Branches/Phase3/TeamScarletEnvironmentNow/target/classes/static">
+    <fileset dir="/Users/nikhilarora/Documents/Fall 2019/EE 461L/Branches/Phase3/TeamScarletEnvironmentNow/frontend/build"/>
   </copy>
 </target>
 </project>
