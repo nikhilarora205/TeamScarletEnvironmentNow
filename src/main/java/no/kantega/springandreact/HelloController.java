@@ -476,8 +476,19 @@ public class HelloController {
             String result = content.toString();
             JSONObject myResponse = new JSONObject(result.toString());
  			//System.out.println(myResponse.toString());
-            //zeroForZip = 1;
-            String state = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(4).get("long_name").toString();
+			//zeroForZip = 1;
+			//iterates through address components array and finds the one with postal code
+			String state = null;
+            JSONArray zipArray = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components");
+            for(int i = 0; i < zipArray.length(); i++){
+            	String type = zipArray.get(i).toString();
+            	System.out.println("type: " + type);
+				if(type.contains("administrative_area_level_1")){
+					state = zipArray.getJSONObject(i).get("long_name").toString();
+					System.out.println(state);
+				}
+			}
+            //String state = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(4).get("long_name").toString();
             return state;
     		}catch (Exception e) {
             e.printStackTrace();
