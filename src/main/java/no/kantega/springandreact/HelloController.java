@@ -123,6 +123,7 @@ public class HelloController {
 
 		String zipCode = getLocation(address.replaceAll("%20", " "), 0);
 		String checkDoc = SpringAndReactApplication.queryMongoDB("water", zipCode, true);
+
 		if (checkDoc != null && !checkDoc.isEmpty()) {
 			return checkDoc;
 		} else {
@@ -167,8 +168,8 @@ public class HelloController {
 			}
 
 
-
-			//SpringAndReactApplication.writeToMongoDB("water", toPut);
+			//was commented out before
+			SpringAndReactApplication.writeToMongoDB("water", toPut);
 			return responseZip.toString();
 		}
 
@@ -377,6 +378,7 @@ public class HelloController {
 	
     public String getLocation(String address, Integer zeroForZip ) {
     	//this means frontend passed in a simple zipcode
+		//TODO: Fix zipcode check, it still allows for user to hardcode random words as "zipcodes" in the url and returns as valid
     	if(!address.contains(" ") && zeroForZip==0){
     		return address;
 		}
@@ -443,7 +445,9 @@ public class HelloController {
             e.printStackTrace();
 		}
     	return "Please narrow search";
-    }     
+    }
+
+
     @GetMapping("/api/reverseLocation")
     public String reverseLocation(String address) {
 

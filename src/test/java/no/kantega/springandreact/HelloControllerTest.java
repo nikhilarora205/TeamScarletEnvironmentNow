@@ -2,42 +2,147 @@ package no.kantega.springandreact;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+
+@RunWith(SpringRunner.class)
 public class HelloControllerTest {
 
+	private static final int DEFAULT_TIME_OUT = 3000;
+
+	private MockMvc mockMvc;
+
+	@InjectMocks
+	private HelloController helloController;
+
+	@Before
+	public void setUp() throws Exception{
+		mockMvc = MockMvcBuilders.standaloneSetup(helloController).build();
+	}
+
 	@Test
-	public void testAllApiResponses(){
+	public void testAllApiResponses() throws Exception {
 		/**
 		 * give valid address expect valid responses from all api's
 		 */
+
+		//TODO: Parse a few random addresses into the API and look at the responses
+
+		String address = "509%20Willow%20Creek%20Ct%20Arlington%20TX";
+
+		//parse addresses in {Number}%20{Street Name}%20{street,drive,avenue,etc.}%20{city}%20{state}
+
+
+		mockMvc.perform(
+				MockMvcRequestBuilders.get("/api/waterData/" + address)
+		)
+				.andExpect(MockMvcResultMatchers.status().isOk());
+
+		mockMvc.perform(
+				MockMvcRequestBuilders.get("/api/AQIData/"+address)
+		)
+				.andExpect(MockMvcResultMatchers.status().isOk());
+
+		mockMvc.perform(
+				MockMvcRequestBuilders.get("/api/naturalDisasters/"+address)
+		)
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+
+
+	@Test
+	public void testGetLocationAddressToZip(){
+		/**
+		 * Test Valid Address, get correct zipcode in return
+		 */
+
+		HelloController helloController = new HelloController();
+
+		assertEquals("76103", helloController.getLocation("1017 Blue Lake Dr. Fort Worth, TX", 1));
+
+
 	}
 
 	@Test
-	public void testAllApiResponsesInvalidAddress(){
+	public void testGetLocationZipToZip(){
 		/**
-		 * give invalid address expect error responses from all api's
+		 * Test valid zip input should return the same zipcode
 		 */
+
+		HelloController helloController = new HelloController();
+
+		assertEquals("60141", helloController.getLocation("60141", 0));
+
 	}
 
 	@Test
-	public void testForDataStorage() {
+	public void testGetLocationInvalidAddress(){
 		/**
-		 * call api's with same address twice (make sure api's scrape originally)
-		 * then the second time make sure the api's are retrieving the data from the DB (current data)
+		 * Test invalid address input should return please narrow search prompt
 		 */
+
+		HelloController helloController = new HelloController();
+
+		assertEquals("Please narrow search", helloController.getLocation("1283 Fakeroad St. Chicago, IL", 1));
+
 	}
 
 	@Test
-	public void testForOldDataInDB(){
+	public void testGetLocationInvalidZip(){
 		/**
-		 * Force add old entry to database and call API
-		 * Make sure the API responds with new scraped data instead of old DB data
+		 * Test invalid zip input should return the please narrow search prompt
+		 */
+		HelloController hController = new HelloController();
+
+		assertEquals("Please narrow search", hController.getLocation("11111", 0));
+
+	}
+
+	@Test(timeout = DEFAULT_TIME_OUT)
+	public void testReverseLocation(){
+		/**
+		 * TODO: Find out Reverse Location's purpose then test the functionality here
+		 */
+		HelloController hController = new HelloController();
+
+		assertEquals("Texas", hController.reverseLocation("76103"));
+	}
+
+	@Test(timeout = DEFAULT_TIME_OUT)
+	public void testReverseLocation2(){
+		/**
+		 * TODO: Find out Reverse Location's purpose then test the functionality here
+		 */
+		HelloController hController = new HelloController();
+
+		assertEquals("Illinois", hController.reverseLocation("60141"));
+		assertEquals("New York", hController.reverseLocation("10025"));
+	}
+
+	@Test(timeout = DEFAULT_TIME_OUT)
+	public void testReverseLocation3(){
+		/**
+		 * TODO: Find out Reverse Location's purpose then test the functionality here
+		 */
+		HelloController hController = new HelloController();
+
+		assertEquals("New York", hController.reverseLocation("10025"));
+	}
+
+	@Test
+	public void testValidAddress(){
+		/**
+		 * TODO: Find out validAddress() and if we still need, seems getLocation does the same thing
 		 */
 	}
+
 
 }

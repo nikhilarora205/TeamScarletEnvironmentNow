@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -26,6 +27,15 @@ public class WaterAPITest {
     @Before
     public void setUp() throws Exception{
         mockMvc = MockMvcBuilders.standaloneSetup(helloController).build();
+        SpringAndReactApplication.removeFromMongoDB("water", "76119");
+
+    }
+
+    @After
+    public void cleanUp(){
+        //Cleans up Database from TestRetrieval Invalid Address
+        SpringAndReactApplication.removeFromMongoDB("water", "WATERFAKEZIPSHOULDNOTBEINDATABASE");
+
     }
 
     @Test
@@ -35,34 +45,59 @@ public class WaterAPITest {
          */
 
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/api/waterData/900%20West%2023rd%20St%20Austin%20Texas")
+                MockMvcRequestBuilders.get("/api/waterData/60171")
         )
             .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 
     @Test
-    public void testDataRetrievalValidAddress(){
+    public void testWaterAPI_HardCodedZipInURL_DatabaseStorage() throws Exception {
         /**
-         * Tests valid address and expects valid response for address in JSON format
+         * Tests hardcoded zipcode in URL, and should NOT store in Database
+         * TODO: fix water api to reject zipcodes that are not valid, also should not store in database but it does
          */
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/waterData/WATERFAKEZIPSHOULDNOTBEINDATABASE")
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        String queryThatShouldBeNull = SpringAndReactApplication.queryMongoDB("water", "WATERFAKEZIPSHOULDNOTBEINDATABASE", true);
+        assertNull(queryThatShouldBeNull);
+
 
     }
 
     @Test
-    public void testDataRetrievalInvalidAddress(){
-        /**
-         * Tests invalid address and expects error message or code from API
-         */
+    public void testWaterEmptyResponse() throws Exception{
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/waterData/SHOULDGIVEEMPTYRESPONSE")
+        )
+                .andReturn();
 
+        String response = result.getResponse().getContentAsString();
+
+        assertNull(response);
     }
 
     @Test
-    public void testValidAddressNoDataAvailable(){
+    public void testWaterValidResponse() throws Exception{
         /**
-         * test an address that is valid with a null response
+         * Setup removes any entries that contain "76119" zip code
+         * should scrape website and return valid response (not null);
          */
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/waterData/76119")
+        )
+                .andReturn();
+
+        String response = result.getResponse().getContentAsString();
+        System.out.println(response);
+        assertNotNull(response);
     }
+
 
 
 

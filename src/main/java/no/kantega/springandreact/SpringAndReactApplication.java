@@ -90,6 +90,32 @@ public class SpringAndReactApplication implements CommandLineRunner {
 
 	}
 
+	// FOR TESTING ONLY
+
+	public static boolean removeFromMongoDB(String desiredCollection, String toRemove) {
+		try {
+			MongoClientURI uri = new MongoClientURI(key);
+			MongoClient mongoClient = new MongoClient(uri);
+			MongoDatabase database = mongoClient.getDatabase(databaseName);
+			MongoCollection<Document> collection = database.getCollection(desiredCollection);
+
+			System.out.println("Removing DB entry with zipcode: " + toRemove.toString());
+			BasicDBObject query = new BasicDBObject("zipcode", toRemove);
+			Document remove = collection.findOneAndDelete(query);
+
+			if(remove != null) {
+				System.out.println("Removed: " + remove.toString());
+			}
+
+			mongoClient.close();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+
 	public static String queryMongoDB(String desiredCollection, String identifier) {
 		try {
 			MongoClientURI uri = new MongoClientURI(key);

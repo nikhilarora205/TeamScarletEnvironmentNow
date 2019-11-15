@@ -7,30 +7,94 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+
+@RunWith(SpringRunner.class)
 public class AQIAPITest {
 
-    @Test
-    public void testDataRetrievalValidAddress(){
-        /**
-         * Tests valid address and expects valid response for address in JSON format
-         */
+    private MockMvc mockMvc;
+
+    @InjectMocks
+    private HelloController helloController;
+
+    @Before
+    public void setUp() throws Exception{
+        mockMvc = MockMvcBuilders.standaloneSetup(helloController).build();
+        SpringAndReactApplication.removeFromMongoDB("air", "76119");
+    }
+
+    @After
+    public void cleanUp(){
+        //Cleans up Database from TestRetrieval Invalid Address
+        try {
+            SpringAndReactApplication.removeFromMongoDB("air", "AQIFAKEZIPSHOULDNOTBEINDATABASE");
+        }catch(Exception e){
+            System.out.println("Removal failed, so AQIFAKEZIPSHOULDNOTBEINDATABASE was not there");
+        }
     }
 
     @Test
-    public void testDataRetrievalInvalidAddress(){
+    public void testAQIAPI_HardCodedZipInURL_DatabaseStorage() throws Exception {
         /**
-         * Tests invalid address and expects error message or code from API
+         * Tests hardcoded zipcode in URL, and should NOT store in Database
+         * TODO: fix AQI api to reject zipcodes that are not valid, also should not store in database but it does
          */
+
+        mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/AQIData/AQIFAKEZIPSHOULDNOTBEINDATABASE")
+        )
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        String queryThatShouldBeNull = SpringAndReactApplication.queryMongoDB("air", "AQIFAKEZIPSHOULDNOTBEINDATABASE", true);
+        assertNull(queryThatShouldBeNull);
 
     }
 
     @Test
-    public void testValidAddressNoDataAvailable(){
+    public void testAQIAPIEmptyResponse() throws Exception{
         /**
-         * test an address that is valid with a null response
+         * Tests calling API with an hardcoded zipcode that should be rejected
+         *
          */
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/AQIData/AQISHOULDGIVEEMPTYRESPONSE")
+        )
+                .andReturn();
+
+        String response = result.getResponse().getContentAsString();
+
+        assertNull(response);
     }
+
+    @Test
+    public void testAQIValidResponse() throws Exception{
+        /**
+         * Setup removes any entries that contain "76119" zip code
+         * should scrape website and return valid response (not null);
+         */
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.get("/api/AQIData/76119")
+        )
+                .andReturn();
+
+        String response = result.getResponse().getContentAsString();
+        System.out.println(response);
+        assertNotNull(response);
+    }
+
+
+
+
 
 
 
