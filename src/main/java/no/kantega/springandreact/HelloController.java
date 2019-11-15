@@ -535,5 +535,233 @@ public class HelloController {
     public String updateAirDB() {
 		return "";
     }
+    
+    @GetMapping("/api/barChart1/{address}")
+    public String getBarChart1Data(@PathVariable String address) throws IOException {
+    	// Variables
+    	String barChart1 = new String();
+    	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
+    	String url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=" + zipCode + "&submit=Go";
+    	// JSOUP
+    	Document doc = Jsoup.connect(url).get();
+    	Elements test = doc.select("table[class=TblInvisible]");
+    	Elements body = test.select("tbody");
+    	Elements td = body.select("td");
+    	// SCRAPING AND STORING
+    	Set<String> possibleValues = new HashSet<String>(Arrays.asList(new String [] {"Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous"}));
+    	JSONArray jsonArray = new JSONArray();
+    	
+    	for(int i = 0; i < td.size(); i++) {
+    		String currentWord = td.get(i).text();
+    		if(possibleValues.contains(currentWord) && i!=td.size()-1) {
+    			String currentDetail = td.get(i+1).text();
+    			if(currentDetail.equals("Ozone")) {
+    				JSONObject tempson = new JSONObject();
+    				barChart1 = "{\"y\": " + Integer.parseInt(td.get(i+2).text()) + ", \"x\": \"Ozone\"}";
+    				tempson.put("y",Integer.parseInt(td.get(i+2).text()));
+    				tempson.put("x", "Ozone");
+    				jsonArray.put(tempson);
+    			}else if(currentDetail.equals("Particles (PM2.5)")) {
+    				JSONObject tempson = new JSONObject();
+    				barChart1 = barChart1 +  ",\n{\"y\": " + Integer.parseInt(td.get(i+2).text()) + ", \"x\": \"PM2.5\"}";
+    				tempson.put("y",Integer.parseInt(td.get(i+2).text()));
+    				tempson.put("x", "PM2.5");
+    				jsonArray.put(tempson);
+    			}else if(currentDetail.equals("Particles (PM10)")) {
+    				JSONObject tempson = new JSONObject();
+    				tempson.put("y",Integer.parseInt(td.get(i+2).text()));
+    				tempson.put("x", "PM10");
+    				jsonArray.put(tempson);
+    			}
+    		}
+    	}
+    	JSONObject response = new JSONObject();
+    	response.put("bar1Data", jsonArray);
+    	return response.toString();
+    }
+    
+    @GetMapping("/api/barChart2/{address}")
+    public String getBarChart2Data(@PathVariable String address){
+    	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
+    	JSONObject response = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+		final String url =
+				"https://www.ewg.org/tapwater/search-results.php?zip5=" + zipCode + "&searchtype=zip";
+		try {
+			final Document document = Jsoup.connect(url).get();
+			Elements linkToData = document.select(".primary-btn");
+			String dataUrl = linkToData.attr("href");
+			final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/" + dataUrl).get();
+			
+			for (Element item : contaminantDoc.select(".contaminant-name")) {
+				String contam = item.select("h3").text();
+				String level = item.select(".detect-times-greater-than").text();
+				
+				if(!level.isEmpty()) {
+					
+					//Debugging
+					System.out.println(level);
+					System.out.println(level.replace("x", ""));
+					System.out.println(contam);
+					level = level.replace("x", "");
+					
+					if(level.contains(".")) {
+						level = level.substring(0,level.indexOf("."));
+					}
+					
+					System.out.println(level);
+					Integer tempLevel = Integer.parseInt(level);
+					JSONObject tempContamObject = new JSONObject();
+					
+					try {
+						tempContamObject.put("y", tempLevel);
+						tempContamObject.put("x",contam.substring(0, 4));
+						jsonArray.put(tempContamObject);
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+	    	response.put("bar2Data", jsonArray);
+	    	System.out.println(response.toString());
+			return response.toString();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		System.out.println("It is not getting bar2Data: " + response.toString());
+		return response.toString();
+	}
+    
+    @GetMapping("/api/barChart3/{address}")
+    public String getBarChart3Data(@PathVariable String address) throws IOException{
+    	try {
+    		MongoClientURI uri = new MongoClientURI(
+    				"mongodb://nikhilarora:soft461datatest@cluster0-shard-00-00-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-01-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-02-kvrlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
+    		MongoClient mongoClient = new MongoClient(uri);
+    		@SuppressWarnings("deprecation")
+    		DB database = mongoClient.getDB("environmentnow");
+    		DBCollection collection = database.getCollection("disasters");
+    		String location = reverseLocation(address);
+    		BasicDBObject query = new BasicDBObject("Location", location);
+    		query.toJson();
+    		DBCursor test = collection.find(query);
+    		int storm = 0;
+    		int earthquake = 0;
+    		int wildfire = 0;
+    		int flood = 0;
+    		int drought = 0;
+    		int extremeTemp = 0;
+    		int landslide = 0;
+    		int volcanicActivity = 0;
+    		int epidemic = 0;
+    		while(test.hasNext()){
+    			String document = test.next().toString();
+    			if(document.contains("Storm")) {
+    				storm++;
+    			}
+    			if(document.contains("Earthquake")) {
+    				earthquake++;
+    			}
+    			if(document.contains("Wildfire")) {
+    				wildfire++;
+    			}
+    			if(document.contains("Flood")) {
+    				flood++;
+    			}
+    			if(document.contains("Drought")) {
+    				drought++;
+    			}
+    			if(document.contains("Extreme temperature")) {
+    				extremeTemp++;
+    			}
+    			if(document.contains("Landslide")) {
+    				landslide++;
+    			}
+    			if(document.contains("Volvanic activity")) {
+    				volcanicActivity++;
+    			}
+    			if(document.contains("Epidemic")) {
+    				epidemic++;
+    			}
+    		}
+    		
+			JSONArray jsonArray = new JSONArray();
+			JSONObject json = new JSONObject();
+			
+			if(storm!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",storm);
+				tempson.put("x", "Storm");
+				jsonArray.put(tempson);
+			}
+			
+			if(earthquake!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",earthquake);
+				tempson.put("x", "Earthquake");
+				jsonArray.put(tempson);
+			}
+			
+			if(wildfire!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",wildfire);
+				tempson.put("x", "Wildfire");
+				jsonArray.put(tempson);
+			}
+			
+			if(flood!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",flood);
+				tempson.put("x", "Flood");
+				jsonArray.put(tempson);
+			}
+			
+			if(drought!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",drought);
+				tempson.put("x", "Drought");
+				jsonArray.put(tempson);
+			}
+			
+			if(extremeTemp!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",extremeTemp);
+				tempson.put("x", "XTemp");
+				jsonArray.put(tempson);
+			}
+			
+			if(landslide!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",landslide);
+				tempson.put("x", "Landslide");
+				jsonArray.put(tempson);
+			}
+			
+			if(volcanicActivity!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",volcanicActivity);
+				tempson.put("x", "Volcano Act.");
+				jsonArray.put(tempson);
+			}
+			
+			if(epidemic!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",epidemic);
+				tempson.put("x", "Epidemic");
+				jsonArray.put(tempson);
+			}
+    		JSONObject response = new JSONObject();
+    		response.put("bar3Data", jsonArray);
+    		return response.toString();
+    	}
+    	catch (Exception e) {
+            e.printStackTrace();
+		}
+    	return "Failed to query disaster data";
+	}
+    
+    
 }   
 // Storm, Earthquake, Wildfire, Flood, Drought, Extreme temperature, Landslide, Volcanic activity, Epidemic
