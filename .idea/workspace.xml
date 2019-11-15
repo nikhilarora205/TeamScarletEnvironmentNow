@@ -30,10 +30,10 @@
     <SUITE FILE_PATH="coverage/spring_and_react$WaterAPITest_testWaterEmptyResponse.ic" NAME="WaterAPITest.testWaterEmptyResponse Coverage Results" MODIFIED="1573785130296" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>no.kantega.springandreact.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/spring_and_react$HelloControllerTest.ic" NAME="HelloControllerTest Coverage Results" MODIFIED="1573765368499" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/spring_and_react$WaterAPITest_testResponseOk.ic" NAME="WaterAPITest.testResponseOk Coverage Results" MODIFIED="1573778478895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>no.kantega.springandreact.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/spring_and_react$WaterAPITest_testResponseOk.ic" NAME="WaterAPITest.testResponseOk Coverage Results" MODIFIED="1573778478895" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/spring_and_react$HelloControllerTest.ic" NAME="HelloControllerTest Coverage Results" MODIFIED="1573807110497" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>no.kantega.springandreact.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/spring_and_react$AQIAPITest_testAQIAPI_HardCodedZipInURL_DatabaseStorage.ic" NAME="AQIAPITest.testAQIAPI_HardCodedZipInURL_DatabaseStorage Coverage Results" MODIFIED="1573783906764" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
@@ -77,8 +77,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/HelloControllerTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1004">
-                  <caret line="81" column="71" selection-start-line="81" selection-start-column="71" selection-end-line="81" selection-end-column="71" />
+                <state relative-caret-position="299">
+                  <caret line="34" column="11" lean-forward="true" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -243,7 +243,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573806725947" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573807108814" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="Errors" />
@@ -260,8 +260,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.WaterAPITest">
-    <configuration name="AQIAPITest.testAQIAPIEmptyResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.HelloControllerTest">
+    <configuration name="AQIAPITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="spring-and-react" />
       <extension name="coverage">
         <pattern>
@@ -271,8 +271,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="no.kantega.springandreact" />
       <option name="MAIN_CLASS_NAME" value="no.kantega.springandreact.AQIAPITest" />
-      <option name="METHOD_NAME" value="testAQIAPIEmptyResponse" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -348,11 +347,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WaterAPITest" />
         <item itemvalue="JUnit.HelloControllerTest" />
+        <item itemvalue="JUnit.AQIAPITest" />
+        <item itemvalue="JUnit.WaterAPITest" />
         <item itemvalue="JUnit.HelloControllerTest.testReverseLocation" />
         <item itemvalue="JUnit.AQIAPITest.testAQIValidResponse" />
-        <item itemvalue="JUnit.AQIAPITest.testAQIAPIEmptyResponse" />
       </list>
     </recent_temporary>
   </component>
@@ -367,14 +366,11 @@
       <option name="presentableId" value="Default" />
       <updated>1573677893190</updated>
       <workItem from="1573677894685" duration="1260000" />
-      <workItem from="1573751985486" duration="19250000" />
+      <workItem from="1573751985486" duration="19565000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="WaterAPITest_testWaterEmptyResponse - 2019.11.14 at 20h 41m 43s.xml">
-      <configuration name="WaterAPITest.testWaterEmptyResponse" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="WaterAPITest_testWaterValidResponse - 2019.11.14 at 20h 47m 58s.xml">
       <configuration name="WaterAPITest.testWaterValidResponse" configurationId="JUnit" />
     </history-entry>
@@ -402,14 +398,17 @@
     <history-entry file="HelloControllerTest - 2019.11.15 at 02h 22m 38s.xml">
       <configuration name="HelloControllerTest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="WaterAPITest - 2019.11.15 at 02h 32m 33s.xml">
+      <configuration name="WaterAPITest" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18369000" />
+    <option name="totallyTimeSpent" value="18684000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1009" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18956336" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18956336" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -419,7 +418,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3293348" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3293348" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -505,8 +504,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/HelloControllerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1004">
-          <caret line="81" column="71" selection-start-line="81" selection-start-column="71" selection-end-line="81" selection-end-column="71" />
+        <state relative-caret-position="299">
+          <caret line="34" column="11" lean-forward="true" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
