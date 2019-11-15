@@ -51,35 +51,13 @@ public class HelloController {
     @GetMapping("/api/hello")
     public String hello() {
         return "Hello, the time at the server is now " + new Date() + "\n";
-       // String myUrl = "https://api.github.com/repos/nikhilarora205/TeamScarletEnvironmentNow/stats/commit_activity";
-        //String to place our result in
-      //  String result;
-       // HttpGetRequest getRequest = new HttpGetRequest();
-       // result = getRequest.execute(myUrl).get();
-       // JSONObject myResponse = new JSONObject(result.toString());
-       // String total = myResponse.getJSONObject("total").toString();
-       // return total;
     }   
    
     
     @GetMapping("/api/AQIData/{address}")
     public String getAQIData(@PathVariable String address) throws IOException {
-    	// Get zipcode from address
-		// address = "100 Orvieto Cove";
-		System.out.println(address);
     	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
-    	
-    	//check if zip exists in DB
-//    	if(countAirDB(zipCode) == 0) {
-//    		//Put in DB if not
-//    		
-//    	}
-    	// Check if search was specific enough
-//    	if (zipCode == "Please narrow search") {
-//    		return "Please narrow search";
-//    	}
-    	
-    	// get JSON
+    	System.out.println(zipCode);
     	String url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=" + zipCode + "&submit=Go";
     	Document doc = Jsoup.connect(url).get();
     	Elements test = doc.select("table[class=TblInvisible]");
@@ -102,30 +80,58 @@ public class HelloController {
     		}
     	}
     	return json.toString();
-    }   
-//    @GetMapping("/api/allergenData")
-//    public String getAllergenData(String address) throws IOException {
-//    	
-//    	// WORK ON THIS
-//    	String url = "https://www.weatherbug.com/life/pollen/76062";
-//    	Document doc = Jsoup.connect(url).get();
-//    	Elements div = doc.select("div[class=widget__body widget--index__body]");
-//    	return doc.toString();
-//    }
+    }
+    
+    @GetMapping("/api/barChart1/{address}")
+    public String getBarChart1Data(@PathVariable String address) throws IOException {
+    	// Variables
+    	String barChart1 = new String();
+    	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
+    	String url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=" + zipCode + "&submit=Go";
+    	// JSOUP
+    	Document doc = Jsoup.connect(url).get();
+    	Elements test = doc.select("table[class=TblInvisible]");
+    	Elements body = test.select("tbody");
+    	Elements td = body.select("td");
+    	// SCRAPING AND STORING
+    	Set<String> possibleValues = new HashSet<String>(Arrays.asList(new String [] {"Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous"}));
+    	JSONArray jsonArray = new JSONArray();
+    	
+    	for(int i = 0; i < td.size(); i++) {
+    		String currentWord = td.get(i).text();
+    		if(possibleValues.contains(currentWord) && i!=td.size()-1) {
+    			String currentDetail = td.get(i+1).text();
+    			if(currentDetail.equals("Ozone")) {
+    				JSONObject tempson = new JSONObject();
+    				barChart1 = "{\"y\": " + Integer.parseInt(td.get(i+2).text()) + ", \"x\": \"Ozone\"}";
+    				tempson.put("y",Integer.parseInt(td.get(i+2).text()));
+    				tempson.put("x", "Ozone");
+    				jsonArray.put(tempson);
+    			}else if(currentDetail.equals("Particles (PM2.5)")) {
+    				JSONObject tempson = new JSONObject();
+    				barChart1 = barChart1 +  ",\n{\"y\": " + Integer.parseInt(td.get(i+2).text()) + ", \"x\": \"PM2.5\"}";
+    				tempson.put("y",Integer.parseInt(td.get(i+2).text()));
+    				tempson.put("x", "PM2.5");
+    				jsonArray.put(tempson);
+    			}else if(currentDetail.equals("Particles (PM10)")) {
+    				JSONObject tempson = new JSONObject();
+    				tempson.put("y",Integer.parseInt(td.get(i+2).text()));
+    				tempson.put("x", "PM10");
+    				jsonArray.put(tempson);
+    			}
+    		}
+    	}
+    	JSONObject response = new JSONObject();
+    	response.put("bar1Data", jsonArray);
+    	return response.toString();
+    }
+    
+
     @GetMapping("/api/waterData/{address}")
     public String getWaterData(@PathVariable String address){
-
-    	// Get zipcode from address
-    	// address = "100 Orvieto Cove";
     	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
-    	
-    	// Check if search was specific enough
-//    	if (zipCode == "Please narrow search") {
-//    		return "Please narrow search";
-//    	}
 		JSONObject responseZip = new JSONObject();
 		JSONArray responseContaminants = new JSONArray();
-		int count = 0;
 		final String url =
 				"https://www.ewg.org/tapwater/search-results.php?zip5=" + zipCode + "&searchtype=zip";
 		try {
@@ -133,19 +139,16 @@ public class HelloController {
 			Elements linkToData = document.select(".primary-btn");
 			String dataUrl = linkToData.attr("href");
 			//testing to see if url is correct
-			// System.out.println(dataUrl);
 			final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/" + dataUrl).get();
 			//for each grid item (contaminant)
 			for (Element item : contaminantDoc.select(".contaminant-name")) {
-				JSONObject tempContamObject = new JSONObject();
-				String contam = item.select("h3").text();
-				String level = item.select(".detect-times-greater-than").text();
-				tempContamObject.put("contaminant", contam);
-				tempContamObject.put("level", level);
-				responseContaminants.put(tempContamObject);
-				// System.out.println(item.select("h3").text());
-				// System.out.println(item.select(".detect-times-greater-than").text());    //this number is the # of times over the EWG health guideline limit
-			}
+					JSONObject tempContamObject = new JSONObject();
+					String contam = item.select("h3").text();
+					String level = item.select(".detect-times-greater-than").text();
+					tempContamObject.put("contaminant", contam);
+					tempContamObject.put("level", level);
+					responseContaminants.put(tempContamObject);
+				}
 			responseZip.put("zipcode", zipCode);
 			responseZip.put("contaminants", responseContaminants);
 			return responseZip.toString();
@@ -155,6 +158,61 @@ public class HelloController {
 		}
 		return responseZip.toString();
 	}
+    
+    @GetMapping("/api/barChart2/{address}")
+    public String getBarChart2Data(@PathVariable String address){
+    	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
+    	JSONObject response = new JSONObject();
+		JSONArray jsonArray = new JSONArray();
+		final String url =
+				"https://www.ewg.org/tapwater/search-results.php?zip5=" + zipCode + "&searchtype=zip";
+		try {
+			final Document document = Jsoup.connect(url).get();
+			Elements linkToData = document.select(".primary-btn");
+			String dataUrl = linkToData.attr("href");
+			final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/" + dataUrl).get();
+			
+			for (Element item : contaminantDoc.select(".contaminant-name")) {
+				String contam = item.select("h3").text();
+				String level = item.select(".detect-times-greater-than").text();
+				
+				if(!level.isEmpty()) {
+					
+					//Debugging
+					System.out.println(level);
+					System.out.println(level.replace("x", ""));
+					System.out.println(contam);
+					level = level.replace("x", "");
+					
+					if(level.contains(".")) {
+						level = level.substring(0,level.indexOf("."));
+					}
+					
+					System.out.println(level);
+					Integer tempLevel = Integer.parseInt(level);
+					JSONObject tempContamObject = new JSONObject();
+					
+					try {
+						tempContamObject.put("y", tempLevel);
+						tempContamObject.put("x",contam.substring(0, 4));
+						jsonArray.put(tempContamObject);
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+
+	    	response.put("bar2Data", jsonArray);
+	    	System.out.println(response.toString());
+			return response.toString();
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+		System.out.println("It is not getting bar2Data: " + response.toString());
+		return response.toString();
+	}
+
     @GetMapping("/api/naturalDisasters/{address}")
     public String getNaturalDisasterData(@PathVariable String address) throws IOException{
     	try {
@@ -210,44 +268,9 @@ public class HelloController {
     				epidemic++;
     			}
     		}
+    		
 			String returnString = "";
 			JSONObject json = new JSONObject();
-    		// if (storm!=0) {
-			// 	returnString = returnString + "Storm: " + storm + "\n";
-			// 	json.put("Storm", storm);
-    		// }
-    		// if (earthquake!=0) {
-			// 	returnString = returnString + "Earthquake: " + earthquake + "\n";
-			// 	json.put("Earthquake", earthquake);
-    		// }
-    		// if (wildfire!=0) {
-			// 	returnString = returnString + "Wildfire: " + wildfire + "\n";
-			// 	json.put("Wildfire", wildfire);
-    		// }
-    		// if (flood!=0) {
-			// 	returnString = returnString + "Flood: " + flood + "\n";
-			// 	json.put("Flood", flood);
-    		// }
-    		// if (drought!=0) {
-			// 	returnString = returnString + "Drought: " + drought + "\n";
-			// 	json.put("Drought", drought);
-    		// }
-    		// if (extremeTemp!=0) {
-			// 	returnString = returnString + "Extreme Temperature: " + extremeTemp + "\n";
-			// 	json.put("Extreme Temperature", extremeTemp);
-    		// }
-    		// if (landslide!=0) {
-			// 	returnString = returnString + "Land Slide: " + landslide + "\n";
-			// 	json.put("Land Slide", landslide);
-    		// }
-    		// if (volcanicActivity!=0) {
-			// 	returnString = returnString + "Volcanic Activity: " + volcanicActivity + "\n";
-			// 	json.put("Volcanic Activity", volcanicActivity);
-    		// }
-    		// if (epidemic!=0) {
-			// 	returnString = returnString + "Epidemic: " + epidemic + "\n";
-			// 	json.put("Epidemic", epidemic);
-			// }
 			json.put("Storm", storm);
 			json.put("Earthquake", earthquake);
 			json.put("Wildfire", wildfire);
@@ -257,7 +280,6 @@ public class HelloController {
 			json.put("Land Slide", landslide);
 			json.put("Volcanic Activity", volcanicActivity);
 			json.put("Epidemic", epidemic);
-    		
 			// return returnString;
 			return json.toString();
     	}
@@ -266,6 +288,136 @@ public class HelloController {
 		}
     	return "Failed to query disaster data";
 	}
+    
+    
+    @GetMapping("/api/barChart3/{address}")
+    public String getBarChart3Data(@PathVariable String address) throws IOException{
+    	try {
+    		MongoClientURI uri = new MongoClientURI(
+    				"mongodb://nikhilarora:soft461datatest@cluster0-shard-00-00-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-01-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-02-kvrlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
+    		MongoClient mongoClient = new MongoClient(uri);
+    		@SuppressWarnings("deprecation")
+    		DB database = mongoClient.getDB("environmentnow");
+    		DBCollection collection = database.getCollection("disasters");
+    		String location = reverseLocation(address);
+    		BasicDBObject query = new BasicDBObject("Location", location);
+    		query.toJson();
+    		DBCursor test = collection.find(query);
+    		int storm = 0;
+    		int earthquake = 0;
+    		int wildfire = 0;
+    		int flood = 0;
+    		int drought = 0;
+    		int extremeTemp = 0;
+    		int landslide = 0;
+    		int volcanicActivity = 0;
+    		int epidemic = 0;
+    		while(test.hasNext()){
+    			String document = test.next().toString();
+    			if(document.contains("Storm")) {
+    				storm++;
+    			}
+    			if(document.contains("Earthquake")) {
+    				earthquake++;
+    			}
+    			if(document.contains("Wildfire")) {
+    				wildfire++;
+    			}
+    			if(document.contains("Flood")) {
+    				flood++;
+    			}
+    			if(document.contains("Drought")) {
+    				drought++;
+    			}
+    			if(document.contains("Extreme temperature")) {
+    				extremeTemp++;
+    			}
+    			if(document.contains("Landslide")) {
+    				landslide++;
+    			}
+    			if(document.contains("Volvanic activity")) {
+    				volcanicActivity++;
+    			}
+    			if(document.contains("Epidemic")) {
+    				epidemic++;
+    			}
+    		}
+    		
+			JSONArray jsonArray = new JSONArray();
+			JSONObject json = new JSONObject();
+			
+			if(storm!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",storm);
+				tempson.put("x", "Storm");
+				jsonArray.put(tempson);
+			}
+			
+			if(earthquake!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",earthquake);
+				tempson.put("x", "Earthquake");
+				jsonArray.put(tempson);
+			}
+			
+			if(wildfire!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",wildfire);
+				tempson.put("x", "Wildfire");
+				jsonArray.put(tempson);
+			}
+			
+			if(flood!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",flood);
+				tempson.put("x", "Flood");
+				jsonArray.put(tempson);
+			}
+			
+			if(drought!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",drought);
+				tempson.put("x", "Drought");
+				jsonArray.put(tempson);
+			}
+			
+			if(extremeTemp!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",extremeTemp);
+				tempson.put("x", "XTemp");
+				jsonArray.put(tempson);
+			}
+			
+			if(landslide!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",landslide);
+				tempson.put("x", "Landslide");
+				jsonArray.put(tempson);
+			}
+			
+			if(volcanicActivity!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",volcanicActivity);
+				tempson.put("x", "Volcano Act.");
+				jsonArray.put(tempson);
+			}
+			
+			if(epidemic!=0) {
+				JSONObject tempson = new JSONObject();
+				tempson.put("y",epidemic);
+				tempson.put("x", "Epidemic");
+				jsonArray.put(tempson);
+			}
+    		JSONObject response = new JSONObject();
+    		response.put("bar3Data", jsonArray);
+    		return response.toString();
+    	}
+    	catch (Exception e) {
+            e.printStackTrace();
+		}
+    	return "Failed to query disaster data";
+	}
+    
 	
     @GetMapping("/api/validAddress/{address}")
 	public String validAddress(@PathVariable String address){
@@ -311,16 +463,6 @@ public class HelloController {
 			} catch (Exception e) {
 				return "true";
 			}
-            /*
-            //zeroForZip = 1;
-			String zip = myResponse.get("status").toString();
-			System.out.println(zip);
-            String latString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString();
-            String longString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString();
-            
-			if(zip.equals("ZERO_RESULTS")) return "False";
-			else return "True";
-		}*/
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -363,16 +505,10 @@ public class HelloController {
             // Aquire Content
             String result = content.toString();
             JSONObject myResponse = new JSONObject(result.toString());
- 		//	System.out.println(myResponse.toString());
             //zeroForZip = 1;
             String zip = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(6).get("short_name").toString();
             String latString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat").toString();
             String longString = myResponse.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng").toString();
-            
-            System.out.println(zip);
-            System.out.println(latString);
-            System.out.println(longString);
-            
             if( zeroForZip == 0 ) {
             	return zip;
             }else {
@@ -414,7 +550,6 @@ public class HelloController {
             // Aquire Content
             String result = content.toString();
             JSONObject myResponse = new JSONObject(result.toString());
- 			//System.out.println(myResponse.toString());
             //zeroForZip = 1;
             String state = myResponse.getJSONArray("results").getJSONObject(0).getJSONArray("address_components").getJSONObject(4).get("long_name").toString();
             return state;
@@ -434,15 +569,15 @@ public class HelloController {
      */
     
     
-    @GetMapping("/api/checkAirExist")
-    public Integer countAirDB(String zipCode) {
+    @GetMapping("/api/checkAirExist/{address}")
+    public Integer countAirDB(@PathVariable String address) {
 		MongoClientURI uri = new MongoClientURI(
 				"mongodb://nikhilarora:soft461datatest@cluster0-shard-00-00-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-01-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-02-kvrlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
 		MongoClient mongoClient = new MongoClient(uri);
 		@SuppressWarnings("deprecation")
 		DB database = mongoClient.getDB("environmentnow");
 		DBCollection collection = database.getCollection("air");
-		BasicDBObject query = new BasicDBObject("zipCode", zipCode);
+		BasicDBObject query = new BasicDBObject("zipCode", address);
 		query.toJson();
 		DBCursor test = collection.find(query);
 		int count=0;
@@ -459,5 +594,19 @@ public class HelloController {
     public String updateAirDB() {
 		return "";
     }
+    
+  @GetMapping("/api/allergenData")
+  public String getAllergenData(String address) throws IOException {
+  	
+  	// WORK ON THIS
+  	String url = "https://www.weatherbug.com/life/pollen/76062";
+  	Document doc = Jsoup.connect(url).get();
+  	Elements div = doc.select("div[class=widget__body widget--index__body]");
+  	return doc.toString();
+  }
+    
 }   
+
+
+
 // Storm, Earthquake, Wildfire, Flood, Drought, Extreme temperature, Landslide, Volcanic activity, Epidemic

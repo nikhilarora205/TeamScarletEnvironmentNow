@@ -1,8 +1,4 @@
 [
-    { "y": 100, "x": "Pathogens" },
-    { "y": 12, "x": "Inorganic" },
-    { "y": 330, "x": "Organic" },
-    { "y": 168, "x": "Pollutants" }
+{"y": 16, "x": "Ozone"},
+{"y": 31, "x": "PM2.5"}
 ]
-
-

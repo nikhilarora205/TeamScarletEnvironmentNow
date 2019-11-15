@@ -30,7 +30,10 @@ class Home extends Component{
 			air: [],
 			allergen: [],
 			water: [],
-			natural: []
+			natural: [],
+			bar1: [],
+			bar2: [],
+			bar3: []
 		  };
 
 	async componentDidMount() {
@@ -58,15 +61,28 @@ class Home extends Component{
 		    const waterBody = await waterResponse.json();
 			this.setState({ water: waterBody, isLoading: true });
 			console.log(this.state.water["contaminants"]);
+			console.log(this.state.water);
 
 			const natResponse = await fetch('/api/naturalDisasters/'+this.address);
 			// const natResponse = await fetch('/api/naturalDisasters');
 		    const natBody = await natResponse.json();
-			this.setState({ natural: natBody, isLoading: false });
+			this.setState({ natural: natBody, isLoading: true });
 			console.log(this.state.natural);
 			
-//			var regex = /%20/gi;
-//			this.address = this.address.replace(regex, " ");
+			const bar1Response = await fetch('/api/barChart1/'+this.address);
+			const bar1Body = await bar1Response.json();
+			this.setState({ bar1: bar1Body,isLoading: true });
+			console.log(this.state.bar1["bar1Data"]);
+
+		    const bar2Response = await fetch('/api/barChart2/'+this.address);
+			const bar2Body = await bar2Response.json();
+			this.setState({ bar2: bar2Body,isLoading: true });
+			console.log(this.state.bar2["bar2Data"]);
+
+			const bar3Response = await fetch('/api/barChart3/'+this.address);
+			const bar3Body = await bar3Response.json();
+			this.setState({ bar3: bar3Body,isLoading: false });
+			console.log(this.state.bar3["bar3Data"]);
 	}
 	
 	render() {
@@ -91,7 +107,6 @@ class Home extends Component{
 	      </header>
 	      <br></br><br></br>
 	      <h3>Location: {this.address.replace(/%20/gi," ")}</h3>
-	      
 	        	<table align="center">
 				<tbody>
 					<tr>
@@ -108,13 +123,14 @@ class Home extends Component{
 	                        style={topMarginStyle}
 	                        />
 	                        <MyBarChart 
-	                        data={data}
+	                        data={this.state.bar1["bar1Data"]}
 	                        textAlign = 'top' 
 	                        />
 	                        <br></br><br></br><br></br>
 							<p>PM2.5: {this.state.air["PM2.5"]}</p>
 							<p>Ozone: {this.state.air["Ozone"]}</p>
 							<p>PM10: {this.state.air["PM10"]}</p>
+						
 							<br></br><br></br><br></br>
 						</td>
 						<td valign="top">
@@ -129,11 +145,8 @@ class Home extends Component{
 							seperatorColor="hotpink"
 							style={topMarginStyle}
 							/>
-							<MyBarChart4 data={data4} style={topMarginStyle}/>
+							<MyBarChart4 data={this.state.bar1["bar1Data"]} style={topMarginStyle}/>
 						</td>
-	                        
-							
-						
 						<td valign="top"> 
 	                        WATER
 							<br></br><br></br>
@@ -147,7 +160,7 @@ class Home extends Component{
 	                        style={topMarginStyle}
 	                        />
 	                        <MyBarChart2 
-	                        data={data2}
+	                        data={this.state.bar2["bar2Data"]}
 	                        align = 'top' />
 
 							<br></br><br></br><br></br>
@@ -169,7 +182,7 @@ class Home extends Component{
 	                        seperatorColor="hotpink"
 	                        style={topMarginStyle}
 	                        />
-	                        <MyBarChart3 data={data3}/>
+	                        <MyBarChart3 data={this.state.bar3["bar3Data"]}/>
 
 							<br></br><br></br><br></br>
 							<p>Storm: {this.state.natural["Storm"]}</p>
@@ -186,8 +199,6 @@ class Home extends Component{
 					</tr>
 				</tbody>
 			</table>
-			
-			
 		</div>
 		);
 	}

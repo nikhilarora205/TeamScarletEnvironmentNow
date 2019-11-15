@@ -162,7 +162,7 @@ class Landing extends Component {
 		<head><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" /></head>
         
         <br></br><br></br><br></br><br></br><br></br><br></br>
-        <p>Please enter an address below to see Air, Water, and Natural Disaster statistics for that area! </p>
+        <p>TESTING 16: Please enter an address below to see Air, Water, and Natural Disaster statistics for that area! </p>
 		<br></br><br></br>
 		
         <table align="center" cellPadding="10">
