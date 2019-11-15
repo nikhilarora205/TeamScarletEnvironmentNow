@@ -3,20 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="cc6ee908-4269-4418-8999-13b40dcc565f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/no/kantega/springandreact/SpringAndReactApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/no/kantega/springandreact/SpringAndReactApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/DisasterAPITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/DisasterAPITest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/HelloControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/HelloControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/WaterAPITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/WaterAPITest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/antrun/build-main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/antrun/build-main.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/no/kantega/springandreact/HelloController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/no/kantega/springandreact/HelloController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/no/kantega/springandreact/SpringAndReactApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/no/kantega/springandreact/SpringAndReactApplication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/static/static/js/main.cfa0c7ba.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/static/js/main.cfa0c7ba.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/no/kantega/springandreact/HelloControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/no/kantega/springandreact/HelloControllerTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/frontend/node_modules/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -61,15 +48,12 @@
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="420">
-                  <caret line="73" selection-start-line="73" selection-end-line="73" />
-                  <folding>
-                    <element signature="e#2793#2801#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="-5642">
+                  <caret line="93" column="36" selection-start-line="93" selection-start-column="36" selection-end-line="93" selection-end-column="36" />
                 </state>
               </provider>
             </entry>
@@ -77,8 +61,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/HelloControllerTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="299">
-                  <caret line="34" column="11" lean-forward="true" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
+                <state relative-caret-position="1299">
+                  <caret line="113" column="35" lean-forward="true" selection-start-line="113" selection-start-column="35" selection-end-line="113" selection-end-column="35" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -89,7 +73,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/no/kantega/springandreact/SpringAndReactApplication.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="547">
+                <state relative-caret-position="1845">
                   <caret line="147" selection-start-line="147" selection-end-line="147" />
                 </state>
               </provider>
@@ -98,8 +82,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="783">
-                  <caret line="87" column="29" lean-forward="true" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
+                <state relative-caret-position="1095">
+                  <caret line="87" column="29" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
                 </state>
               </provider>
             </entry>
@@ -116,7 +100,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/WaterAPITest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="196">
+                <state relative-caret-position="300">
                   <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
                 </state>
               </provider>
@@ -125,15 +109,12 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-213">
+                <state relative-caret-position="15">
                   <caret line="451" column="10" selection-start-line="451" selection-start-column="4" selection-end-line="451" selection-end-column="10" />
-                  <folding>
-                    <element signature="e#2793#2801#0" expanded="true" />
-                  </folding>
                 </state>
               </provider>
             </entry>
@@ -166,11 +147,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="245" />
-    <option name="y" value="593" />
-    <option name="width" value="1452" />
-    <option name="height" value="409" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1920" />
+    <option name="height" value="1009" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -243,7 +223,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573807108814" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573840869839" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="Errors" />
@@ -260,7 +240,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.HelloControllerTest">
+  <component name="RunManager" selected="JUnit.HelloControllerTest.testReverseLocation">
     <configuration name="AQIAPITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="spring-and-react" />
       <extension name="coverage">
@@ -347,10 +327,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.HelloControllerTest.testReverseLocation" />
         <item itemvalue="JUnit.HelloControllerTest" />
         <item itemvalue="JUnit.AQIAPITest" />
         <item itemvalue="JUnit.WaterAPITest" />
-        <item itemvalue="JUnit.HelloControllerTest.testReverseLocation" />
         <item itemvalue="JUnit.AQIAPITest.testAQIValidResponse" />
       </list>
     </recent_temporary>
@@ -366,29 +346,12 @@
       <option name="presentableId" value="Default" />
       <updated>1573677893190</updated>
       <workItem from="1573677894685" duration="1260000" />
-      <workItem from="1573751985486" duration="19565000" />
+      <workItem from="1573751985486" duration="19813000" />
+      <workItem from="1573839595022" duration="1164000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="WaterAPITest_testWaterValidResponse - 2019.11.14 at 20h 47m 58s.xml">
-      <configuration name="WaterAPITest.testWaterValidResponse" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="WaterAPITest - 2019.11.15 at 00h 03m 14s.xml">
-      <configuration name="WaterAPITest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AQIAPITest_testAQIAPIEmptyResponse - 2019.11.15 at 00h 18m 24s.xml">
-      <configuration name="AQIAPITest.testAQIAPIEmptyResponse" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AQIAPITest_testAQIValidResponse - 2019.11.15 at 00h 21m 46s.xml">
-      <configuration name="AQIAPITest.testAQIValidResponse" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HelloControllerTest_testReverseLocation - 2019.11.15 at 02h 16m 45s.xml">
-      <configuration name="HelloControllerTest.testReverseLocation" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HelloControllerTest_testReverseLocation - 2019.11.15 at 02h 19m 08s.xml">
-      <configuration name="HelloControllerTest.testReverseLocation" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="HelloControllerTest_testReverseLocation - 2019.11.15 at 02h 19m 48s.xml">
       <configuration name="HelloControllerTest.testReverseLocation" configurationId="JUnit" />
     </history-entry>
@@ -401,14 +364,33 @@
     <history-entry file="WaterAPITest - 2019.11.15 at 02h 32m 33s.xml">
       <configuration name="WaterAPITest" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="AQIAPITest - 2019.11.15 at 02h 38m 25s.xml">
+      <configuration name="AQIAPITest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HelloControllerTest - 2019.11.15 at 02h 38m 42s.xml">
+      <configuration name="HelloControllerTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HelloControllerTest - 2019.11.15 at 11h 44m 33s.xml">
+      <configuration name="HelloControllerTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HelloControllerTest_testReverseLocation - 2019.11.15 at 11h 48m 07s.xml">
+      <configuration name="HelloControllerTest.testReverseLocation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HelloControllerTest_testReverseLocation - 2019.11.15 at 11h 49m 34s.xml">
+      <configuration name="HelloControllerTest.testReverseLocation" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="HelloControllerTest_testReverseLocation - 2019.11.15 at 11h 53m 30s.xml">
+      <configuration name="HelloControllerTest.testReverseLocation" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="18684000" />
+    <option name="totallyTimeSpent" value="20096000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1009" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18956336" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19116081" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -418,7 +400,7 @@
       <window_info id="Web" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3293348" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3293348" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -430,13 +412,13 @@
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3293348" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Version Control" order="14" />
+      <window_info anchor="bottom" id="Version Control" order="14" weight="0.3293348" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24973376" />
       <window_info anchor="right" id="Maven" order="3" />
       <window_info anchor="right" id="Palette" order="4" />
-      <window_info anchor="right" id="Coverage" order="5" side_tool="true" weight="0.22683705" />
+      <window_info anchor="right" id="Coverage" order="5" side_tool="true" visible="true" weight="0.22683705" />
       <window_info anchor="right" id="Capture Analysis" order="6" />
       <window_info anchor="right" id="Database" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
@@ -444,18 +426,25 @@
       <window_info anchor="right" id="Bean Validation" order="10" weight="0.32897604" />
     </layout>
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="SHOW_OTHER_BRANCHES" value="true" />
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/SpringAndReactApplicationTests.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/no/kantega/springandreact/SpringAndReactApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="547">
-          <caret line="147" selection-start-line="147" selection-end-line="147" />
         </state>
       </provider>
     </entry>
@@ -471,17 +460,17 @@
         <state relative-caret-position="-886" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/no/kantega/springandreact/SpringAndReactApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="783">
-          <caret line="87" column="29" lean-forward="true" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
+        <state relative-caret-position="1845">
+          <caret line="147" selection-start-line="147" selection-end-line="147" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/WaterAPITest.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+        <state relative-caret-position="1095">
+          <caret line="87" column="29" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
         </state>
       </provider>
     </entry>
@@ -492,20 +481,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/WaterAPITest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="73" selection-start-line="73" selection-end-line="73" />
-          <folding>
-            <element signature="e#2793#2801#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-5642">
+          <caret line="93" column="36" selection-start-line="93" selection-start-column="36" selection-end-line="93" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/HelloControllerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="34" column="11" lean-forward="true" selection-start-line="34" selection-start-column="11" selection-end-line="34" selection-end-column="11" />
+        <state relative-caret-position="1299">
+          <caret line="113" column="35" lean-forward="true" selection-start-line="113" selection-start-column="35" selection-end-line="113" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

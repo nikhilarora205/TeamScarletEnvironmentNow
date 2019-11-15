@@ -67,8 +67,7 @@ public class HelloControllerTest {
 		HelloController helloController = new HelloController();
 
 		assertEquals("76103", helloController.getLocation("1017 Blue Lake Dr. Fort Worth, TX", 1));
-
-
+		
 	}
 
 	@Test
@@ -113,7 +112,9 @@ public class HelloControllerTest {
 		 */
 		HelloController hController = new HelloController();
 
-		assertEquals("Texas", hController.reverseLocation("76103"));
+		for(int i =0; i < 3; i ++) {
+			assertEquals("Texas", hController.reverseLocation("76"+i+"03"));
+		}
 	}
 
 	@Test(timeout = DEFAULT_TIME_OUT)
@@ -123,7 +124,6 @@ public class HelloControllerTest {
 		 */
 		HelloController hController = new HelloController();
 
-		assertEquals("Illinois", hController.reverseLocation("60141"));
 		assertEquals("New York", hController.reverseLocation("10025"));
 	}
 
