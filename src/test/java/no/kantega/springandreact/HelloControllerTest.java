@@ -59,6 +59,7 @@ public class HelloControllerTest {
 
 
 	@Test
+
 	public void testGetLocationAddressToZip(){
 		/**
 		 * Test Valid Address, get correct zipcode in return
@@ -67,7 +68,7 @@ public class HelloControllerTest {
 		HelloController helloController = new HelloController();
 
 		assertEquals("76103", helloController.getLocation("1017 Blue Lake Dr. Fort Worth, TX", 1));
-		
+
 	}
 
 	@Test
