@@ -101,7 +101,7 @@ class About extends Component{
                             <div class="description">Bio: Senior at the University of Texas with a Software Design Tech core<br />
                             Responsibilities: Front End Development<br />
                             Git Username: KhalidAhmadIMRTL<br />
-                            # of Commits: {items[3].total}<br />
+                            # of Commits: {items[2].total}<br />
                             # of Issues:  0<br />
                             # of Unit Tests: 0
                             </div>
@@ -147,7 +147,7 @@ class About extends Component{
                           <div class="description">Bio: Integrated Masters student with a focus in software engineering<br />
                           Responsibilities: Full Stack Development, Front to Back and Back to Front end Integration<br />
                           Git Username: gkd248<br />
-                          # of Commits: {items[2].total}<br />
+                          # of Commits: {items[3].total}<br />
                           # of Issues:  0<br />
                           # of Unit Tests: 0
                           </div>

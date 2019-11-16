@@ -203,8 +203,8 @@ class Landing extends Component {
         
         <br></br><br></br><br></br><br></br><br></br><br></br>
         <p style = {headerStyle}>Please enter an address below to see Air
-        <img src={air} style={imageStyle} alt="air"/> Water
-        <img src={water} style={imageStyle} alt="water"/> and Natural Disaster <img src={disaster} style={imageStyle} alt="disaster"/> statistics for that area! </p>
+        <img src={air} style={imageStyle} alt="air"/> , Water
+        <img src={water} style={imageStyle} alt="water"/> , and Natural Disaster <img src={disaster} style={imageStyle} alt="disaster"/> statistics for that area! </p>
 		<br></br><br></br>
 		
         <table align="center" cellPadding="10">
