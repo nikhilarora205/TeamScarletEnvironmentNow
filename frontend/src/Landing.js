@@ -2,6 +2,22 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import './Landing.css';
+import air from './air.png';
+import water from './water.png';
+import allergy from './allergy.png';
+import disaster from './disaster.png';
+
+const headerStyle = {
+    color: 'Black',
+    backgroundColor: 'lightGray',
+    fontSize: '28px',
+    textAlign: 'middle'
+} 
+
+const imageStyle ={
+	width: '40px',
+	height: '40px'
+}
 
 class Landing extends Component {
 
@@ -186,7 +202,9 @@ class Landing extends Component {
 		<head><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css" /></head>
         
         <br></br><br></br><br></br><br></br><br></br><br></br>
-        <p>Please enter an address below to see Air, Water, and Natural Disaster statistics for that area! </p>
+        <p style = {headerStyle}>Please enter an address below to see Air
+        <img src={air} style={imageStyle} alt="air"/> Water
+        <img src={water} style={imageStyle} alt="water"/> and Natural Disaster <img src={disaster} style={imageStyle} alt="disaster"/> statistics for that area! </p>
 		<br></br><br></br>
 		
         <table align="center" cellPadding="10">

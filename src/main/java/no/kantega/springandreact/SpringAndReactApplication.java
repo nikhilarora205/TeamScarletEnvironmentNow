@@ -192,8 +192,6 @@ public class SpringAndReactApplication implements CommandLineRunner {
 			return null;
 
 		}
-
-
 	}
 }
 

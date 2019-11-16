@@ -13,14 +13,15 @@ class MyBarChart3 extends React.Component {
 	
     render() {
 		const data = this.props.data;
-        const chartWidth = 400;
+        const chartWidth = 450;
         const chartHeight = 500;
 		const chartDomain = [0, chartHeight];
 		const pStyle = {
 			fontSize: '12px',
 			textAlign: 'center',
 			marginTop: '2rem',
-			backgroundColor: 'lightGreen'
+			backgroundColor: 'darkGray',
+			marginBottom: '10rem'
 		};
         return (
 					<XYPlot 
