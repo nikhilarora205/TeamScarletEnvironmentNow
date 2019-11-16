@@ -1,12 +1,21 @@
 {
+<<<<<<< HEAD
+  "main.css": "static/css/main.4ebe39a0.css",
+  "main.css.map": "static/css/main.4ebe39a0.css.map",
+  "main.js": "static/js/main.cc6b1f05.js",
+  "main.js.map": "static/js/main.cc6b1f05.js.map",
+=======
   "main.css": "static/css/main.1001c3a6.css",
   "main.css.map": "static/css/main.1001c3a6.css.map",
   "main.js": "static/js/main.fceadbe0.js",
   "main.js.map": "static/js/main.fceadbe0.js.map",
+>>>>>>> master
   "static/media/Chris.jpeg": "static/media/Chris.05ff8728.jpeg",
   "static/media/David.jpeg": "static/media/David.f2f1a0a0.jpeg",
   "static/media/Gabe.jpeg": "static/media/Gabe.ca3283cf.jpeg",
   "static/media/Khalid.jpeg": "static/media/Khalid.ce2fb84f.jpeg",
   "static/media/Nikhil.png": "static/media/Nikhil.4967b5db.png",
-  "static/media/Sammy.jpg": "static/media/Sammy.4126d211.jpg"
+  "static/media/Sammy.jpg": "static/media/Sammy.4126d211.jpg",
+  "static/media/air.png": "static/media/air.4db7cfd6.png",
+  "static/media/disaster.png": "static/media/disaster.1fe12b42.png"
 }

@@ -1,10 +1,10 @@
 package no.kantega.springandreact;
 
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -46,6 +46,8 @@ import org.jsoup.nodes.Element;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+
 
 @RestController
 public class HelloController {
@@ -112,17 +114,29 @@ public class HelloController {
 		}else{
 			return "{}";
 		}
-
 	}
-//    @GetMapping("/api/allergenData")
-//    public String getAllergenData(String address) throws IOException {
-//    	
-//    	// WORK ON THIS
-//    	String url = "https://www.weatherbug.com/life/pollen/76062";
-//    	Document doc = Jsoup.connect(url).get();
-//    	Elements div = doc.select("div[class=widget__body widget--index__body]");
-//    	return doc.toString();
-//    }
+    
+    @GetMapping("/api/allergenData/{address}")
+    public String getAllergenData(@PathVariable String address) throws IOException {
+		String zipCode = getLocation(address.replaceAll("%20", " "), 0);
+    	String url = "https://weather.com/forecast/allergy/l/" + zipCode;
+    	Document doc = Jsoup.connect(url).get();
+    	Elements div = doc.select("section[class=styles__allergyOutlook__3e1L4]");
+    	Elements div2 = div.select("div[class=styles__allergyOutlookContentGraphMsgQual__25hN1]");
+    	JSONObject json = new JSONObject();
+    	for(int i = 0; i < div2.size();i++ ) {
+    		String currentWord = div2.get(i).text();
+    		if( i == 0 ) {
+    			json.put("Tree Pollen", currentWord);
+    		}else if(i == 1) {
+    			json.put("Grass Pollen", currentWord);
+    		}else if(i == 2) {
+    			json.put("Ragweed Pollen", currentWord);
+    		}
+    	}
+    	return json.toString();
+    }
+    
     @GetMapping("/api/waterData/{address}")
     public String getWaterData(@PathVariable String address){
 
@@ -543,13 +557,6 @@ public class HelloController {
 		return count;
     }
     
-    
-    //STILL WORKIN ON
-    @GetMapping("api/updateAir")
-    public String updateAirDB() {
-		return "";
-    }
-    
     @GetMapping("/api/barChart1/{address}")
     public String getBarChart1Data(@PathVariable String address) throws IOException {
     	// Variables
@@ -564,7 +571,7 @@ public class HelloController {
     	// SCRAPING AND STORING
     	Set<String> possibleValues = new HashSet<String>(Arrays.asList(new String [] {"Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous"}));
     	JSONArray jsonArray = new JSONArray();
-    	
+
     	for(int i = 0; i < td.size(); i++) {
     		String currentWord = td.get(i).text();
     		if(possibleValues.contains(currentWord) && i!=td.size()-1) {
@@ -593,7 +600,7 @@ public class HelloController {
     	response.put("bar1Data", jsonArray);
     	return response.toString();
     }
-    
+
     @GetMapping("/api/barChart2/{address}")
     public String getBarChart2Data(@PathVariable String address){
     	String zipCode = getLocation(address.replaceAll("%20", " "), 0);
@@ -606,27 +613,27 @@ public class HelloController {
 			Elements linkToData = document.select(".primary-btn");
 			String dataUrl = linkToData.attr("href");
 			final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/" + dataUrl).get();
-			
+
 			for (Element item : contaminantDoc.select(".contaminant-name")) {
 				String contam = item.select("h3").text();
 				String level = item.select(".detect-times-greater-than").text();
-				
+
 				if(!level.isEmpty()) {
-					
+
 					//Debugging
 					System.out.println(level);
 					System.out.println(level.replace("x", ""));
 					System.out.println(contam);
 					level = level.replace("x", "");
-					
+
 					if(level.contains(".")) {
 						level = level.substring(0,level.indexOf("."));
 					}
-					
+
 					System.out.println(level);
 					Integer tempLevel = Integer.parseInt(level);
 					JSONObject tempContamObject = new JSONObject();
-					
+
 					try {
 						tempContamObject.put("y", tempLevel);
 						tempContamObject.put("x",contam.substring(0, 4));
@@ -647,7 +654,7 @@ public class HelloController {
 		System.out.println("It is not getting bar2Data: " + response.toString());
 		return response.toString();
 	}
-    
+
     @GetMapping("/api/barChart3/{address}")
     public String getBarChart3Data(@PathVariable String address) throws IOException{
     	try {
@@ -700,66 +707,66 @@ public class HelloController {
     				epidemic++;
     			}
     		}
-    		
+
 			JSONArray jsonArray = new JSONArray();
 			JSONObject json = new JSONObject();
-			
+
 			if(storm!=0) {
 				JSONObject tempson = new JSONObject();
 				tempson.put("y",storm);
 				tempson.put("x", "Storm");
 				jsonArray.put(tempson);
 			}
-			
+
 			if(earthquake!=0) {
 				JSONObject tempson = new JSONObject();
 				tempson.put("y",earthquake);
 				tempson.put("x", "Earthquake");
 				jsonArray.put(tempson);
 			}
-			
+
 			if(wildfire!=0) {
 				JSONObject tempson = new JSONObject();
 				tempson.put("y",wildfire);
 				tempson.put("x", "Wildfire");
 				jsonArray.put(tempson);
 			}
-			
+
 			if(flood!=0) {
 				JSONObject tempson = new JSONObject();
 				tempson.put("y",flood);
 				tempson.put("x", "Flood");
 				jsonArray.put(tempson);
 			}
-			
+
 			if(drought!=0) {
 				JSONObject tempson = new JSONObject();
 				tempson.put("y",drought);
 				tempson.put("x", "Drought");
 				jsonArray.put(tempson);
 			}
-			
+
 			if(extremeTemp!=0) {
 				JSONObject tempson = new JSONObject();
 				tempson.put("y",extremeTemp);
 				tempson.put("x", "XTemp");
 				jsonArray.put(tempson);
 			}
-			
+
 			if(landslide!=0) {
 				JSONObject tempson = new JSONObject();
 				tempson.put("y",landslide);
 				tempson.put("x", "Landslide");
 				jsonArray.put(tempson);
 			}
-			
+
 			if(volcanicActivity!=0) {
 				JSONObject tempson = new JSONObject();
 				tempson.put("y",volcanicActivity);
 				tempson.put("x", "Volcano Act.");
 				jsonArray.put(tempson);
 			}
-			
+
 			if(epidemic!=0) {
 				JSONObject tempson = new JSONObject();
 				tempson.put("y",epidemic);
@@ -774,8 +781,12 @@ public class HelloController {
             e.printStackTrace();
 		}
     	return "Failed to query disaster data";
-	}
+    }
     
     
+    //STILL WORKIN ON
+    @GetMapping("api/updateAir")
+    public String updateAirDB() {
+		return "";
+    }
 }   
-// Storm, Earthquake, Wildfire, Flood, Drought, Extreme temperature, Landslide, Volcanic activity, Epidemic

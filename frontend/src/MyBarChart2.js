@@ -13,14 +13,14 @@ class MyBarChart2 extends React.Component {
 	
     render() {
 		const data = this.props.data;
-        const chartWidth = 400;
+        const chartWidth = 450;
         const chartHeight = 500;
 		const chartDomain = [0, chartHeight];
 		const pStyle = {
 			fontSize: '12px',
 			textAlign: 'center',
 			marginTop: '2rem',
-			backgroundColor: 'aqua'
+			backgroundColor: 'darkGray',
 		};
         return (
 					<XYPlot 
@@ -33,7 +33,7 @@ class MyBarChart2 extends React.Component {
 						<XAxis />
 						<YAxis />
 						<VerticalBarSeries
-							data={data}
+							data={data}	
 						/>
 						<LabelSeries
 							data={data.map(obj => {
