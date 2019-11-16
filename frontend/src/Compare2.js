@@ -35,7 +35,13 @@ class Compare2 extends Component{
 			air2: [],
 			allergen2: [],
 			water2: [],
-			natural2: []
+			natural2: [],
+			bar1: [],
+			bar2: [],
+			bar3: [],
+			bar1_: [],
+			bar2_: [],
+			bar3_: []
 		  };
 
 	async componentDidMount() {
@@ -107,10 +113,41 @@ class Compare2 extends Component{
 			const natResponse2 = await fetch('/api/naturalDisasters/'+this.address2);
 			// const natResponse = await fetch('/api/naturalDisasters');
 		    const natBody2 = await natResponse2.json();
-			this.setState({ natural2: natBody2, isLoading: false });
+			this.setState({ natural2: natBody2, isLoading: true });
 			console.log(this.state.natural2);
+
+			const bar1Response = await fetch('/api/barChart1/'+this.address);
+			const bar1Body = await bar1Response.json();
+			this.setState({ bar1: bar1Body,isLoading: true });
+			console.log(this.state.bar1["bar1Data"]);
+
+		    const bar2Response = await fetch('/api/barChart2/'+this.address);
+			const bar2Body = await bar2Response.json();
+			this.setState({ bar2: bar2Body,isLoading: true });
+			console.log(this.state.bar2["bar2Data"]);
+
+			const bar3Response = await fetch('/api/barChart3/'+this.address);
+			const bar3Body = await bar3Response.json();
+			this.setState({ bar3: bar3Body,isLoading: true });
+			console.log(this.state.bar3["bar3Data"]);
+
+			const bar1_Response = await fetch('/api/barChart1/'+this.address2);
+			const bar1_Body = await bar1_Response.json();
+			this.setState({ bar1_: bar1_Body,isLoading: true });
+			console.log(this.state.bar1_["bar1Data"]);
+
+		    const bar2_Response = await fetch('/api/barChart2/'+this.address2);
+			const bar2_Body = await bar2_Response.json();
+			this.setState({ bar2_: bar2_Body,isLoading: true });
+			console.log(this.state.bar2_["bar2Data"]);
+
+			const bar3_Response = await fetch('/api/barChart3/'+this.address2);
+			const bar3_Body = await bar3_Response.json();
+			this.setState({ bar3_: bar3_Body,isLoading: false });
+			console.log(this.state.bar3_["bar3Data"]);
 			
 	}
+	
 	
 	render() {
 		
@@ -163,7 +200,7 @@ class Compare2 extends Component{
 											style={topMarginStyle}
 											/>
 											<MyBarChart 
-											data={data}
+											data={this.state.bar1["bar1Data"]}
 											textAlign = 'top' 
 											/>
 											<br></br><br></br><br></br>
@@ -195,7 +232,7 @@ class Compare2 extends Component{
 										style={topMarginStyle}
 										/>
 										<MyBarChart 
-										data={data}
+										data={this.state.bar1_["bar1Data"]}
 										textAlign = 'top' 
 										/>
 										<br></br><br></br><br></br>
@@ -283,7 +320,7 @@ class Compare2 extends Component{
 											style={topMarginStyle}
 											/>
 											<MyBarChart2 
-											data={data2}
+											data={this.state.bar2["bar2Data"]}
 											align = 'top' />
 
 											<br></br><br></br><br></br>
@@ -314,7 +351,7 @@ class Compare2 extends Component{
 										style={topMarginStyle}
 										/>
 										<MyBarChart2 
-										data={data2}
+										data={this.state.bar2_["bar2Data"]}
 										align = 'top' />
 
 										<br></br><br></br><br></br>
@@ -350,7 +387,7 @@ class Compare2 extends Component{
 													seperatorColor="hotpink"
 													style={topMarginStyle}
 													/>
-													<MyBarChart3 data={data3}/>
+													<MyBarChart3 data={this.state.bar3["bar3Data"]}/>
 
 													<br></br><br></br><br></br>
 													<p>Storm: {this.state.natural["Storm"]}</p>
@@ -385,7 +422,7 @@ class Compare2 extends Component{
 												seperatorColor="hotpink"
 												style={topMarginStyle}
 												/>
-												<MyBarChart3 data={data3}/>
+												<MyBarChart3 data={this.state.bar3_["bar3Data"]}/>
 
 												<br></br><br></br><br></br>
 												<p>Storm: {this.state.natural2["Storm"]}</p>
