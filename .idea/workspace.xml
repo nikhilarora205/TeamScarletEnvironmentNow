@@ -2,7 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cc6ee908-4269-4418-8999-13b40dcc565f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/DisasterAPITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/DisasterAPITest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/HelloControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/HelloControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/WaterAPITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/WaterAPITest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/antrun/build-main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/antrun/build-main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/service-worker.js" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/static/service-worker.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/no/kantega/springandreact/HelloControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/no/kantega/springandreact/HelloControllerTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/frontend/node_modules/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -51,8 +64,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-5642">
-                  <caret line="93" column="36" selection-start-line="93" selection-start-column="36" selection-end-line="93" selection-end-column="36" />
+                <state relative-caret-position="720">
+                  <caret line="95" column="40" selection-start-line="95" selection-start-column="40" selection-end-line="95" selection-end-column="40" />
                 </state>
               </provider>
             </entry>
@@ -60,8 +73,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/HelloControllerTest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="277">
-                  <caret line="61" selection-start-line="61" selection-end-line="61" />
+                <state relative-caret-position="272">
+                  <caret line="123" column="67" selection-start-line="123" selection-start-column="67" selection-end-line="123" selection-end-column="67" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -81,17 +94,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1095">
-                  <caret line="87" column="29" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/DisasterAPITest.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="525">
-                  <caret line="46" column="31" selection-start-line="46" selection-start-column="31" selection-end-line="46" selection-end-column="31" />
+                <state relative-caret-position="189">
+                  <caret line="47" selection-start-line="47" selection-end-line="47" />
                 </state>
               </provider>
             </entry>
@@ -99,8 +103,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/WaterAPITest.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="300">
-                  <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+                <state relative-caret-position="204">
+                  <caret line="81" column="5" lean-forward="true" selection-start-line="81" selection-start-column="5" selection-end-line="81" selection-end-column="5" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/SpringAndReactApplicationTests.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="90">
+                  <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
                 </state>
               </provider>
             </entry>
@@ -109,11 +122,34 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="15">
-                  <caret line="451" column="10" selection-start-line="451" selection-start-column="4" selection-end-line="451" selection-end-column="10" />
+                <state relative-caret-position="180">
+                  <caret line="394" column="8" selection-start-line="394" selection-start-column="8" selection-end-line="394" selection-end-column="8" />
+                  <folding>
+                    <element signature="e#19805#19806#0" expanded="true" />
+                    <element signature="e#20749#20757#0" expanded="true" />
+                    <element signature="e#24522#24554#1" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/DisasterAPITest.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="189">
+                  <caret line="71" selection-start-line="71" selection-end-line="71" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/bin/mvnw">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="196">
+                  <caret line="116" column="4" selection-start-line="116" selection-start-column="4" selection-end-line="116" selection-end-column="4" />
                 </state>
               </provider>
             </entry>
@@ -126,8 +162,9 @@
     <findStrings>
       <find>SpringAndReactApplication</find>
       <find>remove</find>
-      <find>getLocation</find>
       <find>D</find>
+      <find>validAddress</find>
+      <find>getLocation</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -139,14 +176,14 @@
       <list>
         <option value="$PROJECT_DIR$/src/main/java/no/kantega/springandreact/SpringAndReactApplication.java" />
         <option value="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/WaterAPITest.java" />
-        <option value="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java" />
         <option value="$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java" />
+        <option value="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java" />
         <option value="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/DisasterAPITest.java" />
         <option value="$PROJECT_DIR$/src/test/java/no/kantega/springandreact/HelloControllerTest.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="1009" />
@@ -157,7 +194,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -217,12 +253,13 @@
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573842693408" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1573869603135" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="Errors" />
@@ -239,8 +276,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.HelloControllerTest.testReverseLocation">
-    <configuration name="AQIAPITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.HelloControllerTest.testReverseLocation2">
+    <configuration name="DisasterAPITest.testAQIAPIEmptyResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="spring-and-react" />
       <extension name="coverage">
         <pattern>
@@ -249,29 +286,62 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="no.kantega.springandreact" />
-      <option name="MAIN_CLASS_NAME" value="no.kantega.springandreact.AQIAPITest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="AQIAPITest.testAQIValidResponse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="spring-and-react" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="no.kantega.springandreact.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="no.kantega.springandreact" />
-      <option name="MAIN_CLASS_NAME" value="no.kantega.springandreact.AQIAPITest" />
-      <option name="METHOD_NAME" value="testAQIValidResponse" />
+      <option name="MAIN_CLASS_NAME" value="no.kantega.springandreact.DisasterAPITest" />
+      <option name="METHOD_NAME" value="testAQIAPIEmptyResponse" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HelloControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="DisasterAPITest.testDisasterDataGivenInvalidZipCode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spring-and-react" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="no.kantega.springandreact.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="no.kantega.springandreact" />
+      <option name="MAIN_CLASS_NAME" value="no.kantega.springandreact.DisasterAPITest" />
+      <option name="METHOD_NAME" value="testDisasterDataGivenInvalidZipCode" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DisasterAPITest.testDisasterDataGivenValidAddress" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spring-and-react" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="no.kantega.springandreact.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="no.kantega.springandreact" />
+      <option name="MAIN_CLASS_NAME" value="no.kantega.springandreact.DisasterAPITest" />
+      <option name="METHOD_NAME" value="testDisasterDataGivenValidAddress" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DisasterAPITest.testDisasterDataGivenValidZipCode" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="spring-and-react" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="no.kantega.springandreact.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="no.kantega.springandreact" />
+      <option name="MAIN_CLASS_NAME" value="no.kantega.springandreact.DisasterAPITest" />
+      <option name="METHOD_NAME" value="testDisasterDataGivenValidZipCode" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="HelloControllerTest.testReverseLocation2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="spring-and-react" />
       <extension name="coverage">
         <pattern>
@@ -281,38 +351,8 @@
       </extension>
       <option name="PACKAGE_NAME" value="no.kantega.springandreact" />
       <option name="MAIN_CLASS_NAME" value="no.kantega.springandreact.HelloControllerTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="HelloControllerTest.testReverseLocation" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="spring-and-react" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="no.kantega.springandreact.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="no.kantega.springandreact" />
-      <option name="MAIN_CLASS_NAME" value="no.kantega.springandreact.HelloControllerTest" />
-      <option name="METHOD_NAME" value="testReverseLocation" />
+      <option name="METHOD_NAME" value="testReverseLocation2" />
       <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WaterAPITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="spring-and-react" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="no.kantega.springandreact.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="no.kantega.springandreact" />
-      <option name="MAIN_CLASS_NAME" value="no.kantega.springandreact.WaterAPITest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -326,11 +366,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.HelloControllerTest.testReverseLocation" />
-        <item itemvalue="JUnit.HelloControllerTest" />
-        <item itemvalue="JUnit.AQIAPITest" />
-        <item itemvalue="JUnit.WaterAPITest" />
-        <item itemvalue="JUnit.AQIAPITest.testAQIValidResponse" />
+        <item itemvalue="JUnit.HelloControllerTest.testReverseLocation2" />
+        <item itemvalue="JUnit.DisasterAPITest.testDisasterDataGivenValidAddress" />
+        <item itemvalue="JUnit.DisasterAPITest.testDisasterDataGivenInvalidZipCode" />
+        <item itemvalue="JUnit.DisasterAPITest.testDisasterDataGivenValidZipCode" />
+        <item itemvalue="JUnit.DisasterAPITest.testAQIAPIEmptyResponse" />
       </list>
     </recent_temporary>
   </component>
@@ -347,48 +387,50 @@
       <workItem from="1573677894685" duration="1260000" />
       <workItem from="1573751985486" duration="19813000" />
       <workItem from="1573839595022" duration="2766000" />
+      <workItem from="1573863082314" duration="4025000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="HelloControllerTest_testReverseLocation - 2019.11.15 at 02h 19m 48s.xml">
-      <configuration name="HelloControllerTest.testReverseLocation" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HelloControllerTest_testReverseLocation - 2019.11.15 at 02h 20m 45s.xml">
-      <configuration name="HelloControllerTest.testReverseLocation" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="HelloControllerTest - 2019.11.15 at 02h 22m 38s.xml">
+    <history-entry file="HelloControllerTest - 2019.11.15 at 19h 51m 50s.xml">
       <configuration name="HelloControllerTest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="WaterAPITest - 2019.11.15 at 02h 32m 33s.xml">
-      <configuration name="WaterAPITest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="AQIAPITest - 2019.11.15 at 02h 38m 25s.xml">
+    <history-entry file="AQIAPITest - 2019.11.15 at 19h 52m 12s.xml">
       <configuration name="AQIAPITest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HelloControllerTest - 2019.11.15 at 02h 38m 42s.xml">
-      <configuration name="HelloControllerTest" configurationId="JUnit" />
+    <history-entry file="WaterAPITest - 2019.11.15 at 19h 52m 44s.xml">
+      <configuration name="WaterAPITest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HelloControllerTest - 2019.11.15 at 11h 44m 33s.xml">
-      <configuration name="HelloControllerTest" configurationId="JUnit" />
+    <history-entry file="WaterAPITest_testWaterEmptyResponse - 2019.11.15 at 19h 53m 22s.xml">
+      <configuration name="WaterAPITest.testWaterEmptyResponse" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HelloControllerTest_testReverseLocation - 2019.11.15 at 11h 48m 07s.xml">
-      <configuration name="HelloControllerTest.testReverseLocation" configurationId="JUnit" />
+    <history-entry file="DisasterAPITest_testAQIAPIEmptyResponse - 2019.11.15 at 19h 53m 49s.xml">
+      <configuration name="DisasterAPITest.testAQIAPIEmptyResponse" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HelloControllerTest_testReverseLocation - 2019.11.15 at 11h 49m 34s.xml">
-      <configuration name="HelloControllerTest.testReverseLocation" configurationId="JUnit" />
+    <history-entry file="DisasterAPITest_testDisasterDataGivenValidZipCode - 2019.11.15 at 19h 54m 53s.xml">
+      <configuration name="DisasterAPITest.testDisasterDataGivenValidZipCode" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="HelloControllerTest_testReverseLocation - 2019.11.15 at 11h 53m 30s.xml">
-      <configuration name="HelloControllerTest.testReverseLocation" configurationId="JUnit" />
+    <history-entry file="DisasterAPITest_testDisasterDataGivenValidZipCode - 2019.11.15 at 19h 55m 06s.xml">
+      <configuration name="DisasterAPITest.testDisasterDataGivenValidZipCode" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="DisasterAPITest_testDisasterDataGivenInvalidZipCode - 2019.11.15 at 19h 55m 53s.xml">
+      <configuration name="DisasterAPITest.testDisasterDataGivenInvalidZipCode" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="DisasterAPITest_testDisasterDataGivenValidAddress - 2019.11.15 at 19h 56m 54s.xml">
+      <configuration name="DisasterAPITest.testDisasterDataGivenValidAddress" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="DisasterAPITest_testDisasterDataGivenValidAddress - 2019.11.15 at 19h 58m 24s.xml">
+      <configuration name="DisasterAPITest.testDisasterDataGivenValidAddress" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="21698000" />
+    <option name="totallyTimeSpent" value="25723000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1009" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19116081" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19329074" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -402,9 +444,9 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info active="true" anchor="bottom" id="TODO" order="6" visible="true" weight="0.3293348" />
       <window_info anchor="bottom" id="Spring" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.3293348" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.3293348" />
       <window_info anchor="bottom" id="Docker" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.3293348" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3293348" />
@@ -438,14 +480,21 @@
       </list>
     </option>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/DisasterAPITest.java</url>
+          <line>51</line>
+          <properties class="no.kantega.springandreact.DisasterAPITest" method="testDisasterDataGivenValidZipCode">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/SpringAndReactApplicationTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/Home.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="106">
@@ -465,38 +514,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1095">
-          <caret line="87" column="29" selection-start-line="87" selection-start-column="29" selection-end-line="87" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/DisasterAPITest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="46" column="31" selection-start-line="46" selection-start-column="31" selection-end-line="46" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/WaterAPITest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="34" column="12" selection-start-line="34" selection-start-column="12" selection-end-line="34" selection-end-column="12" />
+        <state relative-caret-position="204">
+          <caret line="81" column="5" lean-forward="true" selection-start-line="81" selection-start-column="5" selection-end-line="81" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/SpringAndReactApplicationTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bin/mvnw">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="116" column="4" selection-start-line="116" selection-start-column="4" selection-end-line="116" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/no/kantega/springandreact/HelloController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5642">
-          <caret line="93" column="36" selection-start-line="93" selection-start-column="36" selection-end-line="93" selection-end-column="36" />
+        <state relative-caret-position="720">
+          <caret line="95" column="40" selection-start-line="95" selection-start-column="40" selection-end-line="95" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/DisasterAPITest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="71" selection-start-line="71" selection-end-line="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/AQIAPITest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/no/kantega/springandreact/HelloControllerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="61" selection-start-line="61" selection-end-line="61" />
+        <state relative-caret-position="272">
+          <caret line="123" column="67" selection-start-line="123" selection-start-column="67" selection-end-line="123" selection-end-column="67" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
