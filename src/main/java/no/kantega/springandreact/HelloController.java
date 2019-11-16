@@ -60,11 +60,14 @@ public class HelloController {
        // JSONObject myResponse = new JSONObject(result.toString());
        // String total = myResponse.getJSONObject("total").toString();
        // return total;
-    }   
-   
-    
-    @GetMapping("/api/AQIData/{address}")
+    }
+
+
+	@GetMapping("/api/AQIData/{address}")
     public String getAQIData(@PathVariable String address) throws IOException {
+		/**
+		 * zipCode check is fine, only calls getLocation
+		 */
 		// Get zipcode from address
 		// address = "100 Orvieto Cove";
 		System.out.println(address);
@@ -393,11 +396,6 @@ public class HelloController {
     public String getLocation(String address, Integer zeroForZip ) {
     	//this means frontend passed in a simple zipcode
 
-
-    	if(!validAddress(address).equals("true") && zeroForZip==0){
-    		return "Please narrow search";
-		}else {
-
 			try {
 				// Use Google GeoCoder to get coordinates
 				// might have to revisit URLEncoder function later on
@@ -461,7 +459,6 @@ public class HelloController {
 				e.printStackTrace();
 			}
 			return "Please narrow search";
-		}
     }
 
 

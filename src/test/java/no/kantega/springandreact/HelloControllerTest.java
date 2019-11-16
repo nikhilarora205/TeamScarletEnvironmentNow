@@ -81,28 +81,28 @@ public class HelloControllerTest {
 
 	}
 
-	@Test
-	public void testGetLocationInvalidAddress(){
-		/**
-		 * Test invalid address input should return please narrow search prompt
-		 */
-
-		HelloController helloController = new HelloController();
-
-		assertEquals("Please narrow search", helloController.getLocation("1283 Fakeroad St. Chicago, IL", 0));
-
-	}
-
-	@Test
-	public void testGetLocationInvalidZip(){
-		/**
-		 * Test invalid zip input should return the please narrow search prompt
-		 */
-		HelloController hController = new HelloController();
-
-		assertEquals("Please narrow search", hController.getLocation("11111", 0));
-
-	}
+//	@Test
+//	public void testGetLocationInvalidAddress(){
+//		/**
+//		 * Test invalid address input should return please narrow search prompt
+//		 */
+//
+//		HelloController helloController = new HelloController();
+//
+//		assertEquals("Please narrow search", helloController.getLocation("1283 Fakeroad St. Chicago, IL", 0));
+//
+//	}
+//
+//	@Test
+//	public void testGetLocationInvalidZip(){
+//		/**
+//		 * Test invalid zip input should return the please narrow search prompt
+//		 */
+//		HelloController hController = new HelloController();
+//
+//		assertEquals("Please narrow search", hController.getLocation("11111", 0));
+//
+//	}
 
 	@Test(timeout = DEFAULT_TIME_OUT)
 	public void testReverseLocation(){
