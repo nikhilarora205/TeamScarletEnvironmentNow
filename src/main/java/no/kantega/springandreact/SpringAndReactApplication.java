@@ -9,6 +9,10 @@ import org.springframework.boot.SpringApplication;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,6 +32,7 @@ import javax.print.Doc;
 
 
 @SpringBootApplication
+//@EnableScheduling
 public class SpringAndReactApplication implements CommandLineRunner {
 
 
@@ -35,6 +40,8 @@ public class SpringAndReactApplication implements CommandLineRunner {
 	private final static String databaseName = "environmentnow";
 
 	public static void main(String[] args) {
+	//	AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(
+	//			Scheduler.class);
 		SpringApplication.run(SpringAndReactApplication.class, args);
 
 	}
@@ -44,6 +51,33 @@ public class SpringAndReactApplication implements CommandLineRunner {
 
 	}
 
+
+	public static void clearAirDatabase(){
+		try{
+			MongoClientURI uri = new MongoClientURI(key);
+			MongoClient mongoClient = new MongoClient(uri);
+			MongoDatabase database = mongoClient.getDatabase(databaseName);
+			database.getCollection("air").deleteMany(new Document());
+			mongoClient.close();
+
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	public static void clearWaterDatabase(){
+		try{
+			MongoClientURI uri = new MongoClientURI(key);
+			MongoClient mongoClient = new MongoClient(uri);
+			MongoDatabase database = mongoClient.getDatabase(databaseName);
+			database.getCollection("water").deleteMany(new Document());
+			mongoClient.close();
+
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	public static void writeToMongoDB(String desiredCollection, String identifier, HashMap<String, String> values) {
 		try {
 			MongoClientURI uri = new MongoClientURI(key);
