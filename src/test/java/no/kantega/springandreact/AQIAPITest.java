@@ -46,7 +46,6 @@ public class AQIAPITest {
     public void testAQIAPI_HardCodedZipInURL_DatabaseStorage() throws Exception {
         /**
          * Tests hardcoded zipcode in URL, and should NOT store in Database
-         * TODO: fix AQI api to reject zipcodes that are not valid, also should not store in database but it does
          */
 
         mockMvc.perform(
@@ -73,7 +72,7 @@ public class AQIAPITest {
 
         String response = result.getResponse().getContentAsString();
 
-        assertNull(response);
+        assertEquals("{}", response);
     }
 
     @Test

@@ -78,7 +78,7 @@ public class WaterAPITest {
 
         String response = result.getResponse().getContentAsString();
 
-        assertNull(response);
+        assertEquals("{}", response);
     }
 
     @Test

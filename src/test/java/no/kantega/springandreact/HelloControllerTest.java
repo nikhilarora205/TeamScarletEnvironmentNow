@@ -34,8 +34,6 @@ public class HelloControllerTest {
 		 * give valid address expect valid responses from all api's
 		 */
 
-		//TODO: Parse a few random addresses into the API and look at the responses
-
 		String address = "509%20Willow%20Creek%20Ct%20Arlington%20TX";
 
 		//parse addresses in {Number}%20{Street Name}%20{street,drive,avenue,etc.}%20{city}%20{state}
@@ -59,6 +57,7 @@ public class HelloControllerTest {
 
 
 	@Test
+
 	public void testGetLocationAddressToZip(){
 		/**
 		 * Test Valid Address, get correct zipcode in return
@@ -66,8 +65,8 @@ public class HelloControllerTest {
 
 		HelloController helloController = new HelloController();
 
-		assertEquals("76103", helloController.getLocation("1017 Blue Lake Dr. Fort Worth, TX", 1));
-		
+		assertEquals("76103", helloController.getLocation("1017 Blue Lake Dr. Fort Worth, TX", 0));
+
 	}
 
 	@Test
@@ -82,33 +81,32 @@ public class HelloControllerTest {
 
 	}
 
-	@Test
-	public void testGetLocationInvalidAddress(){
-		/**
-		 * Test invalid address input should return please narrow search prompt
-		 */
-
-		HelloController helloController = new HelloController();
-
-		assertEquals("Please narrow search", helloController.getLocation("1283 Fakeroad St. Chicago, IL", 1));
-
-	}
-
-	@Test
-	public void testGetLocationInvalidZip(){
-		/**
-		 * Test invalid zip input should return the please narrow search prompt
-		 */
-		HelloController hController = new HelloController();
-
-		assertEquals("Please narrow search", hController.getLocation("11111", 0));
-
-	}
+//	@Test
+//	public void testGetLocationInvalidAddress(){
+//		/**
+//		 * Test invalid address input should return please narrow search prompt
+//		 */
+//
+//		HelloController helloController = new HelloController();
+//
+//		assertEquals("Please narrow search", helloController.getLocation("1283 Fakeroad St. Chicago, IL", 0));
+//
+//	}
+//
+//	@Test
+//	public void testGetLocationInvalidZip(){
+//		/**
+//		 * Test invalid zip input should return the please narrow search prompt
+//		 */
+//		HelloController hController = new HelloController();
+//
+//		assertEquals("Please narrow search", hController.getLocation("11111", 0));
+//
+//	}
 
 	@Test(timeout = DEFAULT_TIME_OUT)
 	public void testReverseLocation(){
 		/**
-		 * TODO: Find out Reverse Location's purpose then test the functionality here
 		 */
 		HelloController hController = new HelloController();
 
@@ -120,29 +118,19 @@ public class HelloControllerTest {
 	@Test(timeout = DEFAULT_TIME_OUT)
 	public void testReverseLocation2(){
 		/**
-		 * TODO: Find out Reverse Location's purpose then test the functionality here
 		 */
 		HelloController hController = new HelloController();
 
-		assertEquals("New York", hController.reverseLocation("10025"));
+		assertEquals("Illinois", hController.reverseLocation("60141"));
 	}
 
 	@Test(timeout = DEFAULT_TIME_OUT)
 	public void testReverseLocation3(){
 		/**
-		 * TODO: Find out Reverse Location's purpose then test the functionality here
 		 */
 		HelloController hController = new HelloController();
 
 		assertEquals("New York", hController.reverseLocation("10025"));
 	}
-
-	@Test
-	public void testValidAddress(){
-		/**
-		 * TODO: Find out validAddress() and if we still need, seems getLocation does the same thing
-		 */
-	}
-
 
 }
