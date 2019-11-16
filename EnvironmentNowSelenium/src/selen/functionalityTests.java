@@ -216,5 +216,38 @@ class functionalityTests {
         System.out.println(expUrl);
         assertTrue(expUrl.equals(currUrl));
 	}
-
+	
+		//tests about contact then home button
+	@Test
+	public void testAboutContactHome() throws InterruptedException {
+	ChromeOptions options = new ChromeOptions();
+	options.addArguments("--headless", "--disable-gpu", "--window-size=1920,1200","--ignore-certificate-errors");
+	WebDriver driver = new ChromeDriver(options);
+        driver.get("https://myenvironmentnow.appspot.com");
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        String expUrl = "https://myenvironmentnow.appspot.com/";
+        List<WebElement> navLinks = driver.findElements(By.className("nav-link"));
+        WebElement aboutButt = navLinks.get(1);
+        
+        //homeButt.getAttribute(arg0)
+        Actions action = new Actions(driver);
+        Thread.sleep(2000);
+        action.click(aboutButt).build().perform();
+        navLinks = driver.findElements(By.className("nav-link"));
+        WebElement contButt = navLinks.get(2);
+        
+        //homeButt.getAttribute(arg0)
+        Actions action1 = new Actions(driver);
+        Thread.sleep(2000);
+        action1.click(contButt).build().perform();
+        
+        WebElement homeButt = driver.findElement(By.className("nav-link"));
+        Actions action2 = new Actions(driver);
+        action2.click(homeButt).build().perform();
+        
+        String currUrl = driver.getCurrentUrl().toString();
+        //System.out.println(currUrl);
+        //System.out.println(expUrl);
+        assertTrue(expUrl.equals(currUrl));
+	}
 }
