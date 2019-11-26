@@ -36,10 +36,10 @@ class Landing extends Component {
         // var status = fetch('/api/validAddress');
         
         this.setState.apiResponse = null;
-        console.log(this.state.apiResponse);
+        // console.log(this.state.apiResponse);
         const response = fetch('/api/validAddress/'+this.address).then(res => res.text())
         .then(res => this.setState({ apiResponse: res }, function() {
-            console.log(res)
+            // console.log(res)
             if(this.state.apiResponse === "incorrect") window.alert("The address entered is incorrect. Please try again.")
             else if(this.state.apiResponse == "narrow"){
                 window.alert("Please narrow your search. Perhaps you left out a zipcode?")
@@ -53,7 +53,7 @@ class Landing extends Component {
     }));
         
         
-        console.log(this.state.apiResponse);
+        // console.log(this.state.apiResponse);
       //  console.log(this.address);
 
         // check for valid address
@@ -67,19 +67,6 @@ class Landing extends Component {
             // this.props.history.push('/compare/'+this.address);
         }
 
-        // this.props.history.push('/compare/'+this.address);
-        // fetch("/api/getLocation")
-        // .then(function(response) {
-        //     console.log("It worked, response is: ", response)
-        //     this.props.history.push({
-        //         pathname: '/compare'
-        //     }); 
-        // }).catch(function() {
-        //     console.log("error");
-        // });
-        // var self = this;
-        // this.transitionTo('compare');
-        // console.log(this.state.apiResponse);
     }
     
    secondLocation = () => {
@@ -135,20 +122,20 @@ class Landing extends Component {
         // var status = fetch('/api/validAddress');
         
         this.setState.apiResponse = null;
-        console.log(this.state.apiResponse);
+        // console.log(this.state.apiResponse);
         const response = fetch('/api/validAddress/'+this.address).then(res => res.text())
         .then(res => this.setState({ apiResponse: res }, function() {
-            console.log(res)
+            // console.log(res)
             if(this.state.apiResponse === "incorrect") window.alert("The address entered is incorrect. Please try again.")
             else if(this.state.apiResponse == "narrow"){
                 window.alert("Please narrow your search. Perhaps you left out a zipcode?")
                 // figure out transition to next page
 
             }else{
-                console.log(this.state.apiResponse);
+                // console.log(this.state.apiResponse);
                 const response2 = fetch('/api/validAddress/'+this.address2).then(res => res.text())
                 .then(res => this.setState({ apiResponse2: res }, function() {
-                    console.log(res)
+                    // console.log(res)
                     if(this.state.apiResponse2 === "incorrect") window.alert("The address entered is incorrect. Please try again.")
                     else if(this.state.apiResponse2 == "narrow"){
                         window.alert("Please narrow your search. Perhaps you left out a zipcode?")
@@ -166,7 +153,7 @@ class Landing extends Component {
     }));
         
         
-        console.log(this.state.apiResponse);
+        // console.log(this.state.apiResponse);
         //  console.log(this.address);
 
         // check for valid address
