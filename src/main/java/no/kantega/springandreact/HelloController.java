@@ -77,6 +77,7 @@ public class HelloController {
     	JSONObject aqiData, waterData, environmentalData, allergenData;
     	try {
 			 aqiData = DataRetrieval.getAQIData(addressObj);
+			 System.out.println("getting data: " + aqiData.toString());
 			 waterData = DataRetrieval.getWaterData(addressObj);
 			 environmentalData = DataRetrieval.getNaturalDisasterData(addressObj);
 			 allergenData = DataRetrieval.getAllergenData(addressObj);

@@ -19,45 +19,44 @@ public class DataRetrieval {
 
     public static JSONObject getAQIData(Address address) throws IOException {
         String zipCode = address.zipCode;
-        if(!zipCode.equals("Please narrow search")) {
 
-            String document = SpringAndReactApplication.queryMongoDB("air", zipCode);
-            if (document != null && !document.isEmpty()) {
-                JSONObject convertedObject = new Gson().fromJson(document, JSONObject.class);
-                return convertedObject;
-            } else {
-                // get JSON
-                String url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=" + zipCode + "&submit=Go";
-                Document doc = Jsoup.connect(url).get();
-                Elements test = doc.select("table[class=TblInvisible]");
-                Elements body = test.select("tbody");
-                Elements td = body.select("td");
-                JSONObject json = new JSONObject();
-                //return td.get(2).text();
-                Set<String> possibleValues = new HashSet<String>(Arrays.asList(new String[]{"Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous"}));
-                HashMap<String, String> toStore = new HashMap<>();
-                for (int i = 0; i < td.size(); i++) {
-                    String currentWord = td.get(i).text();
-                    if (possibleValues.contains(currentWord) && i != td.size() - 1) {
-                        String currentDetail = td.get(i + 1).text();
-                        if (currentDetail.equals("Ozone")) {
-                            json.put("Ozone", td.get(i + 2).text());
-                            toStore.put("Ozone", td.get(i + 2).text());
-                        } else if (currentDetail.equals("Particles (PM2.5)")) {
-                            json.put("PM2.5", td.get(i + 2).text());
-                            toStore.put("PM2.5", td.get(i + 2).text());
-                        } else if (currentDetail.equals("Particles (PM10)")) {
-                            json.put("PM10", td.get(i + 2).text());
-                            toStore.put("PM10", td.get(i + 2).text());
-                        }
+
+        String document = SpringAndReactApplication.queryMongoDB("air", zipCode);
+        if (document != null && !document.isEmpty()) {
+            JSONObject convertedObject = new JSONObject(document);
+            return convertedObject;
+        } else {
+            // get JSON
+            String url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=" + zipCode + "&submit=Go";
+            Document doc = Jsoup.connect(url).get();
+            Elements test = doc.select("table[class=TblInvisible]");
+            Elements body = test.select("tbody");
+            Elements td = body.select("td");
+            JSONObject json = new JSONObject();
+            //return td.get(2).text();
+            Set<String> possibleValues = new HashSet<String>(Arrays.asList(new String[]{"Good", "Moderate", "Unhealthy for Sensitive Groups", "Unhealthy", "Very Unhealthy", "Hazardous"}));
+            HashMap<String, String> toStore = new HashMap<>();
+            for (int i = 0; i < td.size(); i++) {
+                String currentWord = td.get(i).text();
+                if (possibleValues.contains(currentWord) && i != td.size() - 1) {
+                    String currentDetail = td.get(i + 1).text();
+                    if (currentDetail.equals("Ozone")) {
+                        json.put("Ozone", td.get(i + 2).text());
+                        toStore.put("Ozone", td.get(i + 2).text());
+                    } else if (currentDetail.equals("Particles (PM2.5)")) {
+                        json.put("PM2.5", td.get(i + 2).text());
+                        toStore.put("PM2.5", td.get(i + 2).text());
+                    } else if (currentDetail.equals("Particles (PM10)")) {
+                        json.put("PM10", td.get(i + 2).text());
+                        toStore.put("PM10", td.get(i + 2).text());
                     }
                 }
-                SpringAndReactApplication.writeToMongoDB("air", zipCode, toStore);
-                return json;
             }
-        }else{
-            return null;
+            SpringAndReactApplication.writeToMongoDB("air", zipCode, toStore);
+            System.out.println("AQI Data: " + json.toString());
+            return json;
         }
+
     }
 
     public static JSONObject getAllergenData(Address address) throws IOException {
@@ -91,7 +90,7 @@ public class DataRetrieval {
         if(!zipCode.equals("Please narrow search")) {
 
             if (checkDoc != null && !checkDoc.isEmpty()) {
-                JSONObject convertedObject = new Gson().fromJson(checkDoc, JSONObject.class);
+                JSONObject convertedObject = new JSONObject(checkDoc);
                 return convertedObject;
             } else {
                 JSONObject responseZip = new JSONObject();
