@@ -675,122 +675,122 @@ public class HelloController {
 
 	// }
 
-    @GetMapping("/api/naturalDisasters/{address}")
-    public String getNaturalDisasterData(@PathVariable String address) throws IOException{
-    	try {
-			MongoClientURI uri = new MongoClientURI(
-					"mongodb://nikhilarora:soft461datatest@cluster0-shard-00-00-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-01-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-02-kvrlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
-			MongoClient mongoClient = new MongoClient(uri);
-			@SuppressWarnings("deprecation")
-			DB database = mongoClient.getDB("environmentnow");
-			DBCollection collection = database.getCollection("disasters");
+    // @GetMapping("/api/naturalDisasters/{address}")
+    // public String getNaturalDisasterData(@PathVariable String address) throws IOException{
+    // 	try {
+	// 		MongoClientURI uri = new MongoClientURI(
+	// 				"mongodb://nikhilarora:soft461datatest@cluster0-shard-00-00-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-01-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-02-kvrlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
+	// 		MongoClient mongoClient = new MongoClient(uri);
+	// 		@SuppressWarnings("deprecation")
+	// 		DB database = mongoClient.getDB("environmentnow");
+	// 		DBCollection collection = database.getCollection("disasters");
 
-			// address= "100 Orvieto Cove";
+	// 		// address= "100 Orvieto Cove";
 
-			String location = reverseLocation(address);
-			if (!location.equals("Please narrow search")) {
+	// 		String location = reverseLocation(address);
+	// 		if (!location.equals("Please narrow search")) {
 
-				BasicDBObject query = new BasicDBObject("Location", location);
-				query.toJson();
-				DBCursor test = collection.find(query);
-				int storm = 0;
-				int earthquake = 0;
-				int wildfire = 0;
-				int flood = 0;
-				int drought = 0;
-				int extremeTemp = 0;
-				int landslide = 0;
-				int volcanicActivity = 0;
-				int epidemic = 0;
-				while (test.hasNext()) {
-					String document = test.next().toString();
-					if (document.contains("Storm")) {
-						storm++;
-					}
-					if (document.contains("Earthquake")) {
-						earthquake++;
-					}
-					if (document.contains("Wildfire")) {
-						wildfire++;
-					}
-					if (document.contains("Flood")) {
-						flood++;
-					}
-					if (document.contains("Drought")) {
-						drought++;
-					}
-					if (document.contains("Extreme temperature")) {
-						extremeTemp++;
-					}
-					if (document.contains("Landslide")) {
-						landslide++;
-					}
-					if (document.contains("Volvanic activity")) {
-						volcanicActivity++;
-					}
-					if (document.contains("Epidemic")) {
-						epidemic++;
-					}
-				}
-				String returnString = "";
-				JSONObject json = new JSONObject();
-				// if (storm!=0) {
-				// 	returnString = returnString + "Storm: " + storm + "\n";
-				// 	json.put("Storm", storm);
-				// }
-				// if (earthquake!=0) {
-				// 	returnString = returnString + "Earthquake: " + earthquake + "\n";
-				// 	json.put("Earthquake", earthquake);
-				// }
-				// if (wildfire!=0) {
-				// 	returnString = returnString + "Wildfire: " + wildfire + "\n";
-				// 	json.put("Wildfire", wildfire);
-				// }
-				// if (flood!=0) {
-				// 	returnString = returnString + "Flood: " + flood + "\n";
-				// 	json.put("Flood", flood);
-				// }
-				// if (drought!=0) {
-				// 	returnString = returnString + "Drought: " + drought + "\n";
-				// 	json.put("Drought", drought);
-				// }
-				// if (extremeTemp!=0) {
-				// 	returnString = returnString + "Extreme Temperature: " + extremeTemp + "\n";
-				// 	json.put("Extreme Temperature", extremeTemp);
-				// }
-				// if (landslide!=0) {
-				// 	returnString = returnString + "Land Slide: " + landslide + "\n";
-				// 	json.put("Land Slide", landslide);
-				// }
-				// if (volcanicActivity!=0) {
-				// 	returnString = returnString + "Volcanic Activity: " + volcanicActivity + "\n";
-				// 	json.put("Volcanic Activity", volcanicActivity);
-				// }
-				// if (epidemic!=0) {
-				// 	returnString = returnString + "Epidemic: " + epidemic + "\n";
-				// 	json.put("Epidemic", epidemic);
-				// }
-				json.put("Storm", storm);
-				json.put("Earthquake", earthquake);
-				json.put("Wildfire", wildfire);
-				json.put("Flood", flood);
-				json.put("Drought", drought);
-				json.put("Extreme Temperature", extremeTemp);
-				json.put("Land Slide", landslide);
-				json.put("Volcanic Activity", volcanicActivity);
-				json.put("Epidemic", epidemic);
+	// 			BasicDBObject query = new BasicDBObject("Location", location);
+	// 			query.toJson();
+	// 			DBCursor test = collection.find(query);
+	// 			int storm = 0;
+	// 			int earthquake = 0;
+	// 			int wildfire = 0;
+	// 			int flood = 0;
+	// 			int drought = 0;
+	// 			int extremeTemp = 0;
+	// 			int landslide = 0;
+	// 			int volcanicActivity = 0;
+	// 			int epidemic = 0;
+	// 			while (test.hasNext()) {
+	// 				String document = test.next().toString();
+	// 				if (document.contains("Storm")) {
+	// 					storm++;
+	// 				}
+	// 				if (document.contains("Earthquake")) {
+	// 					earthquake++;
+	// 				}
+	// 				if (document.contains("Wildfire")) {
+	// 					wildfire++;
+	// 				}
+	// 				if (document.contains("Flood")) {
+	// 					flood++;
+	// 				}
+	// 				if (document.contains("Drought")) {
+	// 					drought++;
+	// 				}
+	// 				if (document.contains("Extreme temperature")) {
+	// 					extremeTemp++;
+	// 				}
+	// 				if (document.contains("Landslide")) {
+	// 					landslide++;
+	// 				}
+	// 				if (document.contains("Volvanic activity")) {
+	// 					volcanicActivity++;
+	// 				}
+	// 				if (document.contains("Epidemic")) {
+	// 					epidemic++;
+	// 				}
+	// 			}
+	// 			String returnString = "";
+	// 			JSONObject json = new JSONObject();
+	// 			// if (storm!=0) {
+	// 			// 	returnString = returnString + "Storm: " + storm + "\n";
+	// 			// 	json.put("Storm", storm);
+	// 			// }
+	// 			// if (earthquake!=0) {
+	// 			// 	returnString = returnString + "Earthquake: " + earthquake + "\n";
+	// 			// 	json.put("Earthquake", earthquake);
+	// 			// }
+	// 			// if (wildfire!=0) {
+	// 			// 	returnString = returnString + "Wildfire: " + wildfire + "\n";
+	// 			// 	json.put("Wildfire", wildfire);
+	// 			// }
+	// 			// if (flood!=0) {
+	// 			// 	returnString = returnString + "Flood: " + flood + "\n";
+	// 			// 	json.put("Flood", flood);
+	// 			// }
+	// 			// if (drought!=0) {
+	// 			// 	returnString = returnString + "Drought: " + drought + "\n";
+	// 			// 	json.put("Drought", drought);
+	// 			// }
+	// 			// if (extremeTemp!=0) {
+	// 			// 	returnString = returnString + "Extreme Temperature: " + extremeTemp + "\n";
+	// 			// 	json.put("Extreme Temperature", extremeTemp);
+	// 			// }
+	// 			// if (landslide!=0) {
+	// 			// 	returnString = returnString + "Land Slide: " + landslide + "\n";
+	// 			// 	json.put("Land Slide", landslide);
+	// 			// }
+	// 			// if (volcanicActivity!=0) {
+	// 			// 	returnString = returnString + "Volcanic Activity: " + volcanicActivity + "\n";
+	// 			// 	json.put("Volcanic Activity", volcanicActivity);
+	// 			// }
+	// 			// if (epidemic!=0) {
+	// 			// 	returnString = returnString + "Epidemic: " + epidemic + "\n";
+	// 			// 	json.put("Epidemic", epidemic);
+	// 			// }
+	// 			json.put("Storm", storm);
+	// 			json.put("Earthquake", earthquake);
+	// 			json.put("Wildfire", wildfire);
+	// 			json.put("Flood", flood);
+	// 			json.put("Drought", drought);
+	// 			json.put("Extreme Temperature", extremeTemp);
+	// 			json.put("Land Slide", landslide);
+	// 			json.put("Volcanic Activity", volcanicActivity);
+	// 			json.put("Epidemic", epidemic);
 
-				// return returnString;
-				return json.toString();
-			}else{
-				return "Failed to query disaster data";
-			}
-		}
-    	catch (Exception e) {
-            e.printStackTrace();
-		}
-    	return "Failed to query disaster data";
-	}
+	// 			// return returnString;
+	// 			return json.toString();
+	// 		}else{
+	// 			return "Failed to query disaster data";
+	// 		}
+	// 	}
+    // 	catch (Exception e) {
+    //         e.printStackTrace();
+	// 	}
+    // 	return "Failed to query disaster data";
+	// }
 
 
 
