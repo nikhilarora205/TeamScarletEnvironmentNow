@@ -39,65 +39,26 @@ const backdropStyle = {
 class Home extends Component{
 
 	state = {
-			isLoading: true,
 			address: "",
-			air: [],
-			allergen: [],
-			water: [],
-			natural: []
+			isLoading: true,
+			masterData: []
 		  };
 
 	async componentDidMount() {
+			console.log("BEGIN TEST");
 
 			this.address = window.location.pathname;
 			this.address = this.address.replace("/compare/", "");
-			// URL converts spaces to %20
-
-
-			// console.log(this.address);
-		
-			const AQIResponse = await fetch('/api/AQIData/'+this.address);
-			// const AQIResponse = await fetch('/api/AQIData');
-			const AQIBody = await AQIResponse.json();
-			this.setState({ air: AQIBody, isLoading: true });
-			// console.log(this.state.air["airData"]);
-
-			const waterResponse = await fetch('/api/waterData/'+this.address);
-			// const waterResponse = await fetch('/api/waterData');
-		    const waterBody = await waterResponse.json();
-			this.setState({ water: waterBody, isLoading: true });
-			// console.log(this.state.water["waterData"]);
-
-			const natResponse = await fetch('/api/naturalDisasters/'+this.address);
-			// const natResponse = await fetch('/api/naturalDisasters');
-		    const natBody = await natResponse.json();
-			this.setState({ natural: natBody, isLoading: true });
-			// console.log(this.state.natural["natData"]);
+			console.log(this.address);
 			
-			const allergenResponse = await fetch('/api/allergenData/' + this.address);
-			const allergenBody = await allergenResponse.json();
-			this.setState({ allergen: allergenBody, isLoading:false});
-			// console.log(this.state.allergen);
-
-			// const bar1Response = await fetch('/api/barChart1/'+this.address);
-			// const bar1Body = await bar1Response.json();
-			// this.setState({ bar1: bar1Body,isLoading: true });
-			// console.log(this.state.bar1["bar1Data"]);
-
-		    // const bar2Response = await fetch('/api/barChart2/'+this.address);
-			// const bar2Body = await bar2Response.json();
-			// this.setState({ bar2: bar2Body,isLoading: true });
-			// console.log(this.state.bar2["bar2Data"]);
-
-			// const bar3Response = await fetch('/api/barChart3/'+this.address);
-			// const bar3Body = await bar3Response.json();
-			// this.setState({ bar3: bar3Body,isLoading: false });
-			// console.log(this.state.bar3["bar3Data"]);
-
-
-
-//			var regex = /%20/gi;
-//			this.address = this.address.replace(regex, " ");
+			const masterResponse = await fetch('/api/getData/'+this.address)
+			const masterResponseBody = await masterResponse.json();
+			this.setState({masterData: masterResponseBody,isLoading: true });
+			//console.log(this.state.masterData[0]["airData"]);
+			//console.log(this.state.masterData[1]);
+			//console.log(this.state.masterData[2]);
+			//console.log(this.state.masterData[3]);
+			this.setState({isLoading: false });
 	}
 	
 	render() {
@@ -133,7 +94,7 @@ class Home extends Component{
 										<img src={air} style={imageStyle} alt="air"/>
 											AIR                      
 											<MyBarChart 
-											data={this.state.air["airData"]}
+											data={this.state.masterData[0]["airData"]}
 											textAlign = 'top' 
 											/>
 										</td>
@@ -151,15 +112,15 @@ class Home extends Component{
 											<br></br><br></br><br></br><br></br>
 											<header>Tree Pollen: </header>
 											<br></br>
-											<p style= {allergenInfoStyle}>{this.state.allergen["Tree Pollen"]}</p>
+											<p style= {allergenInfoStyle}>{this.state.masterData[3]["Tree Pollen"]}</p>
 											<br></br><br></br>
 											<header>Grass Pollen: </header>
 											<br></br>
-											<p style= {allergenInfoStyle}>{this.state.allergen["Grass Pollen"]}</p>
+											<p style= {allergenInfoStyle}>{this.state.masterData[3]["Grass Pollen"]}</p>
 											<br></br><br></br>
 											<header>Ragweed Pollen: </header>
 											<br></br>
-											<p style= {allergenInfoStyle}>{this.state.allergen["Ragweed Pollen"]}</p>
+											<p style= {allergenInfoStyle}>{this.state.masterData[3]["Ragweed Pollen"]}</p>
 											<br></br><br></br>
 										</td>
 									</tr>
@@ -181,7 +142,7 @@ class Home extends Component{
 												<img src={water} style={imageStyle} alt="water"/>
 												WATER
 												<MyBarChart2 
-												data={this.state.water["waterData"]}
+												data={this.state.masterData[1]["waterData"]}
 												align = 'top' />
 												<br></br><br></br>
 										</td>
@@ -196,7 +157,7 @@ class Home extends Component{
 									<td valign="top" style ={subheaderStyle}>
 										<img src={disaster} style={imageStyle} alt="disaster"/>
 										LAND
-										<MyBarChart3 data={this.state.natural["natData"]}/>
+										<MyBarChart3 data={this.state.masterData[2]["natData"]}/>
 										<br></br><br></br>
 									</td>
 								</tr>
