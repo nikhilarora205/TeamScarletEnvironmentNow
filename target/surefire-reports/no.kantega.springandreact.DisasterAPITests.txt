@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: no.kantega.springandreact.DisasterAPITests
+-------------------------------------------------------------------------------
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.075 s - in no.kantega.springandreact.DisasterAPITests
