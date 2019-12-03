@@ -171,10 +171,10 @@ public class SpringAndReactApplication implements CommandLineRunner {
 
 			while (test.hasNext()) {
 				DBObject doc = test.next();
-				if (doc.toString() == null || doc.toString().length() == 0) {
-					System.out.println("doc was empty");
-					return null;
-				}
+				//if (doc.toString() == null || doc.toString().length() == 0) {
+				//	System.out.println("doc was empty");
+			//		return null;
+		//		}
 				String intermediate = "";
 				if (doc.toString().contains("-eberlein-")) {
 					intermediate = doc.toString().replace("-eberlein-", ".");
@@ -182,9 +182,9 @@ public class SpringAndReactApplication implements CommandLineRunner {
 				toReturn = new JSONObject(intermediate);
 
 				toReturn.remove("_id");
+				return toReturn.toString();
 			}
-			System.out.println("here: ");
-			System.out.println(toReturn.toString());
+			System.out.println("this should be null: " + toReturn.toString());
 			return toReturn.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -203,8 +203,11 @@ public class SpringAndReactApplication implements CommandLineRunner {
 			DBCollection collection = database.getCollection(desiredCollection);
 
 			System.out.println("success");
-
-			BasicDBObject query = new BasicDBObject("zipcode", identifier);
+			String collectionCheck = "zipcode";
+			if(desiredCollection.equals("locations")){
+				collectionCheck = "state";
+			}
+			BasicDBObject query = new BasicDBObject(collectionCheck, identifier);
 			query.toJson();
 			DBCursor test = collection.find(query);
 			System.out.println("size of water data: " + test.size());
@@ -220,6 +223,10 @@ public class SpringAndReactApplication implements CommandLineRunner {
 				}
 				toReturn = new JSONObject(JSON.serialize(doc));
 			}
+			System.out.println();
+			System.out.println();
+			System.out.println();
+			System.out.println("database queried: " + toReturn.toString());
 			return toReturn.toString();
 		} catch (Exception e) {
 			e.printStackTrace();

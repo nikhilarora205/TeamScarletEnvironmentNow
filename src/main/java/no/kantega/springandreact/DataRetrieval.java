@@ -24,7 +24,7 @@ public class DataRetrieval {
     	// Variables
     	String airString = new String();
 		String zipCode = address.zipCode;
-		String document = SpringAndReactApplication.queryMongoDB("air", zipCode);
+		String document = SpringAndReactApplication.queryMongoDB("air", zipCode, true);
 		if(document != null && !document.isEmpty()){
 			JSONObject convertedObject = new JSONObject(document);
 			return convertedObject;
@@ -63,6 +63,7 @@ public class DataRetrieval {
 					}
 				}
 			}
+			System.out.println("duplicate for air");
 			JSONObject response = new JSONObject();
 			response.put("zipcode", zipCode);
 			response.put("airData", jsonArray);
@@ -75,7 +76,7 @@ public class DataRetrieval {
 
     public static JSONObject getAllergenData(Address address) throws IOException {
 		String zipCode = address.zipCode;
-		String document = SpringAndReactApplication.queryMongoDB("allergen", zipCode);
+		String document = SpringAndReactApplication.queryMongoDB("allergen", zipCode, true);
 		if (document != null && !document.isEmpty()) {
 			JSONObject convertedObject = new JSONObject(document);
 			return convertedObject;
@@ -100,6 +101,7 @@ public class DataRetrieval {
 					toStore.put("Tree Pollen", currentWord);
 				}
 			}
+			System.out.println("duplicate for air");
 			SpringAndReactApplication.writeToMongoDB("allergen", zipCode, toStore);
 			return json;
 		}
@@ -169,142 +171,152 @@ public class DataRetrieval {
 				e.printStackTrace();
 			}
 			// System.out.println("It is not getting bar2Data: " + response.toString());
+			System.out.println("duplicate for air");
+
 			return response;
 		}
 	}
     
-    public static JSONObject getNaturalDisasterData(Address address) throws IOException{
-    	try {
-    		MongoClientURI uri = new MongoClientURI(
-    				"mongodb://nikhilarora:soft461datatest@cluster0-shard-00-00-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-01-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-02-kvrlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
-    		MongoClient mongoClient = new MongoClient(uri);
-    		@SuppressWarnings("deprecation")
-    		DB database = mongoClient.getDB("environmentnow");
-    		DBCollection collection = database.getCollection("disasters");
-			String location = address.state;
-			if (!location.equals("Please narrow search")) {
-				BasicDBObject query = new BasicDBObject("Location", location);
-				query.toJson();
-				DBCursor test = collection.find(query);
-				int storm = 0;
-				int earthquake = 0;
-				int wildfire = 0;
-				int flood = 0;
-				int drought = 0;
-				int extremeTemp = 0;
-				int landslide = 0;
-				int volcanicActivity = 0;
-				int epidemic = 0;
-				while(test.hasNext()){
-					String document = test.next().toString();
-					if(document.contains("Storm")) {
-						storm++;
+    public static JSONObject getNaturalDisasterData(Address address) throws IOException {
+		String checkDoc = SpringAndReactApplication.queryMongoDB("locations", address.state, true);
+		if (checkDoc != null && !checkDoc.isEmpty()) {
+			JSONObject convertedObject = new JSONObject(checkDoc);
+			return convertedObject;
+		} else {
+			try {
+				MongoClientURI uri = new MongoClientURI(
+						"mongodb://nikhilarora:soft461datatest@cluster0-shard-00-00-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-01-kvrlc.gcp.mongodb.net:27017,cluster0-shard-00-02-kvrlc.gcp.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority");
+				MongoClient mongoClient = new MongoClient(uri);
+				@SuppressWarnings("deprecation")
+				DB database = mongoClient.getDB("environmentnow");
+				DBCollection collection = database.getCollection("disasters");
+				String location = address.state;
+				if (!location.equals("Please narrow search")) {
+					BasicDBObject query = new BasicDBObject("Location", location);
+					query.toJson();
+					DBCursor test = collection.find(query);
+					int storm = 0;
+					int earthquake = 0;
+					int wildfire = 0;
+					int flood = 0;
+					int drought = 0;
+					int extremeTemp = 0;
+					int landslide = 0;
+					int volcanicActivity = 0;
+					int epidemic = 0;
+					while (test.hasNext()) {
+						String document = test.next().toString();
+						if (document.contains("Storm")) {
+							storm++;
+						}
+						if (document.contains("Earthquake")) {
+							earthquake++;
+						}
+						if (document.contains("Wildfire")) {
+							wildfire++;
+						}
+						if (document.contains("Flood")) {
+							flood++;
+						}
+						if (document.contains("Drought")) {
+							drought++;
+						}
+						if (document.contains("Extreme temperature")) {
+							extremeTemp++;
+						}
+						if (document.contains("Landslide")) {
+							landslide++;
+						}
+						if (document.contains("Volvanic activity")) {
+							volcanicActivity++;
+						}
+						if (document.contains("Epidemic")) {
+							epidemic++;
+						}
 					}
-					if(document.contains("Earthquake")) {
-						earthquake++;
+
+					JSONArray jsonArray = new JSONArray();
+					JSONObject json = new JSONObject();
+
+					if (storm != 0) {
+						JSONObject tempson = new JSONObject();
+						tempson.put("y", storm);
+						tempson.put("x", "Storm");
+						jsonArray.put(tempson);
 					}
-					if(document.contains("Wildfire")) {
-						wildfire++;
+
+					if (earthquake != 0) {
+						JSONObject tempson = new JSONObject();
+						tempson.put("y", earthquake);
+						tempson.put("x", "Earthquake");
+						jsonArray.put(tempson);
 					}
-					if(document.contains("Flood")) {
-						flood++;
+
+					if (wildfire != 0) {
+						JSONObject tempson = new JSONObject();
+						tempson.put("y", wildfire);
+						tempson.put("x", "Wildfire");
+						jsonArray.put(tempson);
 					}
-					if(document.contains("Drought")) {
-						drought++;
+
+					if (flood != 0) {
+						JSONObject tempson = new JSONObject();
+						tempson.put("y", flood);
+						tempson.put("x", "Flood");
+						jsonArray.put(tempson);
 					}
-					if(document.contains("Extreme temperature")) {
-						extremeTemp++;
+
+					if (drought != 0) {
+						JSONObject tempson = new JSONObject();
+						tempson.put("y", drought);
+						tempson.put("x", "Drought");
+						jsonArray.put(tempson);
 					}
-					if(document.contains("Landslide")) {
-						landslide++;
+
+					if (extremeTemp != 0) {
+						JSONObject tempson = new JSONObject();
+						tempson.put("y", extremeTemp);
+						tempson.put("x", "XTemp");
+						jsonArray.put(tempson);
 					}
-					if(document.contains("Volvanic activity")) {
-						volcanicActivity++;
+
+					if (landslide != 0) {
+						JSONObject tempson = new JSONObject();
+						tempson.put("y", landslide);
+						tempson.put("x", "Landslide");
+						jsonArray.put(tempson);
 					}
-					if(document.contains("Epidemic")) {
-						epidemic++;
+
+					if (volcanicActivity != 0) {
+						JSONObject tempson = new JSONObject();
+						tempson.put("y", volcanicActivity);
+						tempson.put("x", "Volcano Act.");
+						jsonArray.put(tempson);
 					}
-				}
 
-				JSONArray jsonArray = new JSONArray();
-				JSONObject json = new JSONObject();
-
-				if(storm!=0) {
-					JSONObject tempson = new JSONObject();
-					tempson.put("y",storm);
-					tempson.put("x", "Storm");
-					jsonArray.put(tempson);
+					if (epidemic != 0) {
+						JSONObject tempson = new JSONObject();
+						tempson.put("y", epidemic);
+						tempson.put("x", "Epidemic");
+						jsonArray.put(tempson);
+					}
+					JSONObject response = new JSONObject();
+					response.put("state", address.state);
+					response.put("natData", jsonArray);
+					org.bson.Document toPut = org.bson.Document.parse(response.toString());
+					System.out.println("duplicate for air");
+					SpringAndReactApplication.writeToMongoDB("locations", toPut);
+					return response;
+				} else {
+					JSONObject empty = new JSONObject();
+					return empty;
 				}
-
-				if(earthquake!=0) {
-					JSONObject tempson = new JSONObject();
-					tempson.put("y",earthquake);
-					tempson.put("x", "Earthquake");
-					jsonArray.put(tempson);
-				}
-
-				if(wildfire!=0) {
-					JSONObject tempson = new JSONObject();
-					tempson.put("y",wildfire);
-					tempson.put("x", "Wildfire");
-					jsonArray.put(tempson);
-				}
-
-				if(flood!=0) {
-					JSONObject tempson = new JSONObject();
-					tempson.put("y",flood);
-					tempson.put("x", "Flood");
-					jsonArray.put(tempson);
-				}
-
-				if(drought!=0) {
-					JSONObject tempson = new JSONObject();
-					tempson.put("y",drought);
-					tempson.put("x", "Drought");
-					jsonArray.put(tempson);
-				}
-
-				if(extremeTemp!=0) {
-					JSONObject tempson = new JSONObject();
-					tempson.put("y",extremeTemp);
-					tempson.put("x", "XTemp");
-					jsonArray.put(tempson);
-				}
-
-				if(landslide!=0) {
-					JSONObject tempson = new JSONObject();
-					tempson.put("y",landslide);
-					tempson.put("x", "Landslide");
-					jsonArray.put(tempson);
-				}
-
-				if(volcanicActivity!=0) {
-					JSONObject tempson = new JSONObject();
-					tempson.put("y",volcanicActivity);
-					tempson.put("x", "Volcano Act.");
-					jsonArray.put(tempson);
-				}
-
-				if(epidemic!=0) {
-					JSONObject tempson = new JSONObject();
-					tempson.put("y",epidemic);
-					tempson.put("x", "Epidemic");
-					jsonArray.put(tempson);
-				}
-				JSONObject response = new JSONObject();
-				response.put("natData", jsonArray);
-				return response;
-			}else{
-				JSONObject empty = new JSONObject();
-				return empty;
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+			JSONObject empty = new JSONObject();
+			return empty;
 		}
-    	catch (Exception e) {
-            e.printStackTrace();
-		}
-    	JSONObject empty = new JSONObject();
-		return empty;
-    }
-
+	}
 
 }
