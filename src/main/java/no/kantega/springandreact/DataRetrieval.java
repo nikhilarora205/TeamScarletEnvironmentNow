@@ -119,7 +119,24 @@ public class DataRetrieval {
 			try {
 				final Document document = Jsoup.connect(url).get();
 				Elements linkToData = document.select(".primary-btn");
-				String dataUrl = linkToData.attr("href");
+				String dataUrl;
+
+				if(!linkToData.hasAttr("href")){
+					linkToData = document.select(".search-results-table");
+
+					Element tableElement = linkToData.get(0);
+
+					Elements childNode = tableElement.getElementsByAttribute("href");
+
+					Element firstChild = childNode.get(0);
+
+					System.out.println(linkToData.toString());
+
+					dataUrl = firstChild.attr("href");
+				}else{
+					dataUrl = linkToData.attr("href");
+				}
+
 				final Document contaminantDoc = Jsoup.connect("https://www.ewg.org/tapwater/" + dataUrl).get();
 				for (Element item : contaminantDoc.select(".contaminant-name")) {
 					String contam = item.select("h3").text();
