@@ -1,5 +1,4 @@
-/Users/gabriel/Desktop/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/WaterAPITest.java
-/Users/gabriel/Desktop/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/AQIAPITest.java
-/Users/gabriel/Desktop/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/SpringAndReactApplicationTests.java
-/Users/gabriel/Desktop/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/HelloControllerTest.java
-/Users/gabriel/Desktop/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/DisasterAPITest.java
+/Users/davidfernandez/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/DisasterAPITests.java
+/Users/davidfernandez/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/WaterAPITests.java
+/Users/davidfernandez/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/AllergenAPITests.java
+/Users/davidfernandez/TeamScarletEnvironmentNow/src/test/java/no/kantega/springandreact/HelloControllerTests.java

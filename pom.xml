@@ -97,7 +97,11 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/resources/okio-1.14.0.jar</systemPath>
 		</dependency>
-		
+		<dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
+        </dependency>
     </dependencies>
 
     <build>

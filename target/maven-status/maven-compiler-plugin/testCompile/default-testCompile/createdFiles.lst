@@ -1,1 +1,4 @@
-no/kantega/springandreact/SpringAndReactApplicationTests.class
+no/kantega/springandreact/AllergenAPITests.class
+no/kantega/springandreact/WaterAPITests.class
+no/kantega/springandreact/HelloControllerTests.class
+no/kantega/springandreact/DisasterAPITests.class
