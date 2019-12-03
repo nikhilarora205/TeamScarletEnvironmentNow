@@ -56,30 +56,30 @@ public class HelloControllerTest {
 	}
 
 
-	@Test
+/*	@Test
 
 	public void testGetLocationAddressToZip(){
-		/**
+		*//**
 		 * Test Valid Address, get correct zipcode in return
-		 */
+		 *//*
 
 		HelloController helloController = new HelloController();
 
 		assertEquals("76103", helloController.getLocation("1017 Blue Lake Dr. Fort Worth, TX", 0));
 
-	}
-
+	}*/
+/*
 	@Test
 	public void testGetLocationZipToZip(){
-		/**
+		*//**
 		 * Test valid zip input should return the same zipcode
-		 */
+		 *//*
 
 		HelloController helloController = new HelloController();
 
 		assertEquals("60141", helloController.getLocation("60141", 0));
 
-	}
+	}*/
 
 //	@Test
 //	public void testGetLocationInvalidAddress(){
@@ -104,10 +104,10 @@ public class HelloControllerTest {
 //
 //	}
 
-	@Test(timeout = DEFAULT_TIME_OUT)
+/*	@Test(timeout = DEFAULT_TIME_OUT)
 	public void testReverseLocation(){
-		/**
-		 */
+		*//**
+		 *//*
 		HelloController hController = new HelloController();
 
 		for(int i =0; i < 3; i ++) {
@@ -117,8 +117,8 @@ public class HelloControllerTest {
 
 	@Test(timeout = DEFAULT_TIME_OUT)
 	public void testReverseLocation2(){
-		/**
-		 */
+		*//**
+		 *//*
 		HelloController hController = new HelloController();
 
 		assertEquals("Illinois", hController.reverseLocation("60141"));
@@ -126,11 +126,11 @@ public class HelloControllerTest {
 
 	@Test(timeout = DEFAULT_TIME_OUT)
 	public void testReverseLocation3(){
-		/**
-		 */
+		*//**
+		 *//*
 		HelloController hController = new HelloController();
 
 		assertEquals("New York", hController.reverseLocation("10025"));
-	}
+	}*/
 
 }

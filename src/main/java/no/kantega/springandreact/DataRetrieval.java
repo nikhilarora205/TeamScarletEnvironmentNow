@@ -1,6 +1,7 @@
 package no.kantega.springandreact;
 import com.google.gson.Gson;
 import com.mongodb.*;
+import com.mongodb.util.JSON;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
@@ -10,6 +11,7 @@ import org.jsoup.select.Elements;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,7 +24,11 @@ public class DataRetrieval {
     	// Variables
     	String airString = new String();
 		String zipCode = address.zipCode;
-		if(!zipCode.equals("Please narrow search")) {
+		String document = SpringAndReactApplication.queryMongoDB("air", zipCode);
+		if(document != null && !document.isEmpty()){
+			JSONObject convertedObject = new JSONObject(document);
+			return convertedObject;
+		}else{
 			String url = "https://airnow.gov/index.cfm?action=airnow.local_city&zipcode=" + zipCode + "&submit=Go";
 			// JSOUP
 			Document doc = Jsoup.connect(url).get();
@@ -58,43 +64,54 @@ public class DataRetrieval {
 				}
 			}
 			JSONObject response = new JSONObject();
+			response.put("zipcode", zipCode);
 			response.put("airData", jsonArray);
+			org.bson.Document toPut = org.bson.Document.parse(response.toString());
+			SpringAndReactApplication.writeToMongoDB("air", toPut);
 			return response;
 		}
-		else{
-			JSONObject empty = new JSONObject();
-			return empty;
-		}
+
 	}
 
     public static JSONObject getAllergenData(Address address) throws IOException {
 		String zipCode = address.zipCode;
-		if(!zipCode.equals("Please narrow search")) {
+		String document = SpringAndReactApplication.queryMongoDB("allergen", zipCode);
+		if (document != null && !document.isEmpty()) {
+			JSONObject convertedObject = new JSONObject(document);
+			return convertedObject;
+		}else {
 			String url = "https://weather.com/forecast/allergy/l/" + zipCode;
 			Document doc = Jsoup.connect(url).get();
 			Elements div = doc.select("section[class=styles__allergyOutlook__3e1L4]");
 			Elements div2 = div.select("div[class=styles__allergyOutlookContentGraphMsgQual__25hN1]");
 			JSONObject json = new JSONObject();
+			HashMap<String, String> toStore = new HashMap<>();
 			for(int i = 0; i < div2.size();i++ ) {
 				String currentWord = div2.get(i).text();
 				if( i == 0 ) {
 					json.put("Tree Pollen", currentWord);
+					toStore.put("Tree Pollen", currentWord);
 				}else if(i == 1) {
 					json.put("Grass Pollen", currentWord);
+					toStore.put("Tree Pollen", currentWord);
+
 				}else if(i == 2) {
 					json.put("Ragweed Pollen", currentWord);
+					toStore.put("Tree Pollen", currentWord);
 				}
 			}
+			SpringAndReactApplication.writeToMongoDB("allergen", zipCode, toStore);
 			return json;
-		}else{
-			JSONObject empty = new JSONObject();
-			return empty;
 		}
     }
 
     public static JSONObject getWaterData(Address address){
 		String zipCode = address.zipCode;
-		if(!zipCode.equals("Please narrow search")) {
+		String checkDoc = SpringAndReactApplication.queryMongoDB("water", zipCode, true);
+		if (checkDoc != null && !checkDoc.isEmpty()) {
+			JSONObject convertedObject = new JSONObject(checkDoc);
+			return convertedObject;
+		} else {
 			JSONObject response = new JSONObject();
 			JSONArray jsonArray = new JSONArray();
 			final String url =
@@ -124,7 +141,11 @@ public class DataRetrieval {
 						}
 					}
 				}
+
+				response.put("zipcode", zipCode);
 				response.put("waterData", jsonArray);
+				org.bson.Document test = org.bson.Document.parse(response.toString());
+				SpringAndReactApplication.writeToMongoDB("water", test);
 				return response;
 			}
 			catch (Exception e){
@@ -132,9 +153,6 @@ public class DataRetrieval {
 			}
 			// System.out.println("It is not getting bar2Data: " + response.toString());
 			return response;
-		}else{
-			JSONObject empty = new JSONObject();
-			return empty;
 		}
 	}
     
